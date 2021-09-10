@@ -1,0 +1,142 @@
+[
+    {
+        "id": 1,
+        "name": "Atlanta Reign",
+        "division": "west",
+        "abbr": "ATL",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt2536ef613e08024b/5cdf279d9847597506f88047/609VVM89F1BY1542673347592.svg"
+    },
+    {
+        "id": 2,
+        "name": "Boston Uprising",
+        "division": "west",
+        "abbr": "BOS",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltcf0c5809badfb9ed/5cdf120a1e7d285a1128f346/LB92M6PBO3X81515523733716.svg"
+    },
+    {
+        "id": 3,
+        "name": "Chengdu Hunters",
+        "division": "east",
+        "abbr": "CHD",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt726b67e48b82d0d3/5cdf2d1c2117e47006633271/YO93H9VU2UYE1544055820403.svg"
+    },
+    {
+        "id": 4,
+        "name": "Dallas Fuel",
+        "division": "west",
+        "abbr": "DAL",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt62bb5978c58a3b6d/5cdf14d18339428f06fdab78/YX6JZ6FR89LU1507822882865.svg"
+    },
+    {
+        "id": 5,
+        "name": "Florida Mayhem",
+        "division": "west",
+        "abbr": "FLA",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt43c93d0207032d47/5e14d29ba78c085a219a5fe0/OWL_FloridaMayhem_Icon_2020.svg"
+    },
+    {
+        "id": 6,
+        "name": "Guangzhou Charge",
+        "division": "east",
+        "abbr": "GUA",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt2352b5603fb09292/5cdf256da3d61d8906c13b75/OPS32KD180BL1544055837626.svg"
+    },
+    {
+        "id": 7,
+        "name": "Hangzhou Spark",
+        "division": "east",
+        "abbr": "HZS",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltd0c3da4d0eb143e4/5cdf28c92117e47006633249/S01ILBOS6OZ71542674323474.svg"
+    },
+    {
+        "id": 8,
+        "name": "Houston Outlaws",
+        "division": "west",
+        "abbr": "HOU",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt64a4344c4ec07f6a/5cdf1b83a408243c113cc89a/ZZZ1WAZ79E3D1546557668570.svg"
+    },
+    {
+        "id": 9,
+        "name": "London Spitfire",
+        "division": "west",
+        "abbr": "LDN",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blta30a9da99423c6b8/5cdf0fb12117e47006633127/HCS229B4DP021507822883016.svg"
+    },
+    {
+        "id": 10,
+        "name": "Los Angeles Gladiators",
+        "division": "west",
+        "abbr": "GLA",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt7f8d7ee4780f5d6b/5cde0aeba408243c113cc754/HU1A12H9JPNS1512520986367.svg"
+    },
+    {
+        "id": 11,
+        "name": "Los Angeles Valiant",
+        "division": "east",
+        "abbr": "VAL",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt44440a0c710ab999/5e14da5ea94b7a59b710fff0/OWL_LAValiant_Icon_2020_SVG.svg"
+    },
+    {
+        "id": 12,
+        "name": "New York Excelsior",
+        "division": "east",
+        "abbr": "NYE",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltf19ba62d8a8dfba1/5cdf1717131ceb41113d05f1/JZHJUJ8QM1AP1508818097057.svg"
+    },
+    {
+        "id": 13,
+        "name": "Paris Eternal",
+        "division": "west",
+        "abbr": "PAR",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltcc4093d8b1513716/5cdf2a1aa408243c113cc99c/W4C99JABL26E1542674142979.svg"
+    },
+    {
+        "id": 14,
+        "name": "Philadelphia Fusion",
+        "division": "east",
+        "abbr": "PHI",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltff900f41fc9c2b0a/5cdf1a24a408243c113cc874/52QPF1MPBXVX1544055975338.svg"
+    },
+    {
+        "id": 15,
+        "name": "San Francisco Shock",
+        "division": "west",
+        "abbr": "SFS",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltb7f12a7f25e9e004/5e176405174b0d0c519bdec7/OWL_SFShock_Icon_1C_SILVER.svg"
+    },
+    {
+        "id": 16,
+        "name": "Seoul Dynasty",
+        "division": "east",
+        "abbr": "SEO",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt1362ecb878aa4b68/5cdf110c2117e47006633135/E9MU0AK0JIXT1507858876249.svg"
+    },
+    {
+        "id": 17,
+        "name": "Shanghai Dragons",
+        "division": "east",
+        "abbr": "SHD",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltbe896237ad8c4138/5cdf15e1131ceb41113d05eb/MHYBGBXKCBWW1512520986598.svg"
+    },
+    {
+        "id": 18,
+        "name": "Toronto Defiant",
+        "division": "west",
+        "abbr": "TOR",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt5f94a21969b4667d/5cdf2b1c131ceb41113d0727/9SKE6JTBP4JL1542674329907.svg"
+    },
+    {
+        "id": 19,
+        "name": "Vancouver Titans",
+        "division": "west",
+        "abbr": "VAN",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt41f60f7182d89667/5cdf2667a408243c113cc944/PFQQSH405YFS1543976759565.svg"
+    },
+    {
+        "id": 20,
+        "name": "Washington Justice",
+        "division": "west",
+        "abbr": "WAS",
+        "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltd6811cc3665a831f/5cdf2c40a408243c113cc9b0/OYO5HG0DWGCE1544056019664.svg"
+    }
+]
