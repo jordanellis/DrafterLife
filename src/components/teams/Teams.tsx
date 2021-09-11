@@ -3,9 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { addDoc, collection, getDocs } from "firebase/firestore";
 import { useEffect } from "react";
-import db from "../../Firebase"
 
 import TeamCard from './TeamCard';
 
@@ -40,26 +38,22 @@ const useStyles = makeStyles({
 
 export default function Teams() {
 	const [teams, setTeams] = useState<Team[]>([]);
+
+	const fetchTeams = async () => {
+    const response = await fetch('/api/teams');
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message) 
+    }
+    return body;
+  };
 	
 	useEffect(() => {
-		const fetchTeams = async () => {
-			const resp = await getDocs(collection(db, "teams"));
-			console.log("resp", resp);
-			const teamsResp: Team[] = [];
-			resp.forEach((doc) => {
-				const team: Team = {
-					id: doc.data().abbr,
-					name: doc.data().name,
-					division: doc.data().division,
-					abbr: doc.data().abbr,
-					logo: doc.data().logo
-				}
-				teamsResp.push(team)
-			});
-			setTeams(teamsResp.sort((a, b) => (a.name > b.name) ? 1 : -1));
-		}
-
-		fetchTeams();
+		console.log("fetching teams")
+		fetchTeams()
+			.then(resp => setTeams(resp.data))
+			.catch(err => console.log(err))
 	}, []);
 
 	const classes = useStyles();
