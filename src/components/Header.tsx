@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import { 
   AppBar, 
   Button, 
@@ -12,9 +12,9 @@ import {
   ListItemText,
   Toolbar, 
   Typography 
-} from '@material-ui/core';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MenuIcon from '@material-ui/icons/Menu';
+} from '@mui/material';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MenuIcon from '@mui/icons-material/Menu';
 import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
@@ -53,9 +53,14 @@ const Header = () => {
   };
 
 	return (
-		<AppBar position="static">
+    <AppBar position="static">
 			<Toolbar>
-				<IconButton onClick={() => setShowDrawer(true)} edge="start" className={classes.menuButton} color="inherit" >
+				<IconButton
+                    onClick={() => setShowDrawer(true)}
+                    edge="start"
+                    className={classes.menuButton}
+                    color="inherit"
+                    size="large">
 					<MenuIcon />
 					<Drawer anchor="left" open={showDrawer} onClose={() => setShowDrawer(false)} >
 						<List>
@@ -82,7 +87,7 @@ const Header = () => {
 				<Button color="inherit">Login</Button>
 			</Toolbar>
 		</AppBar>
-	);
+    );
 }
 
 export default Header

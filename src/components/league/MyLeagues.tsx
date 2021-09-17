@@ -3,7 +3,7 @@ import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import {
   Button,
   Typography 
-} from '@material-ui/core';
+} from '@mui/material';
 
 export default function MyLeagues() {
   const [rowData] = useState([

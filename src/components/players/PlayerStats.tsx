@@ -1,8 +1,5 @@
-import {
-	Button,
-	makeStyles,
-	Typography
-} from '@material-ui/core';
+import { Button, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import React from 'react';
 // import data from "../../data/one_match.csv"

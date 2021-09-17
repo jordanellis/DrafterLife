@@ -1,10 +1,10 @@
 import React from "react";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
-import { makeStyles, createTheme, ThemeProvider } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import {
   CssBaseline
-} from '@material-ui/core';
+} from '@mui/material';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham-dark.css';
 
@@ -29,34 +29,20 @@ const useStyles = makeStyles((theme) => ({
 const App = ({ history = defaultHistory }) => {
   const classes = useStyles();
 
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#f79e18"
-      },
-      secondary: {
-        main: "#ffdf70"
-      },
-      type: 'dark',
-    },
-  });
-
   return (
     <div className={classes.root}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router history={history}>
-					<Header />
-          <div className={classes.app}>
-            <Switch>
-              <Route exact path="/" component={HomePage} />
-              <Route exact path="/my-leagues/" component={MyLeagues} />
-              <Route exact path="/player-stats/" component={PlayerStats} />
-              <Route exact path="/teams/" component={Teams} />
-            </Switch>
-          </div>
-        </Router>
-      </ThemeProvider>
+      <CssBaseline />
+      <Router history={history}>
+        <Header />
+        <div className={classes.app}>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/my-leagues/" component={MyLeagues} />
+            <Route exact path="/player-stats/" component={PlayerStats} />
+            <Route exact path="/teams/" component={Teams} />
+          </Switch>
+        </div>
+      </Router>
     </div>
   );
 }
