@@ -25,6 +25,22 @@
         "name": "Dallas Fuel",
         "division": "west",
         "abbr": "DAL",
+        "players": {
+            "tanks":[
+                "FEARLESS",
+                "Hanbin",
+                "Pine"
+            ],
+            "dps":[
+                "Doha",
+                "SP9RK1E"
+            ],
+            "supports":[
+                "Fielder",
+                "Jecse",
+                "Rapel"
+            ]
+        },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt62bb5978c58a3b6d/5cdf14d18339428f06fdab78/YX6JZ6FR89LU1507822882865.svg"
     },
     {
