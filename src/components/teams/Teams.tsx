@@ -12,7 +12,17 @@ interface Team {
 	name: string;
 	division: string;
 	abbr: string;
+	players: {
+    tanks: Array<string>,
+    dps: Array<string>,
+    supports: Array<string>
+  };
 	logo: string;
+	colors: {
+		primary: string,
+		secondary: string,
+		tertiary: string
+	};
 }
 
 const useStyles = makeStyles({
@@ -83,7 +93,7 @@ export default function Teams() {
 			<div className={classes.teamContainer}>
 				{teams.filter(team => tab.includes(team.division)).map((team, key) => (
 					<div className={classes.teamCard} key={key}>
-						<TeamCard name={team.name} logo={team.logo} />
+						<TeamCard name={team.name} logo={team.logo} players={team.players} colors={team.colors} />
 					</div>
 				))}
 			</div>

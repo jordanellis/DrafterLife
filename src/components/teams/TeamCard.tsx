@@ -7,10 +7,30 @@ import {
   CardContent, 
   CardMedia, 
   Collapse,
+  Divider,
   IconButton,
+  ListItem,
   Typography
 } from '@mui/material';
+import SportsMmaIcon from '@mui/icons-material/SportsMma';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import ShieldIcon from '@mui/icons-material/Shield';
+
+type TeamCardProps = {
+  logo: string,
+  name: string,
+  players: {
+    tanks: Array<string>,
+    dps: Array<string>,
+    supports: Array<string>
+  },
+	colors: {
+		primary: string,
+		secondary: string,
+		tertiary: string
+	}
+}
 
 const useStyles = makeStyles({
   root: {
@@ -28,46 +48,46 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TeamCard(props: any) {
+export default function TeamCard({logo, name, players, colors}: TeamCardProps) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} sx={{background: colors.primary}}>
       <CardActionArea>
         <CardMedia
           component="img"
           className={classes.media}
-          image={props.logo}
-          title={props.name}
+          image={logo}
+          title={name}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h5" component="h2" sx={{paddingRight: "1rem"}}>
             <IconButton aria-label="share" size="large" onClick={() => {setExpanded(!expanded)}}>
               <ExpandMoreIcon className={clsx(!expanded && classes.close, expanded && classes.open)} />
             </IconButton>
-            {props.name}
+            {name}
           </Typography>
         </CardContent>
       </CardActionArea>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Divider sx={{background: colors.tertiary, opacity: 0.2}} />
         <CardContent>
-          <Typography paragraph>Tanks:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
-            aside for 10 minutes.
-          </Typography>
-          <Typography paragraph>DPS:</Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over
-            medium-high heat.
-          </Typography>
-          <Typography paragraph>Supports:</Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and
-            peppers, and cook without stirring, until most of the liquid is absorbed,
-            15 to 18 minutes.
-          </Typography>
+          {players.tanks.map((tank, key) => (
+            <ListItem button key={key}>
+              <ShieldIcon sx={{color: colors.secondary}} />&nbsp;{ tank }
+            </ListItem>
+          ))}
+          {players.dps.map((dpsPlayer, key) => (
+            <ListItem button key={key}>
+              <SportsMmaIcon sx={{color: colors.secondary}} />&nbsp;{ dpsPlayer }
+            </ListItem>
+          ))}
+          {players.supports.map((support, key) => (
+            <ListItem button key={key}>
+              <LocalHospitalIcon sx={{color: colors.secondary}} />&nbsp;{ support }
+            </ListItem>
+          ))}
         </CardContent>
       </Collapse>
     </Card>
