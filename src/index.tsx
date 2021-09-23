@@ -10,6 +10,13 @@ declare module '@mui/styles/defaultTheme' {
 }
 
 const theme = createTheme({
+  components: {
+    MuiAppBar: {
+      defaultProps: {
+        enableColorOnDark: true,
+      },
+    },
+  },
   palette: {
     mode: 'dark',
     primary: {
