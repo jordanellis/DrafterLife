@@ -1,8 +1,24 @@
 import { Button, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import React from 'react';
-// import data from "../../data/one_match.csv"
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+
+// interface PlayerStatistics {
+// 	id: number;
+// 	name: string;
+// 	division: string;
+// 	abbr: string;
+// 	players: {
+//     tanks: Array<string>,
+//     dps: Array<string>,
+//     supports: Array<string>
+//   };
+// }
+
+type PlayerStatsParams = {
+	player: string;
+};
 
 const useStyles = makeStyles({
   playerStatsGrid: {
@@ -12,50 +28,38 @@ const useStyles = makeStyles({
 });
 
 export default function PlayerStats() {
-	// const isMounted = useRef(null);
-	// const csvToJson = (csv) => {
-	// 	var lines=csv.split("\r\n");
-	// 	var result = [];
-	// 	var headers = lines[0].split(",");
-	
-	// 	for(var i=1; i < lines.length; i++){
-	// 		var obj = {};
-	// 		var currentline = lines[i].split(",");
-	
-	// 		for(var j=0; j < headers.length; j++){
-	// 			obj[headers[j]] = currentline[j];
-	// 		}
-	// 		result.push(obj);
-	// 	}
-	// 	return result;
-	// }
-
-	// const readPlayerDataFile = useCallback(() => {
-	// 	fetch(data)
-	// 	.then(r => r.text())
-	// 	.then(text => {
-	// 		if (isMounted.current) {
-	// 			setRowData(csvToJson(text));
-	// 		}
-	// 	}).catch(err => {
-	// 		console.log(err)
-	// 	});
-	// }, []);
-
-	// const [rowData, setRowData] = useState(readPlayerDataFile());
-
-	// useEffect(() => {
-	// 	isMounted.current = true;
-	// 	readPlayerDataFile();
-	// 	return () => {isMounted.current = false}
-	// }, [readPlayerDataFile])
-
 	const classes = useStyles();
+	const { player } = useParams<PlayerStatsParams>();
+
+	const [playerStats, setPlayerStats] = useState<any>({});
+
+	const fetchPlayerStats = async () => {
+    const response = await fetch("/api/player-stats/" + player);
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message) 
+    }
+    return body;
+  };
+	
+	useEffect(() => {
+		console.log("fetching player data")
+		fetchPlayerStats()
+			.then(resp => {
+				console.log(resp.data)
+				setPlayerStats(resp.data)
+			})
+			.catch(err => console.log(err))
+	}, []);
 
   return (
 		<div>
 			<Typography variant="h3">
-				Player Stats
+				{ player }
+			</Typography>
+			<Typography variant="h3">
+				{ playerStats["37147"] && playerStats["37147"]["date"] }
 			</Typography>
 			<div className={classes.playerStatsGrid}>
 				<AgGridReact className="ag-theme-balham-dark" rowData={[]} pagination={true} paginationPageSize={25} >
@@ -70,9 +74,11 @@ export default function PlayerStats() {
 						<AgGridColumn field="start_time"></AgGridColumn>
 				</AgGridReact>
 			</div>
-			<Button variant="contained" color="primary">
-				Hello World
-			</Button>
+			<Link style={{ textDecoration: 'none' }} to="/teams/">
+				<Button variant="contained" color="primary">
+					Back
+				</Button>
+			</Link>
 		</div>
 	);
 }

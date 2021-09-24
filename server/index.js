@@ -2,6 +2,7 @@ const express = require("express");
 var app = express();
 const port = 5000;
 
+app.use("/api/player-stats", require("./players/v1"));
 app.use("/api/teams", require("./teams/v1"));
 
 app.get("/api/version", ( req, res ) => {

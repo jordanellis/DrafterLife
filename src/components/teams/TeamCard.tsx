@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import makeStyles from '@mui/styles/makeStyles';
 import { 
@@ -34,11 +35,11 @@ type TeamCardProps = {
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 320,
+    width: 360,
   },
   media: {
     paddingTop: 10,
-    height: 300,
+    height: 330,
   },
   open: {
     transform: "rotate(0deg)",
@@ -49,6 +50,7 @@ const useStyles = makeStyles({
 });
 
 export default function TeamCard({logo, name, players, colors}: TeamCardProps) {
+	const history = useHistory();
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -62,7 +64,7 @@ export default function TeamCard({logo, name, players, colors}: TeamCardProps) {
           title={name}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2" sx={{paddingRight: "1rem"}}>
+          <Typography gutterBottom variant="h5" component="h2" sx={{paddingRight: "2rem"}}>
             <IconButton aria-label="share" size="large" onClick={() => {setExpanded(!expanded)}}>
               <ExpandMoreIcon className={clsx(!expanded && classes.close, expanded && classes.open)} />
             </IconButton>
@@ -72,19 +74,19 @@ export default function TeamCard({logo, name, players, colors}: TeamCardProps) {
       </CardActionArea>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <Divider sx={{background: colors.tertiary, opacity: 0.2}} />
-        <CardContent>
+        <CardContent sx={{fontSize: "1.2rem"}}>
           {players.tanks.map((tank, key) => (
-            <ListItem button key={key}>
+            <ListItem onClick={() => history.push("/player-stats/" + tank)} button key={key}>
               <ShieldIcon sx={{color: colors.secondary}} />&nbsp;{ tank }
             </ListItem>
           ))}
           {players.dps.map((dpsPlayer, key) => (
-            <ListItem button key={key}>
+            <ListItem onClick={() => history.push("/player-stats/" + dpsPlayer)} button key={key}>
               <SportsMmaIcon sx={{color: colors.secondary}} />&nbsp;{ dpsPlayer }
             </ListItem>
           ))}
           {players.supports.map((support, key) => (
-            <ListItem button key={key}>
+            <ListItem onClick={() => history.push("/player-stats/" + support)} button key={key}>
               <LocalHospitalIcon sx={{color: colors.secondary}} />&nbsp;{ support }
             </ListItem>
           ))}

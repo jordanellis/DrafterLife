@@ -20,19 +20,10 @@ const HomePage = () => {
 					<tr>
 						<td>
 							<Link style={{ textDecoration: 'none' }} to="/my-leagues/">
-								<Button variant="contained" color="primary">
+								<Button variant="contained" color="secondary">
 										View my leagues
 								</Button>
 							</Link>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<Link style={{ textDecoration: 'none' }} to="/player-stats/">
-								<Button variant="contained" color="secondary">
-										Player Stats
-								</Button>
-						</Link>
 						</td>
 					</tr>
 				</tbody>

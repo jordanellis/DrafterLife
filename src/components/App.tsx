@@ -38,7 +38,7 @@ const App = ({ history = defaultHistory }) => {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/my-leagues/" component={MyLeagues} />
-            <Route exact path="/player-stats/" component={PlayerStats} />
+            <Route exact path="/player-stats/:player" component={PlayerStats} />
             <Route exact path="/teams/" component={Teams} />
           </Switch>
         </div>

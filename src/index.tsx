@@ -15,7 +15,7 @@ const theme = createTheme({
       defaultProps: {
         enableColorOnDark: true,
       },
-    },
+    }
   },
   palette: {
     mode: 'dark',
@@ -25,6 +25,9 @@ const theme = createTheme({
     secondary: {
       main: '#FFDF70',
     },
+    background: {
+      default: '#2A2C2E'
+    }
   },
 });
 
