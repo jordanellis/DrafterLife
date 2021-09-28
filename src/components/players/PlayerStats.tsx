@@ -4,17 +4,25 @@ import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-// interface PlayerStatistics {
-// 	id: number;
-// 	name: string;
-// 	division: string;
-// 	abbr: string;
-// 	players: {
-//     tanks: Array<string>,
-//     dps: Array<string>,
-//     supports: Array<string>
-//   };
-// }
+interface PlayerStatistics {
+	[matchID: string]: {
+		week?:						number;
+		date?:						Date;
+		PlayerMapStats?:	{ [map: string]: PlayerHeroStats};
+	}
+}
+
+interface PlayerHeroStats {
+	[heroName: string]: {
+		[statName: string]: number;
+	};
+}
+
+interface Week {
+	week: number;
+	start: Date;
+	stop: Date;
+}
 
 type PlayerStatsParams = {
 	player: string;
@@ -31,27 +39,55 @@ export default function PlayerStats() {
 	const classes = useStyles();
 	const { player } = useParams<PlayerStatsParams>();
 
-	const [playerStats, setPlayerStats] = useState<any>({});
+	const [playerStats, setPlayerStats] = useState<PlayerStatistics>({});
 
-	const fetchPlayerStats = async () => {
+	const fetchPlayerStats = async (player: String) => {
     const response = await fetch("/api/player-stats/" + player);
     const body = await response.json();
 
     if (response.status !== 200) {
-      throw Error(body.message) 
+      throw Error(body.message);
     }
-    return body;
+    return body.data;
   };
+
+	const fetchWeeks = async () => {
+		const response = await fetch("/api/games/weeks");
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message);
+    }
+    return body.data;
+	}
+
+	const mapMatchIDsToWeekNumber = (stats: PlayerStatistics, weeks: Week[]) => {
+		for (const [key, value] of Object.entries(stats)) {
+			weeks.forEach(week => {
+				if (!value.date)
+					return;
+				const date = new Date(value.date).getTime();
+				const weekStart = new Date(week.start).getTime();
+				const weekStop = new Date(week.stop).getTime();
+				if (weekStart < date && date < weekStop) {
+					stats[key].week = week.week
+				}
+			})
+		}
+	}
 	
 	useEffect(() => {
-		console.log("fetching player data")
-		fetchPlayerStats()
-			.then(resp => {
-				console.log(resp.data)
-				setPlayerStats(resp.data)
-			})
-			.catch(err => console.log(err))
-	}, []);
+		Promise.all([
+			fetchPlayerStats(player),
+			fetchWeeks()
+		]).then(([stats, weeks]) => {
+				mapMatchIDsToWeekNumber(stats, weeks);
+				setPlayerStats(stats);
+				console.log(stats);
+		}).catch((err) => {
+				console.log(err);
+		});
+	}, [player]);
 
   return (
 		<div>
@@ -59,7 +95,7 @@ export default function PlayerStats() {
 				{ player }
 			</Typography>
 			<Typography variant="h3">
-				{ playerStats["37147"] && playerStats["37147"]["date"] }
+				{ playerStats["37420"] && playerStats["37420"].date }
 			</Typography>
 			<div className={classes.playerStatsGrid}>
 				<AgGridReact className="ag-theme-balham-dark" rowData={[]} pagination={true} paginationPageSize={25} >
