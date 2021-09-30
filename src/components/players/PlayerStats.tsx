@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardContent, Collapse, colors, Container, Divider, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, Collapse, Container, Divider, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -190,7 +190,7 @@ export default function PlayerStats({location}: any) {
 					<Typography variant="body1">
 						{ teamname }
 					</Typography>
-					<Divider sx={{background: colors.tertiary, opacity: 0.2, marginTop: 1, marginBottom: 1 }} />
+					<Divider sx={{ background: colors.tertiary, opacity: 0.2, marginTop: 1, marginBottom: 1 }} />
 					{role.match("tank") && <ShieldIcon
 						fontSize="medium"
 						sx={{ display: "inline", float: "left", color: colors.secondary }}

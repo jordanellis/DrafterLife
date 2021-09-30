@@ -1,8 +1,8 @@
 import React from "react";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
-import makeStyles from '@mui/styles/makeStyles';
 import {
+  Box,
   CssBaseline
 } from '@mui/material';
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -16,34 +16,22 @@ import Header from "./Header";
 
 const defaultHistory = createBrowserHistory({ basename: "/" });
 
-const useStyles = makeStyles((theme) => ({
-  app: {
-    padding: "1rem 5rem",
-    margin: "0 auto"
-  },
-  root: {
-    flexGrow: 1,
-  }
-}));
-
 const App = ({ history = defaultHistory }) => {
-  const classes = useStyles();
-
   return (
-    <div className={classes.root}>
+    <Box sx={{ flexGrow: 1 }}>
       <CssBaseline />
       <Router history={history}>
         <Header />
-        <div className={classes.app}>
+        <Box sx={{ padding: "1rem 5rem", margin: "0 auto" }}>
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/my-leagues/" component={MyLeagues} />
             <Route exact path="/player-stats/:player" component={PlayerStats} />
             <Route exact path="/teams/" component={Teams} />
           </Switch>
-        </div>
+        </Box>
       </Router>
-    </div>
+    </Box>
   );
 }
 

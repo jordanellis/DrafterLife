@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import makeStyles from '@mui/styles/makeStyles';
 import Paper from '@mui/material/Paper';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useEffect } from "react";
 
 import TeamCard from './TeamCard';
+import { Box } from '@mui/material';
 
 type Team = {
 	id: number;
@@ -24,27 +24,6 @@ type Team = {
 		tertiary: string
 	};
 }
-
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-  },
-	teamRegionTabs: {
-		margin: "auto",
-		width: "30rem"
-	},
-	teamContainer: {
-		display: "flex",
-		flexWrap: "wrap",
-		justifyContent: "center"
-	},
-	teamCard: {
-		float: "left",
-		margin: ".75rem",
-		textAlign: "center",
-		minWidth: "20rem"
-	}
-});
 
 export default function Teams() {
 	const [teams, setTeams] = useState<Team[]>([]);
@@ -65,7 +44,6 @@ export default function Teams() {
 			.catch(err => console.log(err))
 	}, []);
 
-	const classes = useStyles();
   const [tab, setTab] = React.useState("east/west");
 
   const tabChange = (event: React.ChangeEvent<{}>, newValue: string) => {
@@ -73,9 +51,9 @@ export default function Teams() {
   };
 
   return (
-		<div>
-			<div className={classes.teamRegionTabs}>
-				<Paper className={classes.root}>
+		<Box>
+			<Box sx={{ margin: "auto", width: "30rem" }}>
+				<Paper sx={{ flexGrow: 1 }}>
 					<Tabs
 						value={tab}
 						onChange={tabChange}
@@ -88,14 +66,14 @@ export default function Teams() {
 						<Tab label="West" value="west" />
 					</Tabs>
 				</Paper>
-			</div>
-			<div className={classes.teamContainer}>
+			</Box>
+			<Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
 				{teams.filter(team => tab.includes(team.division)).map((team, key) => (
-					<div className={classes.teamCard} key={key}>
+					<Box sx={{ float: "left", margin: ".75rem", textAlign: "center", minWidth: "20rem" }} key={key}>
 						<TeamCard name={team.name} logo={team.logo} players={team.players} colors={team.colors} />
-					</div>
+					</Box>
 				))}
-			</div>
-		</div>
+			</Box>
+		</Box>
 	);
 }

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from 'react-router-dom';
-import makeStyles from '@mui/styles/makeStyles';
 import { 
   AppBar, 
   Box, 
@@ -18,21 +17,8 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useEffect } from "react";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
-
 const Header = () => {
 	const history = useHistory();
-	const classes = useStyles();
 	
   const [showDrawer, setShowDrawer] = useState(false);
   const [version, setVersion] = useState("");
@@ -59,7 +45,9 @@ const Header = () => {
 				<IconButton
                     onClick={() => setShowDrawer(true)}
                     edge="start"
-                    className={classes.menuButton}
+                    sx={{
+											marginRight: 2
+										}}
                     color="inherit"
                     size="large">
 					<MenuIcon />
@@ -77,7 +65,7 @@ const Header = () => {
 								{text: 'League Home', icon: <InboxIcon/>},
 								{text: 'My Profile', icon: <InboxIcon/>}
 							].map((item, index) => (
-								<ListItem button key={item.text}>
+								<ListItem button key={index}>
 									<ListItemIcon>{item.icon}</ListItemIcon>
 									<ListItemText primary={item.text} />
 								</ListItem>
@@ -85,10 +73,10 @@ const Header = () => {
 						</List>
 					</Box>
 				</Drawer>
-				<Typography variant="h6" className={classes.title} onClick={() => history.push("/")}>
+				<Typography variant="h6" sx={{ flexGrow: 1 }} onClick={() => history.push("/")}>
 					DrafterLife
 				</Typography>
-				<Typography variant="subtitle1" className={classes.title}>
+				<Typography variant="subtitle1" sx={{ flexGrow: 1 }}>
 					{version}
 				</Typography>
 				<Button color="inherit">Login</Button>
