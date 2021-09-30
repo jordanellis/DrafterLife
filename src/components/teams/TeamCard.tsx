@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import clsx from 'clsx';
-import makeStyles from '@mui/styles/makeStyles';
 import { 
   Card, 
   CardActionArea, 
@@ -46,7 +44,7 @@ export default function TeamCard({logo, name, players, colors}: TeamCardProps) {
       <CardActionArea>
         <CardMedia
           component="img"
-          sx={{ marginTop: 15, height: 330 }}
+          sx={{ marginTop: 3, height: 350 }}
           image={ logo }
           title={ name }
         />

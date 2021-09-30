@@ -186,7 +186,7 @@ export default function PlayerStats({location}: any) {
 			</Link>
 			<Card sx={{ margin: "auto", maxWidth: 210, background: colors.primary }}>
 				<CardContent sx={{ padding: "1!important" }}>
-					<PersonIcon sx={{ fontSize: 175, margin: "" }} />
+					<PersonIcon sx={{ fontSize: "11rem!important" }} />
 					<Typography variant="body1">
 						{ teamname }
 					</Typography>

@@ -73,7 +73,7 @@ const Header = () => {
 						</List>
 					</Box>
 				</Drawer>
-				<Typography variant="h6" sx={{ flexGrow: 1 }} onClick={() => history.push("/")}>
+				<Typography variant="h6" sx={{ flexGrow: 1, cursor: "pointer" }} onClick={() => history.push("/")}>
 					DrafterLife
 				</Typography>
 				<Typography variant="subtitle1" sx={{ flexGrow: 1 }}>

@@ -2,12 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
-import { createTheme, ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles';
-
-declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Theme {}
-}
+import { createTheme, ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 
 const theme = createTheme({
   components: {
