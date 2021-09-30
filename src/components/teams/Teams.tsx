@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 import TeamCard from './TeamCard';
 
-interface Team {
+type Team = {
 	id: number;
 	name: string;
 	division: string;
@@ -60,7 +60,6 @@ export default function Teams() {
   };
 	
 	useEffect(() => {
-		console.log("fetching teams")
 		fetchTeams()
 			.then(resp => setTeams(resp.data))
 			.catch(err => console.log(err))

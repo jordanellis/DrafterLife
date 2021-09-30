@@ -13,7 +13,7 @@ with open('./server/data/phs_2021_1.csv', mode='r', encoding='utf-8-sig') as csv
           'date': row['start_time'],
           row["map_name"]: {
             row['hero_name']: {
-              row['stat_name']: float(row['stat_amount'])
+              row['stat_name']: int(float(row['stat_amount']))
             }
           }
         }
@@ -26,7 +26,7 @@ with open('./server/data/phs_2021_1.csv', mode='r', encoding='utf-8-sig') as csv
           'date': row['start_time'],
           row["map_name"]: {
             row['hero_name']: {
-              row['stat_name']: float(row['stat_amount'])
+              row['stat_name']: int(float(row['stat_amount']))
             }
           }
         }
@@ -37,7 +37,7 @@ with open('./server/data/phs_2021_1.csv', mode='r', encoding='utf-8-sig') as csv
       player_data[row['player_name']][row['esports_match_id']].update({
         row["map_name"]: {
           row['hero_name']: {
-            row['stat_name']: float(row['stat_amount'])
+            row['stat_name']: int(float(row['stat_amount']))
           }
         }
       })
@@ -46,14 +46,14 @@ with open('./server/data/phs_2021_1.csv', mode='r', encoding='utf-8-sig') as csv
     if row['hero_name'] not in player_data[row['player_name']][row['esports_match_id']][row['map_name']].keys():
       player_data[row['player_name']][row['esports_match_id']][row['map_name']].update({
         row['hero_name']: {
-          row['stat_name']: float(row['stat_amount'])
+          row['stat_name']: int(float(row['stat_amount']))
         }
       })
 
     # check stat
     if row['stat_name'] not in player_data[row['player_name']][row['esports_match_id']][row['map_name']][row['hero_name']].keys():
       player_data[row['player_name']][row['esports_match_id']][row['map_name']][row['hero_name']].update({
-        row['stat_name']: float(row['stat_amount'])
+        row['stat_name']: int(float(row['stat_amount']))
       })
 
 for player, games in player_data.items():

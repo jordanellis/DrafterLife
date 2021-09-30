@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import makeStyles from '@mui/styles/makeStyles';
 import { 
   AppBar, 
+  Box, 
   Button, 
   Drawer,
   IconButton,
@@ -62,7 +63,13 @@ const Header = () => {
                     color="inherit"
                     size="large">
 					<MenuIcon />
-					<Drawer anchor="left" open={showDrawer} onClose={() => setShowDrawer(false)} >
+				</IconButton>
+				<Drawer anchor="left" open={showDrawer} onClose={() => setShowDrawer(false)} >
+					<Box
+						role="presentation"
+						onClick={() => setShowDrawer(false)}
+						onKeyDown={() => setShowDrawer(false)}
+					>
 						<List>
 							{[
 								{text: 'Match Stats', icon: <InboxIcon/>},
@@ -76,8 +83,8 @@ const Header = () => {
 								</ListItem>
 							))}
 						</List>
-					</Drawer>
-				</IconButton>
+					</Box>
+				</Drawer>
 				<Typography variant="h6" className={classes.title} onClick={() => history.push("/")}>
 					DrafterLife
 				</Typography>

@@ -38,7 +38,7 @@ const useStyles = makeStyles({
     width: 360,
   },
   media: {
-    paddingTop: 10,
+    marginTop: 15,
     height: 330,
   },
   open: {
@@ -54,6 +54,10 @@ export default function TeamCard({logo, name, players, colors}: TeamCardProps) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
+  const navigateToPlayerStats = (playerName: string, role: string) => {
+    history.push("/player-stats/" + playerName, {teamname: name, logo, colors, role})
+  }
+
   return (
     <Card className={classes.root} sx={{background: colors.primary}}>
       <CardActionArea>
@@ -65,7 +69,7 @@ export default function TeamCard({logo, name, players, colors}: TeamCardProps) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2" sx={{paddingRight: "2rem"}}>
-            <IconButton aria-label="share" size="large" onClick={() => {setExpanded(!expanded)}}>
+            <IconButton component="div" aria-label="share" size="large" onClick={() => {setExpanded(!expanded)}}>
               <ExpandMoreIcon className={clsx(!expanded && classes.close, expanded && classes.open)} />
             </IconButton>
             {name}
@@ -76,17 +80,17 @@ export default function TeamCard({logo, name, players, colors}: TeamCardProps) {
         <Divider sx={{background: colors.tertiary, opacity: 0.2}} />
         <CardContent sx={{fontSize: "1.2rem"}}>
           {players.tanks.map((tank, key) => (
-            <ListItem onClick={() => history.push("/player-stats/" + tank)} button key={key}>
+            <ListItem onClick={() => navigateToPlayerStats(tank, "tank")} button key={key}>
               <ShieldIcon sx={{color: colors.secondary}} />&nbsp;{ tank }
             </ListItem>
           ))}
           {players.dps.map((dpsPlayer, key) => (
-            <ListItem onClick={() => history.push("/player-stats/" + dpsPlayer)} button key={key}>
+            <ListItem onClick={() => navigateToPlayerStats(dpsPlayer, "dps")} button key={key}>
               <SportsMmaIcon sx={{color: colors.secondary}} />&nbsp;{ dpsPlayer }
             </ListItem>
           ))}
           {players.supports.map((support, key) => (
-            <ListItem onClick={() => history.push("/player-stats/" + support)} button key={key}>
+            <ListItem onClick={() => navigateToPlayerStats(support, "support")} button key={key}>
               <LocalHospitalIcon sx={{color: colors.secondary}} />&nbsp;{ support }
             </ListItem>
           ))}
