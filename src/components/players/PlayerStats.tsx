@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardContent, Collapse, Container, Divider, IconButton, Paper, Skeleton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Alert, Box, Button, Card, CardContent, Collapse, Container, Divider, IconButton, Paper, Skeleton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -125,7 +125,7 @@ function Row({ stats, colors }: { stats: PlayerMatch, colors: any }) {
 }
 
 export default function PlayerStats({location}: any) {
-	const {teamname, colors, role}: PlayerStatsProps = location.state;
+	const { teamname, colors, role }: PlayerStatsProps = location.state;
 	const { player } = useParams<PlayerStatsParams>();
 
 	const [loading, setLoading] = useState(true);
@@ -136,9 +136,11 @@ export default function PlayerStats({location}: any) {
 			fetchPlayerStats(player),
 			fetchWeeks()
 		]).then(([stats, weeks]) => {
+			if (stats && stats !== undefined) {
 				mapMatchIDsToWeekNumber(stats, weeks);
 				setPlayerStats(stats);
-				setLoading(false);
+			}
+			setLoading(false);
 		}).catch((err) => {
 				console.log(err);
 		});
@@ -212,27 +214,32 @@ export default function PlayerStats({location}: any) {
     	</Card>
 			<Container sx={{ m: 5 }} />
 			{loading ? <Typography variant="h1"><Skeleton /><Skeleton /><Skeleton /></Typography> :
-				<TableContainer component={Paper}>
-					<Table aria-label="collapsible table">
-						<TableHead>
-							<TableRow >
-								<TableCell />
-								<TableCell>Week</TableCell>
-								<TableCell align="right">Eliminations</TableCell>
-								<TableCell align="right">Damage</TableCell>
-								<TableCell align="right">Healing</TableCell>
-								<TableCell align="right">Deaths</TableCell>
-							</TableRow>
-						</TableHead>
-						<TableBody>
-							{
-								Object.keys(playerStats).map((key, index) => ( 
-									<Row key={index} stats={playerStats[key]} colors={colors} />
-								))
-							}
-						</TableBody>
-					</Table>
-				</TableContainer>
+				Object.keys(playerStats).length > 0 ?
+					<TableContainer component={Paper}>
+						<Table aria-label="collapsible table">
+							<TableHead>
+								<TableRow >
+									<TableCell />
+									<TableCell>Week</TableCell>
+									<TableCell align="right">Eliminations</TableCell>
+									<TableCell align="right">Damage</TableCell>
+									<TableCell align="right">Healing</TableCell>
+									<TableCell align="right">Deaths</TableCell>
+								</TableRow>
+							</TableHead>
+							<TableBody>
+								{
+									Object.keys(playerStats).map((key, index) => ( 
+										<Row key={index} stats={playerStats[key]} colors={colors} />
+									))
+								}
+							</TableBody>
+						</Table>
+					</TableContainer>
+				:
+					<Alert severity="info" variant="outlined" sx={{ marginLeft: 35, marginRight: 35, fontSize: 20 }}>
+						We didn't find any stats for { player }. Looks like they've been riding the pine.
+					</Alert>
 			}
 		</div>
 	);
