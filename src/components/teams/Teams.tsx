@@ -5,7 +5,7 @@ import Tab from '@mui/material/Tab';
 import { useEffect } from "react";
 
 import TeamCard from './TeamCard';
-import { Box } from '@mui/material';
+import { Box, Skeleton } from '@mui/material';
 
 type Team = {
 	id: number;
@@ -26,6 +26,7 @@ type Team = {
 }
 
 export default function Teams() {
+	const [loading, setLoading] = useState(true);
 	const [teams, setTeams] = useState<Team[]>([]);
 
 	const fetchTeams = async () => {
@@ -40,7 +41,10 @@ export default function Teams() {
 	
 	useEffect(() => {
 		fetchTeams()
-			.then(resp => setTeams(resp.data))
+			.then(resp => {
+					setTeams(resp.data);
+					setLoading(false);
+				})
 			.catch(err => console.log(err))
 	}, []);
 
@@ -68,6 +72,12 @@ export default function Teams() {
 				</Paper>
 			</Box>
 			<Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+				{loading && [1,2,3].map((index) => {
+						return <Box sx={{ float: "left", margin: ".75rem", textAlign: "center", minWidth: "20rem" }} key={index}>
+							<Skeleton variant="rectangular" width={360} height={460} ></Skeleton>
+						</Box>
+					})
+				}
 				{teams.filter(team => tab.includes(team.division)).map((team, key) => (
 					<Box sx={{ float: "left", margin: ".75rem", textAlign: "center", minWidth: "20rem" }} key={key}>
 						<TeamCard name={team.name} logo={team.logo} players={team.players} colors={team.colors} />
