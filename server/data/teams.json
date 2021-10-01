@@ -6,18 +6,17 @@
         "abbr": "ATL",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "Hawk",
+                "Gator"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "Kai",
+                "PELICAN",
+                "Edison"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "Masaa",
+                "ir1s"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt2536ef613e08024b/5cdf279d9847597506f88047/609VVM89F1BY1542673347592.svg",
@@ -34,18 +33,19 @@
         "abbr": "BOS",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "Stand1",
+                "GaeBullSsi",
+                "Fusions",
+                "Punk"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "ColourHex",
+                "im37",
+                "Valentine"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "Faith",
+                "Myunb0ng"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltcf0c5809badfb9ed/5cdf120a1e7d285a1128f346/LB92M6PBO3X81515523733716.svg",
@@ -62,18 +62,21 @@
         "abbr": "CHD",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "LateYoung",
+                "Ameng",
+                "GA9A"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "JinMu",
+                "Leave",
+                "Jimmy",
+                "TAROCOOK1E"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "Yveltal",
+                "Nisha",
+                "Farway1987",
+                "Mmonk"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt726b67e48b82d0d3/5cdf2d1c2117e47006633271/YO93H9VU2UYE1544055820403.svg",
@@ -91,12 +94,12 @@
         "players": {
             "tanks": [
                 "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "Hanbin"
             ],
             "dps": [
                 "Doha",
-                "SP9RK1E"
+                "SP9RK1E",
+                "Pine"
             ],
             "supports": [
                 "Fielder",
@@ -118,18 +121,17 @@
         "abbr": "FLA",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "Checkmate",
+                "Gargoyle",
+                "OGE"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "BQB",
+                "Yaki"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "Gangnamjin",
+                "SLIME"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt43c93d0207032d47/5e14d29ba78c085a219a5fe0/OWL_FloridaMayhem_Icon_2020.svg",
@@ -146,18 +148,18 @@
         "abbr": "GUA",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "Rio",
+                "Cr0ng",
+                "Jihun"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "Eileen",
+                "MYKaylee",
+                "ChoiSehwan"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "KariV",
+                "Mandu"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt2352b5603fb09292/5cdf256da3d61d8906c13b75/OPS32KD180BL1544055837626.svg",
@@ -174,18 +176,19 @@
         "abbr": "HZS",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "guxue",
+                "LiGe",
+                "BERNAR"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "Architect",
+                "Shy",
+                "SeoMinSoo"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "iDK",
+                "ColdesT",
+                "M1ka"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltd0c3da4d0eb143e4/5cdf28c92117e47006633249/S01ILBOS6OZ71542674323474.svg",
@@ -202,18 +205,18 @@
         "abbr": "HOU",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "PIGGY",
+                "JJANGGU",
+                "Dreamer"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "Danteh",
+                "Happy"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "JAKE",
+                "Crimzo",
+                "Joobi"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt64a4344c4ec07f6a/5cdf1b83a408243c113cc89a/ZZZ1WAZ79E3D1546557668570.svg",
@@ -230,18 +233,18 @@
         "abbr": "LDN",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "Hadi",
+                "Molf1g"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "blase",
+                "Hybrid",
+                "SparkR",
+                "Shax"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "Ripa",
+                "Kellex"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blta30a9da99423c6b8/5cdf0fb12117e47006633127/HCS229B4DP021507822883016.svg",
@@ -258,18 +261,18 @@
         "abbr": "GLA",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "SPACE",
+                "MuZe"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "birdring",
+                "MirroR",
+                "kevster"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "Shu",
+                "moth",
+                "skewed"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt7f8d7ee4780f5d6b/5cde0aeba408243c113cc754/HU1A12H9JPNS1512520986367.svg",
@@ -286,18 +289,17 @@
         "abbr": "VAL",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "Silver3",
+                "NvM",
+                "ShowCheng"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "Krystal",
+                "MoLanran"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "Highbee",
+                "Wya"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt44440a0c710ab999/5e14da5ea94b7a59b710fff0/OWL_LAValiant_Icon_2020_SVG.svg",
@@ -314,18 +316,18 @@
         "abbr": "NYE",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "Yakpung",
+                "BiaNcA",
+                "Kalios"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "FEATH5R",
+                "Flora",
+                "Gwangboong"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "JJoNak",
+                "Friday"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltf19ba62d8a8dfba1/5cdf1717131ceb41113d05f1/JZHJUJ8QM1AP1508818097057.svg",
@@ -342,18 +344,17 @@
         "abbr": "PAR",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "Daan",
+                "Vestola"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "Naga",
+                "Onigod",
+                "Tsuna"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "Kaan",
+                "dridro"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltcc4093d8b1513716/5cdf2a1aa408243c113cc99c/W4C99JABL26E1542674142979.svg",
@@ -370,18 +371,20 @@
         "abbr": "PHI",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "Poko",
+                "Mano",
+                "HOTBA"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "Carpe",
+                "Eqo",
+                "Rascal",
+                "sHockWave"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "Alarm",
+                "FunnyAstro",
+                "tobi"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltff900f41fc9c2b0a/5cdf1a24a408243c113cc874/52QPF1MPBXVX1544055975338.svg",
@@ -398,18 +401,20 @@
         "abbr": "SFS",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "super",
+                "ChoiHyoBin",
+                "smurf"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "ta1yo",
+                "nero",
+                "Glister",
+                "ANS"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "Viol2t",
+                "Twilight",
+                "FDGoD"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltb7f12a7f25e9e004/5e176405174b0d0c519bdec7/OWL_SFShock_Icon_1C_SILVER.svg",
@@ -426,18 +431,18 @@
         "abbr": "SEO",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "Marve1",
+                "Gesture",
+                "Toyou"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "FITS",
+                "Profit",
+                "Saebyeolbe"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "Creative",
+                "Anamo"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt1362ecb878aa4b68/5cdf110c2117e47006633135/E9MU0AK0JIXT1507858876249.svg",
@@ -454,18 +459,19 @@
         "abbr": "SHD",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "Void",
+                "Fate"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "Fleta",
+                "LIP",
+                "WhoRU",
+                "Develop"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "Izayaki",
+                "LeeJaeGon",
+                "Molly"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltbe896237ad8c4138/5cdf15e1131ceb41113d05eb/MHYBGBXKCBWW1512520986598.svg",
@@ -482,18 +488,19 @@
         "abbr": "TOR",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "SADO",
+                "Michelle"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "Logix",
+                "Heesu",
+                "Na1st",
+                "Aspire"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "Aztac",
+                "ANSOONJAE",
+                "Lastro"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt5f94a21969b4667d/5cdf2b1c131ceb41113d0727/9SKE6JTBP4JL1542674329907.svg",
@@ -510,18 +517,17 @@
         "abbr": "VAN",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "frdwnr",
+                "ChangSik"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "Dalton",
+                "LiNkzr",
+                "Teru"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "Roolf",
+                "Fire"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt41f60f7182d89667/5cdf2667a408243c113cc944/PFQQSH405YFS1543976759565.svg",
@@ -538,18 +544,18 @@
         "abbr": "WAS",
         "players": {
             "tanks": [
-                "FEARLESS",
-                "Hanbin",
-                "Pine"
+                "Mag",
+                "Fury"
             ],
             "dps": [
-                "Doha",
-                "SP9RK1E"
+                "TTuba",
+                "Decay",
+                "Jerry",
+                "Assassin"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "BeBe",
+                "Closer"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltd6811cc3665a831f/5cdf2c40a408243c113cc9b0/OYO5HG0DWGCE1544056019664.svg",
