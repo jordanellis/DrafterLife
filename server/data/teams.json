@@ -6,17 +6,17 @@
         "abbr": "ATL",
         "players": {
             "tanks": [
-                "Hawk",
-                "Gator"
+                "HAWK",
+                "GATOR"
             ],
             "dps": [
-                "Kai",
+                "KAI",
                 "PELICAN",
-                "Edison"
+                "EDISON"
             ],
             "supports": [
-                "Masaa",
-                "ir1s"
+                "MASAA",
+                "IR1S"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt2536ef613e08024b/5cdf279d9847597506f88047/609VVM89F1BY1542673347592.svg",
@@ -33,19 +33,19 @@
         "abbr": "BOS",
         "players": {
             "tanks": [
-                "Stand1",
-                "GaeBullSsi",
-                "Fusions",
-                "Punk"
+                "STAND1",
+                "GAEBULLSSI",
+                "FUSIONS",
+                "PUNK"
             ],
             "dps": [
-                "ColourHex",
-                "im37",
-                "Valentine"
+                "COLOURHEX",
+                "IM37",
+                "VALENTINE"
             ],
             "supports": [
-                "Faith",
-                "Myunb0ng"
+                "FAITH",
+                "MYUNB0NG"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltcf0c5809badfb9ed/5cdf120a1e7d285a1128f346/LB92M6PBO3X81515523733716.svg",
@@ -62,21 +62,21 @@
         "abbr": "CHD",
         "players": {
             "tanks": [
-                "LateYoung",
-                "Ameng",
+                "LATEYOUNG",
+                "AMENG",
                 "GA9A"
             ],
             "dps": [
-                "JinMu",
-                "Leave",
-                "Jimmy",
+                "JINMU",
+                "LEAVE",
+                "JIMMY",
                 "TAROCOOK1E"
             ],
             "supports": [
-                "Yveltal",
-                "Nisha",
-                "Farway1987",
-                "Mmonk"
+                "YVELTAL",
+                "NISHA",
+                "FARWAY1987",
+                "MMONK"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt726b67e48b82d0d3/5cdf2d1c2117e47006633271/YO93H9VU2UYE1544055820403.svg",
@@ -94,17 +94,17 @@
         "players": {
             "tanks": [
                 "FEARLESS",
-                "Hanbin"
+                "HANBIN"
             ],
             "dps": [
-                "Doha",
+                "DOHA",
                 "SP9RK1E",
-                "Pine"
+                "PINE"
             ],
             "supports": [
-                "Fielder",
-                "Jecse",
-                "Rapel"
+                "FIELDER",
+                "JECSE",
+                "RAPEL"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt62bb5978c58a3b6d/5cdf14d18339428f06fdab78/YX6JZ6FR89LU1507822882865.svg",
@@ -121,16 +121,16 @@
         "abbr": "FLA",
         "players": {
             "tanks": [
-                "Checkmate",
-                "Gargoyle",
+                "CHECKMATE",
+                "GARGOYLE",
                 "OGE"
             ],
             "dps": [
                 "BQB",
-                "Yaki"
+                "YAKI"
             ],
             "supports": [
-                "Gangnamjin",
+                "GANGNAMJIN",
                 "SLIME"
             ]
         },
@@ -148,18 +148,18 @@
         "abbr": "GUA",
         "players": {
             "tanks": [
-                "Rio",
-                "Cr0ng",
-                "Jihun"
+                "RIO",
+                "CR0NG",
+                "JIHUN"
             ],
             "dps": [
-                "Eileen",
-                "MYKaylee",
-                "ChoiSehwan"
+                "EILEEN",
+                "MYKAYLEE",
+                "CHOISEHWAN"
             ],
             "supports": [
-                "KariV",
-                "Mandu"
+                "KARIV",
+                "MANDU"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt2352b5603fb09292/5cdf256da3d61d8906c13b75/OPS32KD180BL1544055837626.svg",
@@ -176,19 +176,19 @@
         "abbr": "HZS",
         "players": {
             "tanks": [
-                "guxue",
-                "LiGe",
+                "GUXUE",
+                "LIGE",
                 "BERNAR"
             ],
             "dps": [
-                "Architect",
-                "Shy",
-                "SeoMinSoo"
+                "ARCHITECT",
+                "SHY",
+                "SEOMINSOO"
             ],
             "supports": [
-                "iDK",
-                "ColdesT",
-                "M1ka"
+                "IDK",
+                "COLDEST",
+                "M1KA"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltd0c3da4d0eb143e4/5cdf28c92117e47006633249/S01ILBOS6OZ71542674323474.svg",
@@ -207,16 +207,16 @@
             "tanks": [
                 "PIGGY",
                 "JJANGGU",
-                "Dreamer"
+                "DREAMER"
             ],
             "dps": [
-                "Danteh",
-                "Happy"
+                "DANTEH",
+                "HAPPY"
             ],
             "supports": [
                 "JAKE",
-                "Crimzo",
-                "Joobi"
+                "CRIMZO",
+                "JOOBI"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt64a4344c4ec07f6a/5cdf1b83a408243c113cc89a/ZZZ1WAZ79E3D1546557668570.svg",
@@ -233,18 +233,18 @@
         "abbr": "LDN",
         "players": {
             "tanks": [
-                "Hadi",
-                "Molf1g"
+                "HADI",
+                "MOLF1G"
             ],
             "dps": [
-                "blase",
-                "Hybrid",
-                "SparkR",
-                "Shax"
+                "BLASE",
+                "HYBRID",
+                "SPARKR",
+                "SHAX"
             ],
             "supports": [
-                "Ripa",
-                "Kellex"
+                "RIPA",
+                "KELLEX"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blta30a9da99423c6b8/5cdf0fb12117e47006633127/HCS229B4DP021507822883016.svg",
@@ -262,17 +262,17 @@
         "players": {
             "tanks": [
                 "SPACE",
-                "MuZe"
+                "MUZE"
             ],
             "dps": [
-                "birdring",
-                "MirroR",
-                "kevster"
+                "BIRDRING",
+                "MIRROR",
+                "KEVSTER"
             ],
             "supports": [
-                "Shu",
-                "moth",
-                "skewed"
+                "SHU",
+                "MOTH",
+                "SKEWED"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt7f8d7ee4780f5d6b/5cde0aeba408243c113cc754/HU1A12H9JPNS1512520986367.svg",
@@ -289,17 +289,17 @@
         "abbr": "VAL",
         "players": {
             "tanks": [
-                "Silver3",
-                "NvM",
-                "ShowCheng"
+                "SILVER3",
+                "NVM",
+                "SHOWCHENG"
             ],
             "dps": [
-                "Krystal",
-                "MoLanran"
+                "KRYSTAL",
+                "MOLANRAN"
             ],
             "supports": [
-                "Highbee",
-                "Wya"
+                "HIGHBEE",
+                "WYA"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt44440a0c710ab999/5e14da5ea94b7a59b710fff0/OWL_LAValiant_Icon_2020_SVG.svg",
@@ -316,18 +316,18 @@
         "abbr": "NYE",
         "players": {
             "tanks": [
-                "Yakpung",
-                "BiaNcA",
-                "Kalios"
+                "YAKPUNG",
+                "BIANCA",
+                "KALIOS"
             ],
             "dps": [
                 "FEATH5R",
-                "Flora",
-                "Gwangboong"
+                "FLORA",
+                "GWANGBOONG"
             ],
             "supports": [
-                "JJoNak",
-                "Friday"
+                "JJONAK",
+                "FRIDAY"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltf19ba62d8a8dfba1/5cdf1717131ceb41113d05f1/JZHJUJ8QM1AP1508818097057.svg",
@@ -344,17 +344,17 @@
         "abbr": "PAR",
         "players": {
             "tanks": [
-                "Daan",
-                "Vestola"
+                "DAAN",
+                "VESTOLA"
             ],
             "dps": [
-                "Naga",
-                "Onigod",
-                "Tsuna"
+                "NAGA",
+                "ONIGOD",
+                "TSUNA"
             ],
             "supports": [
-                "Kaan",
-                "dridro"
+                "KAAN",
+                "DRIDRO"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltcc4093d8b1513716/5cdf2a1aa408243c113cc99c/W4C99JABL26E1542674142979.svg",
@@ -371,20 +371,20 @@
         "abbr": "PHI",
         "players": {
             "tanks": [
-                "Poko",
-                "Mano",
+                "POKO",
+                "MANO",
                 "HOTBA"
             ],
             "dps": [
-                "Carpe",
-                "Eqo",
-                "Rascal",
-                "sHockWave"
+                "CARPE",
+                "EQO",
+                "RASCAL",
+                "SHOCKWAVE"
             ],
             "supports": [
-                "Alarm",
-                "FunnyAstro",
-                "tobi"
+                "ALARM",
+                "FUNNYASTRO",
+                "TOBI"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltff900f41fc9c2b0a/5cdf1a24a408243c113cc874/52QPF1MPBXVX1544055975338.svg",
@@ -401,20 +401,20 @@
         "abbr": "SFS",
         "players": {
             "tanks": [
-                "super",
-                "ChoiHyoBin",
-                "smurf"
+                "SUPER",
+                "CHOIHYOBIN",
+                "SMURF"
             ],
             "dps": [
-                "ta1yo",
-                "nero",
-                "Glister",
+                "TA1YO",
+                "NERO",
+                "GLISTER",
                 "ANS"
             ],
             "supports": [
-                "Viol2t",
-                "Twilight",
-                "FDGoD"
+                "VIOL2T",
+                "TWILIGHT",
+                "FDGOD"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltb7f12a7f25e9e004/5e176405174b0d0c519bdec7/OWL_SFShock_Icon_1C_SILVER.svg",
@@ -431,18 +431,18 @@
         "abbr": "SEO",
         "players": {
             "tanks": [
-                "Marve1",
-                "Gesture",
-                "Toyou"
+                "MARVE1",
+                "GESTURE",
+                "TOYOU"
             ],
             "dps": [
                 "FITS",
-                "Profit",
-                "Saebyeolbe"
+                "PROFIT",
+                "SAEBYEOLBE"
             ],
             "supports": [
-                "Creative",
-                "Anamo"
+                "CREATIVE",
+                "ANAMO"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt1362ecb878aa4b68/5cdf110c2117e47006633135/E9MU0AK0JIXT1507858876249.svg",
@@ -459,19 +459,19 @@
         "abbr": "SHD",
         "players": {
             "tanks": [
-                "Void",
-                "Fate"
+                "VOID",
+                "FATE"
             ],
             "dps": [
-                "Fleta",
+                "FLETA",
                 "LIP",
-                "WhoRU",
-                "Develop"
+                "WHORU",
+                "DEVELOP"
             ],
             "supports": [
-                "Izayaki",
-                "LeeJaeGon",
-                "Molly"
+                "IZAYAKI",
+                "LEEJAEGON",
+                "MOLLY"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltbe896237ad8c4138/5cdf15e1131ceb41113d05eb/MHYBGBXKCBWW1512520986598.svg",
@@ -489,18 +489,18 @@
         "players": {
             "tanks": [
                 "SADO",
-                "Michelle"
+                "MICHELLE"
             ],
             "dps": [
-                "Logix",
-                "Heesu",
-                "Na1st",
-                "Aspire"
+                "LOGIX",
+                "HEESU",
+                "NA1ST",
+                "ASPIRE"
             ],
             "supports": [
-                "Aztac",
+                "AZTAC",
                 "ANSOONJAE",
-                "Lastro"
+                "LASTRO"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt5f94a21969b4667d/5cdf2b1c131ceb41113d0727/9SKE6JTBP4JL1542674329907.svg",
@@ -517,17 +517,17 @@
         "abbr": "VAN",
         "players": {
             "tanks": [
-                "frdwnr",
-                "ChangSik"
+                "FRDWNR",
+                "CHANGSIK"
             ],
             "dps": [
-                "Dalton",
-                "LiNkzr",
-                "Teru"
+                "DALTON",
+                "LINKZR",
+                "TERU"
             ],
             "supports": [
-                "Roolf",
-                "Fire"
+                "ROOLF",
+                "FIRE"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/blt41f60f7182d89667/5cdf2667a408243c113cc944/PFQQSH405YFS1543976759565.svg",
@@ -544,18 +544,18 @@
         "abbr": "WAS",
         "players": {
             "tanks": [
-                "Mag",
-                "Fury"
+                "MAG",
+                "FURY"
             ],
             "dps": [
-                "TTuba",
-                "Decay",
-                "Jerry",
-                "Assassin"
+                "TTUBA",
+                "DECAY",
+                "JERRY",
+                "ASSASSIN"
             ],
             "supports": [
-                "BeBe",
-                "Closer"
+                "BEBE",
+                "CLOSER"
             ]
         },
         "logo": "https://images.blz-contentstack.com/v3/assets/blt321317473c90505c/bltd6811cc3665a831f/5cdf2c40a408243c113cc9b0/OYO5HG0DWGCE1544056019664.svg",

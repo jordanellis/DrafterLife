@@ -7,8 +7,8 @@ with open('./server/data/phs_2021_1.csv', mode='r', encoding='utf-8-sig') as csv
   reader = csv.DictReader(csvfile)
   for row in reader:
     # check player name
-    if row['player_name'] not in player_data.keys():
-      player_data[row['player_name']] = {
+    if row['player_name'].upper() not in player_data.keys():
+      player_data[row['player_name'].upper()] = {
         row['esports_match_id']: {
           'date': row['start_time'],
           row["map_name"]: {
@@ -20,8 +20,8 @@ with open('./server/data/phs_2021_1.csv', mode='r', encoding='utf-8-sig') as csv
       }
 
     # check match id
-    if row['esports_match_id'] not in player_data[row['player_name']].keys():
-      player_data[row['player_name']].update({
+    if row['esports_match_id'] not in player_data[row['player_name'].upper()].keys():
+      player_data[row['player_name'].upper()].update({
         row['esports_match_id']: {
           'date': row['start_time'],
           row["map_name"]: {
@@ -33,8 +33,8 @@ with open('./server/data/phs_2021_1.csv', mode='r', encoding='utf-8-sig') as csv
       })
 
     # check map
-    if row['map_name'] not in player_data[row['player_name']][row['esports_match_id']].keys():
-      player_data[row['player_name']][row['esports_match_id']].update({
+    if row['map_name'] not in player_data[row['player_name'].upper()][row['esports_match_id']].keys():
+      player_data[row['player_name'].upper()][row['esports_match_id']].update({
         row["map_name"]: {
           row['hero_name']: {
             row['stat_name']: int(float(row['stat_amount']))
@@ -43,16 +43,16 @@ with open('./server/data/phs_2021_1.csv', mode='r', encoding='utf-8-sig') as csv
       })
 
     # check hero
-    if row['hero_name'] not in player_data[row['player_name']][row['esports_match_id']][row['map_name']].keys():
-      player_data[row['player_name']][row['esports_match_id']][row['map_name']].update({
+    if row['hero_name'] not in player_data[row['player_name'].upper()][row['esports_match_id']][row['map_name']].keys():
+      player_data[row['player_name'].upper()][row['esports_match_id']][row['map_name']].update({
         row['hero_name']: {
           row['stat_name']: int(float(row['stat_amount']))
         }
       })
 
     # check stat
-    if row['stat_name'] not in player_data[row['player_name']][row['esports_match_id']][row['map_name']][row['hero_name']].keys():
-      player_data[row['player_name']][row['esports_match_id']][row['map_name']][row['hero_name']].update({
+    if row['stat_name'] not in player_data[row['player_name'].upper()][row['esports_match_id']][row['map_name']][row['hero_name']].keys():
+      player_data[row['player_name'].upper()][row['esports_match_id']][row['map_name']][row['hero_name']].update({
         row['stat_name']: int(float(row['stat_amount']))
       })
 
