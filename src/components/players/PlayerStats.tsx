@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Card, CardContent, Collapse, Container, Divider, IconButton, Paper, Skeleton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Alert, Box, Button, Card, CardContent, Collapse, Container, Divider, IconButton, MenuItem, Paper, Skeleton, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -24,12 +24,14 @@ type PlayerStatistics = {
 
 type PlayerMatch = {
 	week?:						number;
+	stage?:						string;
 	date?:						Date;
 	[U: string]: 			any;
 }
 
 type Week = {
 	week: number;
+	stage: string;
 	start: Date;
 	stop: Date;
 }
@@ -46,7 +48,6 @@ function Row({ stats, colors }: { stats: PlayerMatch, colors: any }) {
 			<TableRow sx={{ '& > *': { borderBottom: 'unset' }, bgcolor: colors.primary+"22" }}>
 				<TableCell>
 					<IconButton
-						aria-label="expand row"
 						size="small"
 						onClick={() => setOpen(!open)}
 					>
@@ -60,15 +61,16 @@ function Row({ stats, colors }: { stats: PlayerMatch, colors: any }) {
 				<TableCell align="right">{stats["Match Totals"]["Hero Damage Done"]}</TableCell>
 				<TableCell align="right">{stats["Match Totals"]["Healing Done"]}</TableCell>
 				<TableCell align="right">{stats["Match Totals"]["Deaths"]}</TableCell>
+				<TableCell align="right">{stats["Match Totals"]["Time Played"]}</TableCell>
 			</TableRow>
 			<TableRow sx={{ bgcolor: colors.primary+"80" }}>
-				<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+				<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
 					<Collapse in={open} timeout="auto" unmountOnExit>
 						<Box sx={{ margin: 1 }}>
 							<Typography variant="h6" gutterBottom component="div">
 								Map Breakdown
 							</Typography>
-							<Table size="small" aria-label="purchases">
+							<Table size="small" >
 								<TableHead>
 									<TableRow>
 										<TableCell>Map Name</TableCell>
@@ -78,12 +80,13 @@ function Row({ stats, colors }: { stats: PlayerMatch, colors: any }) {
 										<TableCell align="right">Damage</TableCell>
 										<TableCell align="right">Healing</TableCell>
 										<TableCell align="right">Deaths</TableCell>
+										<TableCell align="right">Time Played</TableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody>
 									{
 										Object.keys(stats).map((key, index) => {
-											if (!["Match Totals", "date", "week"].includes(key)){
+											if (!["Match Totals", "date", "week", "stage"].includes(key)){
 												return (
 													<TableRow key={index}>
 														<TableCell component="th" scope="row">
@@ -103,9 +106,12 @@ function Row({ stats, colors }: { stats: PlayerMatch, colors: any }) {
 														</TableCell>
 														<TableCell align="right">
 															{stats[key]["All Heroes"]["Healing Done"] ? stats[key]["All Heroes"]["Healing Done"]: 0}
-															</TableCell>
+														</TableCell>
 														<TableCell align="right">
 															{stats[key]["All Heroes"]["Deaths"] ? stats[key]["All Heroes"]["Deaths"]: 0}
+														</TableCell>
+														<TableCell align="right">
+															{stats[key]["All Heroes"]["Time Played"] ? stats[key]["All Heroes"]["Time Played"]: 0}
 														</TableCell>
 													</TableRow>
 												);
@@ -130,14 +136,25 @@ export default function PlayerStats({location}: any) {
 
 	const [loading, setLoading] = useState(true);
 	const [playerStats, setPlayerStats] = useState<PlayerStatistics>({});
+	const [currentStage, setCurrentStage] = useState("");
+	const [stages, setStages] = useState<string[]>([]);
 	
 	useEffect(() => {
 		Promise.all([
 			fetchPlayerStats(player),
 			fetchWeeks()
-		]).then(([stats, weeks]) => {
+		]).then(([stats, weeks]: [PlayerStatistics, Week[]]) => {
 			if (stats && stats !== undefined) {
-				mapMatchIDsToWeekNumber(stats, weeks);
+				const stagesArray: string[] = [];
+				weeks.forEach(week => {
+					if (!stagesArray.includes(week.stage)) {
+						stagesArray.push(week.stage);
+					}
+				});
+				stagesArray.push("All Matches")
+				setStages(stagesArray);
+				setCurrentStage(stagesArray[stagesArray.length-1]);
+				mapMatchIDsToWeeks(stats, weeks);
 				setPlayerStats(stats);
 			}
 			setLoading(false);
@@ -166,7 +183,7 @@ export default function PlayerStats({location}: any) {
     return body.data;
 	}
 
-	const mapMatchIDsToWeekNumber = (stats: PlayerStatistics, weeks: Week[]) => {
+	const mapMatchIDsToWeeks = (stats: PlayerStatistics, weeks: Week[]) => {
 		for (const [key, value] of Object.entries(stats)) {
 			weeks.forEach(week => {
 				if (!value.date)
@@ -175,11 +192,16 @@ export default function PlayerStats({location}: any) {
 				const weekStart = new Date(week.start).getTime();
 				const weekStop = new Date(week.stop).getTime();
 				if (weekStart < date && date < weekStop) {
-					stats[key].week = week.week
+					stats[key].week = week.week;
+					stats[key].stage = week.stage;
 				}
 			})
 		}
 	}
+
+  const stageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentStage(event.target.value);
+  };
 	
   return (
 		<div>
@@ -215,27 +237,45 @@ export default function PlayerStats({location}: any) {
 			<Container sx={{ m: 5 }} />
 			{loading ? <Typography variant="h1"><Skeleton /><Skeleton /><Skeleton /></Typography> :
 				Object.keys(playerStats).length > 0 ?
-					<TableContainer component={Paper}>
-						<Table aria-label="collapsible table">
-							<TableHead>
-								<TableRow >
-									<TableCell />
-									<TableCell>Week</TableCell>
-									<TableCell align="right">Eliminations</TableCell>
-									<TableCell align="right">Damage</TableCell>
-									<TableCell align="right">Healing</TableCell>
-									<TableCell align="right">Deaths</TableCell>
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								{
-									Object.keys(playerStats).map((key, index) => ( 
-										<Row key={index} stats={playerStats[key]} colors={colors} />
-									))
-								}
-							</TableBody>
-						</Table>
-					</TableContainer>
+					<div>
+						<TextField
+							id="stage-select"
+							select
+							label="Stage"
+							value={currentStage}
+							onChange={stageChange}
+							sx={{ m: 1 }}
+						>
+							{stages.map((stage) => (
+								stage !== "BYE" && <MenuItem key={stage} value={stage}>
+									{stage}
+								</MenuItem>
+							))}
+						</TextField>
+						<TableContainer component={Paper}>
+							<Table>
+								<TableHead>
+									<TableRow >
+										<TableCell />
+										<TableCell>Week</TableCell>
+										<TableCell align="right">Eliminations</TableCell>
+										<TableCell align="right">Damage</TableCell>
+										<TableCell align="right">Healing</TableCell>
+										<TableCell align="right">Deaths</TableCell>
+										<TableCell align="right">Time Played</TableCell>
+									</TableRow>
+								</TableHead>
+								<TableBody>
+									{
+										Object.keys(playerStats).map((key, index) => ( 
+											(currentStage === "All Matches" || playerStats[key].stage === currentStage) &&
+											<Row key={index} stats={playerStats[key]} colors={colors} />
+										))
+									}
+								</TableBody>
+							</Table>
+						</TableContainer>
+					</div>
 				:
 					<Alert severity="info" variant="outlined" sx={{ marginLeft: 35, marginRight: 35, fontSize: 20 }}>
 						We didn't find any stats for { player }. Looks like they've been riding the pine.

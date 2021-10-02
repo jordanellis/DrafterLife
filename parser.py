@@ -64,6 +64,7 @@ for player, games in player_data.items():
     elim_totals = 0
     final_blow_totals = 0
     healing_totals = 0
+    time_played_totals = 0
     for map_name, heros in maps.items():
       # skip date object
       if not isinstance(heros, str):
@@ -75,13 +76,15 @@ for player, games in player_data.items():
             elim_totals = elim_totals + stats.get("Eliminations", 0)
             final_blow_totals = final_blow_totals + stats.get("Final Blows", 0)
             healing_totals = healing_totals + stats.get("Healing Done", 0)
+            time_played_totals = time_played_totals + stats.get("Time Played", 0)
     player_data[player][game]["Match Totals"] = {
       "Assists": assist_totals,
       "Hero Damage Done": damage_totals,
       "Deaths": death_totals,
       "Eliminations": elim_totals,
       "Final Blows": final_blow_totals,
-      "Healing Done": healing_totals
+      "Healing Done": healing_totals,
+      "Time Played": time_played_totals
     }
 
 with open('player_stats.json', 'w') as fp:
