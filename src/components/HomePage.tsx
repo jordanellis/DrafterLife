@@ -26,6 +26,31 @@ const HomePage = () => {
 							</Link>
 						</td>
 					</tr>
+					<tr>
+						<td>
+							- Sort weeks & display something besides week number
+						</td>
+					</tr>
+					<tr>
+						<td>
+							- Calculate player/map averages
+						</td>
+					</tr>
+					<tr>
+						<td>
+							- Display averages at top of player stats
+						</td>
+					</tr>
+					<tr>
+						<td>
+							- Style for mobile
+						</td>
+					</tr>
+					<tr>
+						<td>
+							- My Roster view
+						</td>
+					</tr>
 				</tbody>
 			</table>
     </div>

@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Card, CardContent, Collapse, Container, Divider, IconButton, MenuItem, Paper, Skeleton, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Card, CardContent, Collapse, Container, Divider, IconButton, MenuItem, Paper, Skeleton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -40,6 +40,19 @@ type PlayerStatsParams = {
 	player: string;
 };
 
+const ALL_HEROES = "All Heroes";
+const MATCH_TOTALS = "Match Totals";
+
+const rows = [
+	{key: "Eliminations", label: "Eliminations", header: true},
+	{key: "Hero Damage Done", label: "Damage", header: true},
+	{key: "Healing Done", label: "Healing", header: true},
+	{key: "Deaths", label: "Deaths", header: true},
+	{key: "Final Blows", label: "Final Blows", header: false},
+	{key: "Assists", label: "Assists", header: false},
+	{key: "Time Played", label: "Time Played", header: true}
+];
+
 function Row({ stats, colors }: { stats: PlayerMatch, colors: any }) {
   const [open, setOpen] = React.useState(false);
 	
@@ -57,11 +70,9 @@ function Row({ stats, colors }: { stats: PlayerMatch, colors: any }) {
 				<TableCell component="th" scope="row">
 					{stats.week}
 				</TableCell>
-				<TableCell align="right">{stats["Match Totals"]["Eliminations"]}</TableCell>
-				<TableCell align="right">{stats["Match Totals"]["Hero Damage Done"]}</TableCell>
-				<TableCell align="right">{stats["Match Totals"]["Healing Done"]}</TableCell>
-				<TableCell align="right">{stats["Match Totals"]["Deaths"]}</TableCell>
-				<TableCell align="right">{stats["Match Totals"]["Time Played"]}</TableCell>
+				{rows.map((row, index) => (
+					row.header && <TableCell key={index} align="right">{stats[MATCH_TOTALS][row.key]}</TableCell>
+				))}
 			</TableRow>
 			<TableRow sx={{ bgcolor: colors.primary+"80" }}>
 				<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
@@ -74,45 +85,25 @@ function Row({ stats, colors }: { stats: PlayerMatch, colors: any }) {
 								<TableHead>
 									<TableRow>
 										<TableCell>Map Name</TableCell>
-										<TableCell align="right">Eliminations</TableCell>
-										<TableCell align="right">Final Blows</TableCell>
-										<TableCell align="right">Assists</TableCell>
-										<TableCell align="right">Damage</TableCell>
-										<TableCell align="right">Healing</TableCell>
-										<TableCell align="right">Deaths</TableCell>
-										<TableCell align="right">Time Played</TableCell>
+										{rows.map((row, index) => (
+											<TableCell key={index} align="right">{row.label}</TableCell>
+										))}
 									</TableRow>
 								</TableHead>
 								<TableBody>
 									{
 										Object.keys(stats).map((key, index) => {
-											if (!["Match Totals", "date", "week", "stage"].includes(key)){
+											if (![MATCH_TOTALS, "date", "week", "stage"].includes(key)){
 												return (
 													<TableRow key={index}>
 														<TableCell component="th" scope="row">
 															{key}
 														</TableCell>
-														<TableCell align="right">
-															{stats[key]["All Heroes"]["Eliminations"] ? stats[key]["All Heroes"]["Eliminations"]: 0}
-														</TableCell>
-														<TableCell align="right">
-															{stats[key]["All Heroes"]["Final Blows"] ? stats[key]["All Heroes"]["Final Blows"]: 0}
-														</TableCell>
-														<TableCell align="right">
-															{stats[key]["All Heroes"]["Assists"] ? stats[key]["All Heroes"]["Assists"]: 0}
-														</TableCell>
-														<TableCell align="right">
-															{stats[key]["All Heroes"]["Hero Damage Done"] ? stats[key]["All Heroes"]["Hero Damage Done"]: 0}
-														</TableCell>
-														<TableCell align="right">
-															{stats[key]["All Heroes"]["Healing Done"] ? stats[key]["All Heroes"]["Healing Done"]: 0}
-														</TableCell>
-														<TableCell align="right">
-															{stats[key]["All Heroes"]["Deaths"] ? stats[key]["All Heroes"]["Deaths"]: 0}
-														</TableCell>
-														<TableCell align="right">
-															{stats[key]["All Heroes"]["Time Played"] ? stats[key]["All Heroes"]["Time Played"]: 0}
-														</TableCell>
+														{rows.map((row, index) => (
+															<TableCell key={index} align="right">
+																{stats[key][ALL_HEROES][row.key] ? stats[key][ALL_HEROES][row.key]: 0}
+															</TableCell>
+														))}
 													</TableRow>
 												);
 											} else {
@@ -258,11 +249,9 @@ export default function PlayerStats({location}: any) {
 									<TableRow >
 										<TableCell />
 										<TableCell>Week</TableCell>
-										<TableCell align="right">Eliminations</TableCell>
-										<TableCell align="right">Damage</TableCell>
-										<TableCell align="right">Healing</TableCell>
-										<TableCell align="right">Deaths</TableCell>
-										<TableCell align="right">Time Played</TableCell>
+										{rows.map((row, index) => (
+											row.header && <TableCell key={index} align="right">{row.label}</TableCell>
+										))}
 									</TableRow>
 								</TableHead>
 								<TableBody>
