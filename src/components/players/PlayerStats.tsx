@@ -68,7 +68,7 @@ function Row({ stats, colors }: { stats: PlayerMatch, colors: any }) {
 					</IconButton>
 				</TableCell>
 				<TableCell component="th" scope="row">
-					{stats.week}
+					{stats.date && new Date(stats.date).getMonth() + '/' + new Date(stats.date).getDate()}
 				</TableCell>
 				{rows.map((row, index) => (
 					row.header && <TableCell key={index} align="right">{stats[MATCH_TOTALS][row.key]}</TableCell>
@@ -129,6 +129,7 @@ export default function PlayerStats({location}: any) {
 	const [playerStats, setPlayerStats] = useState<PlayerStatistics>({});
 	const [currentStage, setCurrentStage] = useState("");
 	const [stages, setStages] = useState<string[]>([]);
+	const [sortedPlayerMatches, setSortedPlayerMatches] = useState<PlayerMatch[]>([]);
 	
 	useEffect(() => {
 		Promise.all([
@@ -147,6 +148,20 @@ export default function PlayerStats({location}: any) {
 				setCurrentStage(stagesArray[stagesArray.length-1]);
 				mapMatchIDsToWeeks(stats, weeks);
 				setPlayerStats(stats);
+				var sortable = [];
+				for (var match in stats) {
+						sortable.push([match, stats[match]]);
+				}
+				sortable.sort(function(a, b) {
+					const matchA = a[1] as PlayerMatch;
+					const matchB = b[1] as PlayerMatch;
+					if (matchA.date && matchB.date) {
+						return (new Date(matchA.date) > new Date(matchB.date)) ? 1 : -1;
+					} else {
+						return 0;
+					}
+				});
+				setSortedPlayerMatches(sortable);
 			}
 			setLoading(false);
 		}).catch((err) => {
@@ -248,7 +263,7 @@ export default function PlayerStats({location}: any) {
 								<TableHead>
 									<TableRow >
 										<TableCell />
-										<TableCell>Week</TableCell>
+										<TableCell>Date</TableCell>
 										{rows.map((row, index) => (
 											row.header && <TableCell key={index} align="right">{row.label}</TableCell>
 										))}
@@ -256,10 +271,11 @@ export default function PlayerStats({location}: any) {
 								</TableHead>
 								<TableBody>
 									{
-										Object.keys(playerStats).map((key, index) => ( 
-											(currentStage === "All Matches" || playerStats[key].stage === currentStage) &&
-											<Row key={index} stats={playerStats[key]} colors={colors} />
-										))
+										sortedPlayerMatches.map((match, i) => {
+											return ((currentStage === "All Matches" || match[1].stage === currentStage) &&
+												<Row key={i} stats={match[1]} colors={colors} />
+											);
+										})
 									}
 								</TableBody>
 							</Table>
