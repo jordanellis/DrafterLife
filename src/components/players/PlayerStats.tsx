@@ -19,14 +19,29 @@ type PlayerStatsProps = {
 }
 
 type PlayerStatistics = {
-	[matchID: string]: PlayerMatch;
+	matches: Match;
+	totals: Stats;
 }
 
-type PlayerMatch = {
-	week?:						number;
-	stage?:						string;
-	date?:						Date;
-	[U: string]: 			any;
+type Match = {
+	[matchID: string]: MatchStats;
+}
+
+type MatchStats = {
+	week:			number;
+	stage:		string;
+	date:			Date;
+	maps:			Maps;
+	totals: 	any;
+	averages: any;
+}
+
+type Maps = {
+	[U: string]: Stats;
+}
+
+type Stats = {
+	[U: string]: any;
 }
 
 type Week = {
@@ -41,7 +56,7 @@ type PlayerStatsParams = {
 };
 
 const ALL_HEROES = "All Heroes";
-const MATCH_TOTALS = "Match Totals";
+const MATCH_TOTALS = "totals";
 
 const rows = [
 	{key: "Eliminations", label: "Eliminations", header: true},
@@ -53,7 +68,7 @@ const rows = [
 	{key: "Time Played", label: "Time Played", header: true}
 ];
 
-function Row({ stats, colors }: { stats: PlayerMatch, colors: any }) {
+function Row({ stats, colors }: { stats: MatchStats, colors: any }) {
   const [open, setOpen] = React.useState(false);
 	
   return (
@@ -68,7 +83,7 @@ function Row({ stats, colors }: { stats: PlayerMatch, colors: any }) {
 					</IconButton>
 				</TableCell>
 				<TableCell component="th" scope="row">
-					{stats.date && new Date(stats.date).getMonth() + '/' + new Date(stats.date).getDate()}
+					{stats.date && new Date(stats.date).getMonth()+1 + '/' + new Date(stats.date).getDate()}
 				</TableCell>
 				{rows.map((row, index) => (
 					row.header && <TableCell key={index} align="right">{stats[MATCH_TOTALS][row.key]}</TableCell>
@@ -92,23 +107,19 @@ function Row({ stats, colors }: { stats: PlayerMatch, colors: any }) {
 								</TableHead>
 								<TableBody>
 									{
-										Object.keys(stats).map((key, index) => {
-											if (![MATCH_TOTALS, "date", "week", "stage"].includes(key)){
-												return (
-													<TableRow key={index}>
-														<TableCell component="th" scope="row">
-															{key}
+										Object.keys(stats.maps).map((key, index) => {
+											return (
+												<TableRow key={index}>
+													<TableCell component="th" scope="row">
+														{key}
+													</TableCell>
+													{rows.map((row, index) => (
+														<TableCell key={index} align="right">
+															{stats.maps[key][ALL_HEROES][row.key] ? stats.maps[key][ALL_HEROES][row.key]: 0}
 														</TableCell>
-														{rows.map((row, index) => (
-															<TableCell key={index} align="right">
-																{stats[key][ALL_HEROES][row.key] ? stats[key][ALL_HEROES][row.key]: 0}
-															</TableCell>
-														))}
-													</TableRow>
-												);
-											} else {
-												return null;
-											}
+													))}
+												</TableRow>
+											);
 										})
 									}
 								</TableBody>
@@ -126,10 +137,10 @@ export default function PlayerStats({location}: any) {
 	const { player } = useParams<PlayerStatsParams>();
 
 	const [loading, setLoading] = useState(true);
-	const [playerStats, setPlayerStats] = useState<PlayerStatistics>({});
+	const [playerStats, setPlayerStats] = useState<PlayerStatistics>();
 	const [currentStage, setCurrentStage] = useState("");
 	const [stages, setStages] = useState<string[]>([]);
-	const [sortedPlayerMatches, setSortedPlayerMatches] = useState<PlayerMatch[]>([]);
+	const [sortedMatches, setSortedMatches] = useState<(string | MatchStats)[][]>([]);
 	
 	useEffect(() => {
 		Promise.all([
@@ -149,19 +160,19 @@ export default function PlayerStats({location}: any) {
 				mapMatchIDsToWeeks(stats, weeks);
 				setPlayerStats(stats);
 				var sortable = [];
-				for (var match in stats) {
-						sortable.push([match, stats[match]]);
+				for (var match in stats.matches) {
+						sortable.push([match, stats.matches[match]]);
 				}
 				sortable.sort(function(a, b) {
-					const matchA = a[1] as PlayerMatch;
-					const matchB = b[1] as PlayerMatch;
+					const matchA = a[1] as MatchStats;
+					const matchB = b[1] as MatchStats;
 					if (matchA.date && matchB.date) {
 						return (new Date(matchA.date) > new Date(matchB.date)) ? 1 : -1;
 					} else {
 						return 0;
 					}
 				});
-				setSortedPlayerMatches(sortable);
+				setSortedMatches(sortable);
 			}
 			setLoading(false);
 		}).catch((err) => {
@@ -190,16 +201,14 @@ export default function PlayerStats({location}: any) {
 	}
 
 	const mapMatchIDsToWeeks = (stats: PlayerStatistics, weeks: Week[]) => {
-		for (const [key, value] of Object.entries(stats)) {
+		for (const [key, value] of Object.entries(stats.matches)) {
 			weeks.forEach(week => {
-				if (!value.date)
-					return;
 				const date = new Date(value.date).getTime();
 				const weekStart = new Date(week.start).getTime();
 				const weekStop = new Date(week.stop).getTime();
 				if (weekStart < date && date < weekStop) {
-					stats[key].week = week.week;
-					stats[key].stage = week.stage;
+					stats.matches[key].week = week.week;
+					stats.matches[key].stage = week.stage;
 				}
 			})
 		}
@@ -242,7 +251,7 @@ export default function PlayerStats({location}: any) {
     	</Card>
 			<Container sx={{ m: 5 }} />
 			{loading ? <Typography variant="h1"><Skeleton /><Skeleton /><Skeleton /></Typography> :
-				Object.keys(playerStats).length > 0 ?
+				playerStats && playerStats.matches && Object.keys(playerStats.matches).length > 0 ?
 					<div>
 						<TextField
 							id="stage-select"
@@ -271,9 +280,10 @@ export default function PlayerStats({location}: any) {
 								</TableHead>
 								<TableBody>
 									{
-										sortedPlayerMatches.map((match, i) => {
-											return ((currentStage === "All Matches" || match[1].stage === currentStage) &&
-												<Row key={i} stats={match[1]} colors={colors} />
+										sortedMatches.map((match, i) => {
+											const matchStats = match[1] as MatchStats;
+											return (matchStats && (currentStage === "All Matches" || matchStats.stage === currentStage) &&
+												<Row key={i} stats={matchStats} colors={colors} />
 											);
 										})
 									}

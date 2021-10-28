@@ -28,11 +28,6 @@ const HomePage = () => {
 					</tr>
 					<tr>
 						<td>
-							- Sort weeks & display something besides week number
-						</td>
-					</tr>
-					<tr>
-						<td>
 							- Calculate player/map averages
 						</td>
 					</tr>
