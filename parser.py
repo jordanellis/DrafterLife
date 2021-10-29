@@ -62,15 +62,16 @@ with open('./server/data/phs_2021_1.csv', mode='r', encoding='utf-8-sig') as csv
         row['stat_name']: int(float(row['stat_amount']))
       })
 
-total_matches = 0
-assist_player_totals = 0
-damage_player_totals = 0
-death_player_totals = 0
-elim_player_totals = 0
-final_blow_player_totals = 0
-healing_player_totals = 0
-time_played_player_totals = 0
+
 for player, player_items in player_data.items():
+  total_matches = 0
+  assist_player_totals = 0
+  damage_player_totals = 0
+  death_player_totals = 0
+  elim_player_totals = 0
+  final_blow_player_totals = 0
+  healing_player_totals = 0
+  time_played_player_totals = 0
   games = player_items['matches']
   for game, game_items in games.items():
     assist_totals = 0
@@ -81,6 +82,8 @@ for player, player_items in player_data.items():
     healing_totals = 0
     time_played_totals = 0
     maps = game_items['maps']
+
+    # calculate match totals
     for map_name, heros in maps.items():
       # skip date object
       if not isinstance(heros, str):
@@ -112,6 +115,7 @@ for player, player_items in player_data.items():
     healing_player_totals = healing_player_totals + healing_totals
     time_played_player_totals = time_played_player_totals + time_played_totals
 
+    # calculate average per ten minutes per match
     ten_minutes_played = time_played_totals/600
     player_data[player]['matches'][game]["averages"] = {
       "Assists": assist_totals/ten_minutes_played,
@@ -121,17 +125,16 @@ for player, player_items in player_data.items():
       "Final Blows": final_blow_totals/ten_minutes_played,
       "Healing Done": healing_totals/ten_minutes_played
     }
-
-player_data[player]["totals"] = {
-  "Total Matches": total_matches,
-  "Assists": assist_player_totals,
-  "Hero Damage Done": damage_player_totals,
-  "Deaths": death_player_totals,
-  "Eliminations": elim_player_totals,
-  "Final Blows": final_blow_player_totals,
-  "Healing Done": healing_player_totals,
-  "Time Played": time_played_player_totals
-}
+  player_data[player]["totals"] = {
+    "Total Matches": total_matches,
+    "Assists": assist_player_totals,
+    "Hero Damage Done": damage_player_totals,
+    "Deaths": death_player_totals,
+    "Eliminations": elim_player_totals,
+    "Final Blows": final_blow_player_totals,
+    "Healing Done": healing_player_totals,
+    "Time Played": time_played_player_totals
+  }
 
 with open('player_stats.json', 'w') as fp:
   json.dump(player_data, fp)

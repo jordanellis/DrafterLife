@@ -28,16 +28,6 @@ const HomePage = () => {
 					</tr>
 					<tr>
 						<td>
-							- Calculate player/map averages
-						</td>
-					</tr>
-					<tr>
-						<td>
-							- Display averages at top of player stats
-						</td>
-					</tr>
-					<tr>
-						<td>
 							- Style for mobile
 						</td>
 					</tr>

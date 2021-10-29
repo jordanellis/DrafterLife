@@ -217,6 +217,23 @@ export default function PlayerStats({location}: any) {
   const stageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentStage(event.target.value);
   };
+
+	const displayPlayerAverages = (statKeys: string[]) => {
+		return (
+			<Container sx={{ display: "flex", flexDirection: "row" }}>
+				{statKeys.map((statKey, i) => (
+				<Container key={i} >
+					<Typography variant="subtitle1">
+						{ statKey }
+					</Typography>
+					<Typography variant="h4">
+						{ playerStats && (playerStats.totals[statKey]/playerStats.totals['Time Played']*600).toFixed(4) }
+					</Typography>
+				</Container>
+				))}
+			</Container>
+		)
+	}
 	
   return (
 		<div>
@@ -225,30 +242,43 @@ export default function PlayerStats({location}: any) {
 					{"< Teams"}
 				</Button>
 			</Link>
-			<Card sx={{ margin: "auto", maxWidth: 210, background: colors.primary }}>
-				<CardContent sx={{ padding: "1!important" }}>
-					<PersonIcon sx={{ fontSize: "11rem!important" }} />
-					<Typography variant="body1">
-						{ teamname }
-					</Typography>
-					<Divider sx={{ background: colors.tertiary, opacity: 0.2, marginTop: 1, marginBottom: 1 }} />
-					{role.match("tank") && <ShieldIcon
-						fontSize="medium"
-						sx={{ display: "inline", float: "left", color: colors.secondary }}
-						/>}
-					{role.match("dps") && <SportsMmaIcon
-						fontSize="medium"
-						sx={{ display: "inline", float: "left", color: colors.secondary }}
-						/>}
-					{role.match("support") && <LocalHospitalIcon
-						fontSize="medium"
-						sx={{ display: "inline", float: "left", color: colors.secondary }}
-						/>}
-					<Typography variant="subtitle1" color="text.secondary" sx={{ display: "inline", paddingLeft: 1 }} >
-						{ player }
-					</Typography>
-				</CardContent>
-    	</Card>
+			<Card sx={{ maxWidth: 900, display: "flex", flexDirection: "row", m: "auto" }}>
+				<Box sx={{ maxWidth: 210, background: colors.primary, flex: 1 }}>
+					<CardContent sx={{ padding: "1!important" }}>
+						<PersonIcon sx={{ fontSize: "11rem!important" }} />
+						<Typography variant="body1">
+							{ teamname }
+						</Typography>
+						<Divider sx={{ background: colors.tertiary, opacity: 0.2, marginTop: 1, marginBottom: 1 }} />
+						{role.match("tank") && <ShieldIcon
+							fontSize="medium"
+							sx={{ display: "inline", float: "left", color: colors.secondary }}
+							/>}
+						{role.match("dps") && <SportsMmaIcon
+							fontSize="medium"
+							sx={{ display: "inline", float: "left", color: colors.secondary }}
+							/>}
+						{role.match("support") && <LocalHospitalIcon
+							fontSize="medium"
+							sx={{ display: "inline", float: "left", color: colors.secondary }}
+							/>}
+						<Typography variant="subtitle1" color="text.secondary" sx={{ display: "inline", paddingLeft: 1 }} >
+							{ player }
+						</Typography>
+					</CardContent>
+				</Box>
+				<Box sx={{ background: colors.primary+"99", flex: 1, textAlign: "center" }}>
+					<CardContent>
+						<Typography variant="h6">
+							Averages Per 10 Minutes
+						</Typography>
+						<Divider sx={{ background: colors.tertiary, opacity: 0.2, marginTop: 2, marginBottom: 7 }} />
+						{role.match("tank") && displayPlayerAverages(['Eliminations', 'Hero Damage Done', 'Deaths'])}
+						{role.match("dps") && displayPlayerAverages(['Final Blows', 'Eliminations', 'Hero Damage Done'])}
+						{role.match("support") && displayPlayerAverages(['Healing Done', 'Assists', 'Deaths'])}
+					</CardContent>
+				</Box>
+			</Card>
 			<Container sx={{ m: 5 }} />
 			{loading ? <Typography variant="h1"><Skeleton /><Skeleton /><Skeleton /></Typography> :
 				playerStats && playerStats.matches && Object.keys(playerStats.matches).length > 0 ?
@@ -282,7 +312,7 @@ export default function PlayerStats({location}: any) {
 									{
 										sortedMatches.map((match, i) => {
 											const matchStats = match[1] as MatchStats;
-											return (matchStats && (currentStage === "All Matches" || matchStats.stage === currentStage) &&
+											return ((currentStage === "All Matches" || matchStats.stage === currentStage) &&
 												<Row key={i} stats={matchStats} colors={colors} />
 											);
 										})
