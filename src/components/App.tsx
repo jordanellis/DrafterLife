@@ -9,7 +9,7 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham-dark.css';
 
 import HomePage from "./HomePage";
-import MyLeagues from "./league/MyLeagues";
+import LeagueView from "./league/LeagueView";
 import PlayerStats from "./players/PlayerStats";
 import Teams from "./teams/Teams";
 import Header from "./Header";
@@ -25,7 +25,7 @@ const App = ({ history = defaultHistory }) => {
         <Box sx={{ padding: "1rem 5rem", margin: "0 auto" }}>
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route exact path="/my-leagues/" component={MyLeagues} />
+            <Route exact path="/league-home/" component={LeagueView} />
             <Route exact path="/player-stats/:player" component={PlayerStats} />
             <Route exact path="/teams/" component={Teams} />
           </Switch>
