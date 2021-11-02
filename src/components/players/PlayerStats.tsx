@@ -238,7 +238,7 @@ export default function PlayerStats({location}: any) {
   return (
 		<div>
 			<Link style={{ textDecoration: "none" }} to="/teams/">
-				<Button variant="text" color="primary">
+				<Button variant="text" color="secondary">
 					{"< Teams"}
 				</Button>
 			</Link>
@@ -286,6 +286,7 @@ export default function PlayerStats({location}: any) {
 						<TextField
 							id="stage-select"
 							select
+							color="secondary"
 							label="Stage"
 							value={currentStage}
 							onChange={stageChange}

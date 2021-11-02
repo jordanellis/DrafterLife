@@ -14,14 +14,14 @@ const theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#FA9C1D',
+      main: '#103d6e',
     },
     secondary: {
-      main: '#FFDF70',
+      main: '#4889cf',
     },
     background: {
-      default: '#2A2C2E',
-      paper: '#2A2D32'
+      default: '#1a1c1e',
+      paper: '#1a1d22'
     }
   },
 });

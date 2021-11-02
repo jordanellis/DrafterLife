@@ -1,12 +1,14 @@
 import { Button, Container, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import LeagueHeader from "./LeagueHeader";
 
-const LeagueView = () => {
+const LeagueViewHome = () => {
   return (
     <Container>
+      <LeagueHeader />
       <Link style={{ textDecoration: "none" }} to="/">
-				<Button variant="text" color="primary">
+				<Button variant="text" color="secondary">
 					{"< Home"}
 				</Button>
 			</Link>
@@ -29,4 +31,4 @@ const LeagueView = () => {
   );
 }
 
-export default LeagueView;
+export default LeagueViewHome;

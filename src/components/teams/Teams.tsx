@@ -61,8 +61,8 @@ export default function Teams() {
 					<Tabs
 						value={tab}
 						onChange={tabChange}
-						indicatorColor="primary"
-						textColor="primary"
+						indicatorColor="secondary"
+						textColor="secondary"
 						centered
 					>
 						<Tab label="All" value="east/west" />

@@ -5,11 +5,9 @@ import {
   Box,
   CssBaseline
 } from '@mui/material';
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-balham-dark.css';
 
 import HomePage from "./HomePage";
-import LeagueView from "./league/LeagueView";
+import LeagueViewHome from "./league/LeagueViewHome";
 import PlayerStats from "./players/PlayerStats";
 import Teams from "./teams/Teams";
 import Header from "./Header";
@@ -22,10 +20,10 @@ const App = ({ history = defaultHistory }) => {
       <CssBaseline />
       <Router history={history}>
         <Header />
-        <Box sx={{ padding: "1rem 5rem", margin: "0 auto" }}>
+        <Box sx={{ padding: "1rem 1rem", margin: "0 auto" }}>
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route exact path="/league-home/" component={LeagueView} />
+            <Route exact path="/league-home/" component={LeagueViewHome} />
             <Route exact path="/player-stats/:player" component={PlayerStats} />
             <Route exact path="/teams/" component={Teams} />
           </Switch>

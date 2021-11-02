@@ -40,7 +40,7 @@ const Header = () => {
   };
 
 	return (
-    <AppBar position="static">
+    <AppBar position="sticky">
 			<Toolbar>
 				<IconButton
                     onClick={() => setShowDrawer(true)}

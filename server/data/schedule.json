@@ -1,0 +1,16 @@
+{
+  "weeks": [
+    {
+      "matches": [
+        ["JORDAN", "KELLEN"],
+        ["SAM", "ZACK"]
+      ]
+    },
+    {
+      "matches": [
+        ["JORDAN", "SAM"],
+        ["KELLEN", "ZACK"]
+      ]
+    }
+  ]
+}

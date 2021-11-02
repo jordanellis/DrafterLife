@@ -1,0 +1,31 @@
+{
+  "teams": [
+    {
+      "owner": "JORDAN",
+      "wins": 2,
+      "losses": 4,
+      "players": []
+    },
+    {
+      "owner": "KELLEN",
+      "wins": 6,
+      "losses": 0,
+      "players": []
+    },
+    {
+      "owner": "SAM",
+      "wins": 4,
+      "losses": 2,
+      "players": []
+    },
+    {
+      "owner": "ZACK",
+      "wins": 3,
+      "losses": 3,
+      "players": []
+    }
+  ],
+  "schedule": {
+    "weeks": []
+  }
+}

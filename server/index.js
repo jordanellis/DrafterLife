@@ -3,6 +3,7 @@ var app = express();
 const port = 5000;
 
 app.use("/api/games", require("./games/v1"));
+app.use("/api/league", require("./league/v1"));
 app.use("/api/player-stats", require("./players/v1"));
 app.use("/api/teams", require("./teams/v1"));
 
