@@ -33,6 +33,16 @@ const HomePage = () => {
 					</tr>
 					<tr>
 						<td>
+							- Cleanup fetches
+						</td>
+					</tr>
+					<tr>
+						<td>
+							- Cleanup types/typescript
+						</td>
+					</tr>
+					<tr>
+						<td>
 							- My Roster view
 						</td>
 					</tr>

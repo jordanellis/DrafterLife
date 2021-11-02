@@ -2,24 +2,28 @@
   "teams": [
     {
       "owner": "JORDAN",
+      "name": "Soulja Choi Tellem",
       "wins": 2,
       "losses": 4,
       "players": []
     },
     {
       "owner": "KELLEN",
+      "name": "HOTBAtato",
       "wins": 6,
       "losses": 0,
       "players": []
     },
     {
       "owner": "SAM",
+      "name": "Kaan't Stop Me Now",
       "wins": 4,
       "losses": 2,
       "players": []
     },
     {
       "owner": "ZACK",
+      "name": "The Pursuit of HappyNa1st",
       "wins": 3,
       "losses": 3,
       "players": []
