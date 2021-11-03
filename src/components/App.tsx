@@ -20,7 +20,7 @@ const App = ({ history = defaultHistory }) => {
       <CssBaseline />
       <Router history={history}>
         <Header />
-        <Box sx={{ padding: "1rem 1rem", margin: "0 auto" }}>
+        <Box sx={{ margin: "0 auto" }}>
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/league-home/" component={LeagueViewHome} />

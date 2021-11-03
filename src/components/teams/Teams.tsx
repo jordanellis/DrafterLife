@@ -56,7 +56,7 @@ export default function Teams() {
 
   return (
 		<Box>
-			<Box sx={{ margin: "auto", width: "30rem" }}>
+			<Box sx={{ margin: "auto", width: "30rem", paddingTop: "1rem" }}>
 				<Paper sx={{ flexGrow: 1 }}>
 					<Tabs
 						value={tab}

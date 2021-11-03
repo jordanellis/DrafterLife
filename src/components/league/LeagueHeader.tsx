@@ -10,6 +10,7 @@ import {
 type LeagueHeaderProps = {
   schedule: ScheduledMatches;
   teams: Team[];
+  weekNumber: number;
 }
 
 type ScheduledMatches = {
@@ -22,10 +23,11 @@ type Team = {
   name: string;
   wins: number;
   losses: number;
+  totalPoints: number;
   players: string[];
 }
 
-const Header = ({schedule, teams}: LeagueHeaderProps) => {
+const Header = ({schedule, teams, weekNumber}: LeagueHeaderProps) => {
   const [ownerTeamNameMap, setTeamNameMap] = useState<Map<string, string>>();
 
   useEffect(() => {
@@ -38,9 +40,9 @@ const Header = ({schedule, teams}: LeagueHeaderProps) => {
 
 	return (
     <Container sx={{ textAlign: "center" }}>
-      <Card variant="outlined" sx={{ display: "inline-block", width: "auto", padding: "0rem 2rem" }}>
+      <Card variant="outlined"  square={true} sx={{ display: "inline-block", width: "auto", padding: "0rem 2rem", bgcolor: "#11447733" }}>
         <Stack direction="row" margin="0.5rem" justifyContent="center" divider={<Divider orientation="vertical" flexItem />} spacing={3}>
-          <Typography variant="subtitle1" sx={{ margin: "auto 0" }}>Matches:</Typography>
+          <Typography variant="subtitle1" sx={{ margin: "auto 0" }}>{"Week " + weekNumber + ":"}</Typography>
           {schedule && schedule.matches.map((match, index) => (
             <Container key={index} sx={{ display: "inline-block", float: "left", flexDirection: "column", textAlign: "center", margin: "auto 0", width: "unset" }}>
               <Typography variant="subtitle2">{ ownerTeamNameMap && ownerTeamNameMap.get(match[0]) }</Typography>

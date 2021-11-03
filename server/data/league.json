@@ -5,6 +5,7 @@
       "name": "Soulja Choi Tellem",
       "wins": 2,
       "losses": 4,
+      "totalPoints": 9913,
       "players": []
     },
     {
@@ -12,6 +13,7 @@
       "name": "HOTBAtato",
       "wins": 6,
       "losses": 0,
+      "totalPoints": 12538,
       "players": []
     },
     {
@@ -19,13 +21,15 @@
       "name": "Kaan't Stop Me Now",
       "wins": 4,
       "losses": 2,
+      "totalPoints": 11719,
       "players": []
     },
     {
       "owner": "ZACK",
       "name": "The Pursuit of HappyNa1st",
-      "wins": 3,
-      "losses": 3,
+      "wins": 2,
+      "losses": 4,
+      "totalPoints": 10868,
       "players": []
     }
   ],

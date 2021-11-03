@@ -11,6 +11,90 @@
         ["JORDAN", "SAM"],
         ["KELLEN", "ZACK"]
       ]
+    },
+    {
+      "matches": [
+        ["JORDAN", "KELLEN"],
+        ["SAM", "ZACK"]
+      ]
+    },
+    {
+      "matches": [
+        ["JORDAN", "ZACK"],
+        ["KELLEN", "SAM"]
+      ]
+    },
+    {
+      "matches": [
+        ["ZACK", "SAM"],
+        ["KELLEN", "JORDAN"]
+      ]
+    },
+    {
+      "matches": [
+        ["JORDAN", "SAM"],
+        ["KELLEN", "ZACK"]
+      ]
+    },
+    {
+      "matches": [
+        ["JORDAN", "KELLEN"],
+        ["SAM", "ZACK"]
+      ]
+    },
+    {
+      "matches": [
+        ["JORDAN", "ZACK"],
+        ["KELLEN", "SAM"]
+      ]
+    },
+    {
+      "matches": [
+        ["ZACK", "SAM"],
+        ["JORDAN", "KELLEN"]
+      ]
+    },
+    {
+      "matches": [
+        ["JORDAN", "SAM"],
+        ["KELLEN", "ZACK"]
+      ]
+    },
+    {
+      "matches": [
+        ["JORDAN", "ZACK"],
+        ["KELLEN", "SAM"]
+      ]
+    },
+    {
+      "matches": [
+        ["ZACK", "SAM"],
+        ["JORDAN", "KELLEN"]
+      ]
+    },
+    {
+      "matches": [
+        ["ZACK", "SAM"],
+        ["KELLEN", "JORDAN"]
+      ]
+    },
+    {
+      "matches": [
+        ["JORDAN", "SAM"],
+        ["KELLEN", "ZACK"]
+      ]
+    },
+    {
+      "matches": [
+        ["JORDAN", "KELLEN"],
+        ["SAM", "ZACK"]
+      ]
+    },
+    {
+      "matches": [
+        ["SAM", "JORDAN"],
+        ["KELLEN", "ZACK"]
+      ]
     }
   ]
 }

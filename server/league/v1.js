@@ -3,14 +3,14 @@ var leagueData = require("../data/league");
 var scheduleData = require("../data/schedule");
 
 var api = express.Router();
-const week = 0;
+const currentWeek = 7;
 
 api.get('/teams', function(req, res) {
   res.send({data: leagueData["teams"]});
 });
 
 api.get('/schedule', function(req, res) {
-  res.send({data: scheduleData["weeks"][week]});
+  res.send({data: scheduleData["weeks"][currentWeek], weekNumber: currentWeek});
 });
 
 module.exports = api;
