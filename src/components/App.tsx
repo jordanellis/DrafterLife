@@ -23,7 +23,7 @@ const App = ({ history = defaultHistory }) => {
         <Box sx={{ margin: "0 auto" }}>
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route exact path="/league-home/" component={LeagueViewHome} />
+            <Route exact path="/league/" component={LeagueViewHome} />
             <Route exact path="/player-stats/:player" component={PlayerStats} />
             <Route exact path="/teams/" component={Teams} />
           </Switch>

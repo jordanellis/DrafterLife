@@ -40,7 +40,7 @@ const Header = ({schedule, teams, weekNumber}: LeagueHeaderProps) => {
 
 	return (
     <Container sx={{ textAlign: "center" }}>
-      <Card variant="outlined"  square={true} sx={{ display: "inline-block", width: "auto", padding: "0rem 2rem", bgcolor: "#11447733" }}>
+      <Card variant="outlined"  square={true} sx={{ display: "inline-block", width: "auto", padding: "0rem 2rem", bgcolor: "#ffffff15" }}>
         <Stack direction="row" margin="0.5rem" justifyContent="center" divider={<Divider orientation="vertical" flexItem />} spacing={3}>
           <Typography variant="subtitle1" sx={{ margin: "auto 0" }}>{"Week " + weekNumber + ":"}</Typography>
           {schedule && schedule.matches.map((match, index) => (

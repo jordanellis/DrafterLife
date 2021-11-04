@@ -19,7 +19,7 @@ const HomePage = () => {
 					</tr>
 					<tr>
 						<td>
-							<Link style={{ textDecoration: 'none' }} to="/league-home/">
+							<Link style={{ textDecoration: 'none' }} to="/league/">
 								<Button variant="contained" color="secondary">
 										View My League
 								</Button>
@@ -39,6 +39,11 @@ const HomePage = () => {
 					<tr>
 						<td>
 							- Cleanup types/typescript
+						</td>
+					</tr>
+					<tr>
+						<td>
+							- Commish posts
 						</td>
 					</tr>
 					<tr>

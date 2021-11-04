@@ -4,9 +4,12 @@ import { Link } from "react-router-dom";
 import LeagueHeader from "./LeagueHeader";
 import LeagueStandingsSidebar from "./LeagueStandingsSidebar";
 
-type ScheduleResp = {
-  data: ScheduledMatches;
+type CurrentWeekResp = {
   weekNumber: number;
+}
+
+type ScheduleResp = {
+  data: ScheduledMatches[];
 }
 
 type ScheduledMatches = {
@@ -29,21 +32,32 @@ type Team = {
 
 const LeagueViewHome = () => {
   const [currentWeek, setCurrentWeek] = useState(0);
-  const [schedule, setSchedule] = useState<ScheduledMatches>();
+  const [schedule, setSchedule] = useState<ScheduledMatches[]>();
   const [teams, setTeams] = useState<Team[]>();
 
 	useEffect(() => {
     Promise.all([
+			fetchCurrentWeek(),
 			fetchSchedule(),
 			fetchTeams()
 		])
-			.then(([schedule, teams]: [ScheduleResp, TeamsResp]) => {
+			.then(([currWeek, schedule, teams]: [CurrentWeekResp, ScheduleResp, TeamsResp]) => {
         setTeams(teams.data);
         setSchedule(schedule.data);
-        setCurrentWeek(schedule.weekNumber);
+        setCurrentWeek(currWeek.weekNumber);
       })
 			.catch(err => console.log(err))
 	}, []);
+
+	const fetchCurrentWeek = async () => {
+    const response = await fetch('/api/league/currentWeek');
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message) 
+    }
+    return body;
+  };
 
 	const fetchTeams = async () => {
     const response = await fetch('/api/league/teams');
@@ -67,7 +81,7 @@ const LeagueViewHome = () => {
 
   return (
     <Container maxWidth={false}>
-      {schedule && teams && <LeagueHeader teams={teams} schedule={schedule} weekNumber={currentWeek} />}
+      {schedule && teams && <LeagueHeader teams={teams} schedule={schedule[currentWeek]} weekNumber={currentWeek} />}
       <Link style={{ textDecoration: "none" }} to="/">
 				<Button variant="text" color="secondary">
 					{"< Home"}

@@ -1,8 +1,5 @@
 import * as React from 'react';
-import { Container, List, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Typography } from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
-import SendIcon from '@mui/icons-material/Send';
+import { Container, List, ListItemButton, ListItemText, ListSubheader, Typography } from '@mui/material';
 import { useEffect } from 'react';
 
 type LeagueStandingsProps = {
