@@ -28,6 +28,21 @@ const HomePage = () => {
 					</tr>
 					<tr>
 						<td>
+							- Login
+						</td>
+					</tr>
+					<tr>
+						<td>
+							- Rethink using url param for player stats/league team view
+						</td>
+					</tr>
+					<tr>
+						<td>
+							- gitignore large stat files
+						</td>
+					</tr>
+					<tr>
+						<td>
 							- Style for mobile
 						</td>
 					</tr>

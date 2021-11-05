@@ -1,22 +1,20 @@
 import * as React from 'react';
 import { Container, List, ListItemButton, ListItemText, ListSubheader, Typography } from '@mui/material';
 import { useEffect } from 'react';
+import { Team } from './types';
+import { useHistory } from 'react-router-dom';
 
 type LeagueStandingsProps = {
   teams: Team[];
 }
 
-type Team = {
-  matches: Array<string[]>;
-  owner: string;
-  name: string;
-  wins: number;
-  losses: number;
-  totalPoints: number;
-  players: string[];
-}
-
 const LeagueStandingsSidebar = ({teams}: LeagueStandingsProps) => {
+	const history = useHistory();
+
+  const navigateToTeamPage = (team: Team) => {
+    history.push("/league/" + team.owner, {team});
+  }
+
   useEffect(() => {
     teams.sort(compare)
   });
@@ -46,7 +44,7 @@ const LeagueStandingsSidebar = ({teams}: LeagueStandingsProps) => {
       }
     >
       {teams.map((team, index) => {
-        return (<ListItemButton key={index}>
+        return (<ListItemButton key={index} onClick={() => navigateToTeamPage(team)}>
                   <Typography variant="h5">{index+1}</Typography>
                   <ListItemText primary={
                     <Container>

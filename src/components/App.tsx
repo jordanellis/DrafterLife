@@ -8,6 +8,7 @@ import {
 
 import HomePage from "./HomePage";
 import LeagueViewHome from "./league/LeagueViewHome";
+import LeagueTeamView from "./league/LeagueTeamView";
 import PlayerStats from "./players/PlayerStats";
 import Teams from "./teams/Teams";
 import Header from "./Header";
@@ -24,6 +25,7 @@ const App = ({ history = defaultHistory }) => {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/league/" component={LeagueViewHome} />
+            <Route exact path="/league/:teamOwner" component={LeagueTeamView} />
             <Route exact path="/player-stats/:player" component={PlayerStats} />
             <Route exact path="/teams/" component={Teams} />
           </Switch>

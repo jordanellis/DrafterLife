@@ -6,7 +6,13 @@
       "wins": 2,
       "losses": 4,
       "totalPoints": 9913,
-      "players": []
+      "players": {
+        "TANKS": ["VOID"],
+        "DPS": ["LEAVE", "PROFIT"],
+        "SUPPORTS": ["SHU", "CRIMZO"],
+        "FLEX": ["GANGNAMJIN"],
+        "BENCH": ["SHY", "VESTOLA", "GARGOYLE", "LASTRO", "PELICAN", "DECAY"]
+      }
     },
     {
       "owner": "KELLEN",
@@ -14,7 +20,13 @@
       "wins": 6,
       "losses": 0,
       "totalPoints": 12538,
-      "players": []
+      "players": {
+        "TANKS": ["OGE"],
+        "DPS": ["BQB", "FLETA"],
+        "SUPPORTS": ["JJONAK", "BEBE"],
+        "FLEX": ["JECSE"],
+        "BENCH": ["TOYOU", "ARCHITECT", "PIGGY", "CLOSER", "FDGOD", "DANTEH"]
+      }
     },
     {
       "owner": "SAM",
@@ -22,7 +34,13 @@
       "wins": 4,
       "losses": 2,
       "totalPoints": 11719,
-      "players": []
+      "players": {
+        "TANKS": ["CHOIHYOBIN"],
+        "DPS": ["JINMU", "KEVSTER"],
+        "SUPPORTS": ["KAAN", "VIOL2T"],
+        "FLEX": ["NAGA"],
+        "BENCH": ["LATEYOUNG", "SHAX", "NERO", "ONIGOD", "MUZE", "KARIV"]
+      }
     },
     {
       "owner": "ZACK",
@@ -30,7 +48,13 @@
       "wins": 2,
       "losses": 4,
       "totalPoints": 10868,
-      "players": []
+      "players": {
+        "TANKS": ["FEARLESS"],
+        "DPS": ["YAKI", "DOHA"],
+        "SUPPORTS": ["ALARM", "FIELDER"],
+        "FLEX": ["IZAYAKI"],
+        "BENCH": ["KALIOS", "MCD", "BIRDRING", "NA1ST", "SPACE", "HAPPY"]
+      }
     }
   ]
 }

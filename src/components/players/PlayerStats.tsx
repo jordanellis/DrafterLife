@@ -149,14 +149,14 @@ export default function PlayerStats({location}: any) {
 		]).then(([stats, weeks]: [PlayerStatistics, Week[]]) => {
 			if (stats && stats !== undefined) {
 				const stagesArray: string[] = [];
+				stagesArray.push("All Matches")
 				weeks.forEach(week => {
 					if (!stagesArray.includes(week.stage)) {
 						stagesArray.push(week.stage);
 					}
 				});
-				stagesArray.push("All Matches")
 				setStages(stagesArray);
-				setCurrentStage(stagesArray[stagesArray.length-1]);
+				setCurrentStage(stagesArray[0]);
 				mapMatchIDsToWeeks(stats, weeks);
 				setPlayerStats(stats);
 				var sortable = [];

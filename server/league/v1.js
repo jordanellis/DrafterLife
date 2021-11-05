@@ -3,10 +3,11 @@ var leagueData = require("../data/league");
 var scheduleData = require("../data/schedule");
 
 var api = express.Router();
-const currentWeek = 7;
+
+const CURRENT_WEEK = 7;
 
 api.get('/currentWeek', function(req, res) {
-  res.send({weekNumber: currentWeek});
+  res.send({weekNumber: CURRENT_WEEK});
 });
 
 api.get('/schedule', function(req, res) {

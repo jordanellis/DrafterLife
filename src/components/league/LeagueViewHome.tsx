@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import LeagueHeader from "./LeagueHeader";
 import LeagueStandingsSidebar from "./LeagueStandingsSidebar";
+import { ScheduledMatches, Team } from "./types";
 
 type CurrentWeekResp = {
   weekNumber: number;
@@ -12,22 +13,8 @@ type ScheduleResp = {
   data: ScheduledMatches[];
 }
 
-type ScheduledMatches = {
-  matches: Array<string[]>;
-}
-
 type TeamsResp = {
   data: Team[];
-}
-
-type Team = {
-  matches: Array<string[]>;
-  owner: string;
-  name: string;
-  wins: number;
-  losses: number;
-  totalPoints: number;
-  players: string[];
 }
 
 const LeagueViewHome = () => {
@@ -81,15 +68,12 @@ const LeagueViewHome = () => {
 
   return (
     <Container maxWidth={false}>
-      {schedule && teams && <LeagueHeader teams={teams} schedule={schedule[currentWeek]} weekNumber={currentWeek} />}
       <Link style={{ textDecoration: "none" }} to="/">
-				<Button variant="text" color="secondary">
+				<Button variant="text" color="secondary" sx={{ display: "inline-block", float: "left", paddingTop: "1.5rem" }}>
 					{"< Home"}
 				</Button>
 			</Link>
-			<Typography variant="h2" sx={{ textAlign: "center" }}>
-        Sweet Lactations
-      </Typography>
+      {schedule && teams && <LeagueHeader teams={teams} schedule={schedule[currentWeek]} weekNumber={currentWeek} />}
       <Container maxWidth={false} disableGutters sx={{ width: "20%", minWidth: "16rem", display: "inline-block", float: "left" }}>
         {teams && <LeagueStandingsSidebar teams={teams} />}
       </Container>
