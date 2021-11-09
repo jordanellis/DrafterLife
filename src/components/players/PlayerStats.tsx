@@ -8,9 +8,19 @@ import PersonIcon from "@mui/icons-material/Person";
 import ShieldIcon from '@mui/icons-material/Shield';
 import SportsMmaIcon from '@mui/icons-material/SportsMma';
 
-type PlayerStatsProps = {
-	teamname: string;
+type TeamResp = {
+	team: OWLTeam;
 	role: string;
+}
+
+type OWLTeam = {
+  logo: string,
+  name: string,
+  players: {
+    tanks: Array<string>,
+    dps: Array<string>,
+    supports: Array<string>
+  },
 	colors: {
 		primary: string,
 		secondary: string,
@@ -57,6 +67,21 @@ type PlayerStatsParams = {
 
 const ALL_HEROES = "All Heroes";
 const MATCH_TOTALS = "totals";
+
+const DUMMY_TEAM: OWLTeam = {
+	logo: "",
+	name: "",
+	players: {
+			tanks: [""],
+			dps: [""],
+			supports: [""]
+	},
+	colors: {
+			primary: "",
+			secondary: "",
+			tertiary: ""
+	}
+}
 
 const rows = [
 	{key: "Eliminations", label: "Eliminations", header: true},
@@ -132,24 +157,29 @@ function Row({ stats, colors }: { stats: MatchStats, colors: any }) {
   );
 }
 
-export default function PlayerStats({location}: any) {
-	const { teamname, colors, role }: PlayerStatsProps = location.state;
+export default function PlayerStats() {
 	const { player } = useParams<PlayerStatsParams>();
 
 	const [loading, setLoading] = useState(true);
 	const [playerStats, setPlayerStats] = useState<PlayerStatistics>();
 	const [currentStage, setCurrentStage] = useState("");
+	const [team, setTeam] = useState<OWLTeam>(DUMMY_TEAM);
+	const [role, setRole] = useState("");
 	const [stages, setStages] = useState<string[]>([]);
 	const [sortedMatches, setSortedMatches] = useState<(string | MatchStats)[][]>([]);
 	
 	useEffect(() => {
 		Promise.all([
 			fetchPlayerStats(player),
+			fetchPlayerTeam(player),
 			fetchWeeks()
-		]).then(([stats, weeks]: [PlayerStatistics, Week[]]) => {
+		]).then(([stats, { team, role }, weeks]: [PlayerStatistics, TeamResp, Week[]]) => {
 			if (stats && stats !== undefined) {
+				console.log(team)
+				setRole(role);
+				setTeam(team);
 				const stagesArray: string[] = [];
-				stagesArray.push("All Matches")
+				stagesArray.push("All Matches");
 				weeks.forEach(week => {
 					if (!stagesArray.includes(week.stage)) {
 						stagesArray.push(week.stage);
@@ -182,6 +212,16 @@ export default function PlayerStats({location}: any) {
 
 	const fetchPlayerStats = async (player: String) => {
     const response = await fetch("/api/player-stats/" + player);
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message);
+    }
+    return body.data;
+  };
+
+	const fetchPlayerTeam = async (player: String) => {
+    const response = await fetch("/api/player-stats/team/" + player);
     const body = await response.json();
 
     if (response.status !== 200) {
@@ -243,36 +283,36 @@ export default function PlayerStats({location}: any) {
 				</Button>
 			</Link>
 			<Card sx={{ maxWidth: 900, display: "flex", flexDirection: "row", m: "auto" }}>
-				<Box sx={{ maxWidth: 210, background: colors.primary, flex: 1 }}>
+				<Box sx={{ maxWidth: 210, background: team.colors.primary, flex: 1 }}>
 					<CardContent sx={{ padding: "1!important" }}>
 						<PersonIcon sx={{ fontSize: "11rem!important" }} />
 						<Typography variant="body1">
-							{ teamname }
+							{ team.name }
 						</Typography>
-						<Divider sx={{ background: colors.tertiary, opacity: 0.2, marginTop: 1, marginBottom: 1 }} />
+						<Divider sx={{ background: team.colors.tertiary, opacity: 0.2, marginTop: 1, marginBottom: 1 }} />
 						{role.match("tank") && <ShieldIcon
 							fontSize="medium"
-							sx={{ display: "inline", float: "left", color: colors.secondary }}
+							sx={{ display: "inline", float: "left", color: team.colors.secondary }}
 							/>}
 						{role.match("dps") && <SportsMmaIcon
 							fontSize="medium"
-							sx={{ display: "inline", float: "left", color: colors.secondary }}
+							sx={{ display: "inline", float: "left", color: team.colors.secondary }}
 							/>}
 						{role.match("support") && <LocalHospitalIcon
 							fontSize="medium"
-							sx={{ display: "inline", float: "left", color: colors.secondary }}
+							sx={{ display: "inline", float: "left", color: team.colors.secondary }}
 							/>}
 						<Typography variant="subtitle1" color="text.secondary" sx={{ display: "inline", paddingLeft: 1 }} >
 							{ player }
 						</Typography>
 					</CardContent>
 				</Box>
-				<Box sx={{ background: colors.primary+"99", flex: 1, textAlign: "center" }}>
+				<Box sx={{ background: team.colors.primary+"99", flex: 1, textAlign: "center" }}>
 					<CardContent>
 						<Typography variant="h6">
 							Averages Per 10 Minutes
 						</Typography>
-						<Divider sx={{ background: colors.tertiary, opacity: 0.2, marginTop: 2, marginBottom: 7 }} />
+						<Divider sx={{ background: team.colors.tertiary, opacity: 0.2, marginTop: 2, marginBottom: 7 }} />
 						{role.match("tank") && displayPlayerAverages(['Eliminations', 'Hero Damage Done', 'Deaths'])}
 						{role.match("dps") && displayPlayerAverages(['Final Blows', 'Eliminations', 'Hero Damage Done'])}
 						{role.match("support") && displayPlayerAverages(['Healing Done', 'Assists', 'Deaths'])}
@@ -314,7 +354,7 @@ export default function PlayerStats({location}: any) {
 										sortedMatches.map((match, i) => {
 											const matchStats = match[1] as MatchStats;
 											return ((currentStage === "All Matches" || matchStats.stage === currentStage) &&
-												<Row key={i} stats={matchStats} colors={colors} />
+												<Row key={i} stats={matchStats} colors={team.colors} />
 											);
 										})
 									}

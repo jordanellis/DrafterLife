@@ -25,7 +25,7 @@ const App = ({ history = defaultHistory }) => {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/league/" component={LeagueViewHome} />
-            <Route exact path="/league/:teamOwner" component={LeagueTeamView} />
+            <Route exact path="/league/:ownerName" component={LeagueTeamView} />
             <Route exact path="/player-stats/:player" component={PlayerStats} />
             <Route exact path="/teams/" component={Teams} />
           </Switch>

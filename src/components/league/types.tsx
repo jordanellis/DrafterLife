@@ -12,6 +12,7 @@ export type Team = {
     flex: string[];
     bench: string[];
   }
+  quote: string;
 }
 
 export type ScheduledMatches = {

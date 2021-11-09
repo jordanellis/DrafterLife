@@ -38,11 +38,6 @@ const HomePage = () => {
 					</tr>
 					<tr>
 						<td>
-							- gitignore large stat files
-						</td>
-					</tr>
-					<tr>
-						<td>
 							- Style for mobile
 						</td>
 					</tr>

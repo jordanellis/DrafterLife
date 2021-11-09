@@ -12,7 +12,8 @@
         "SUPPORTS": ["SHU", "CRIMZO"],
         "FLEX": ["GANGNAMJIN"],
         "BENCH": ["SHY", "VESTOLA", "GARGOYLE", "LASTRO", "PELICAN", "DECAY"]
-      }
+      },
+      "quote": "When I was in prison, I was wrapped up in all those deep books. That Tolstoy crap - people shouldn't read that stuff."
     },
     {
       "owner": "KELLEN",
@@ -26,7 +27,8 @@
         "SUPPORTS": ["JJONAK", "BEBE"],
         "FLEX": ["JECSE"],
         "BENCH": ["TOYOU", "ARCHITECT", "PIGGY", "CLOSER", "FDGOD", "DANTEH"]
-      }
+      },
+      "quote": "Everyone has a plan 'till they get punched in the mouth."
     },
     {
       "owner": "SAM",
@@ -40,7 +42,8 @@
         "SUPPORTS": ["KAAN", "VIOL2T"],
         "FLEX": ["NAGA"],
         "BENCH": ["LATEYOUNG", "SHAX", "NERO", "ONIGOD", "MUZE", "KARIV"]
-      }
+      },
+      "quote": "I'm a dreamer. I have to dream and reach for the stars, and if I miss a star then I grab a handful of clouds."
     },
     {
       "owner": "ZACK",
@@ -54,7 +57,8 @@
         "SUPPORTS": ["ALARM", "FIELDER"],
         "FLEX": ["IZAYAKI"],
         "BENCH": ["KALIOS", "MCD", "BIRDRING", "NA1ST", "SPACE", "HAPPY"]
-      }
+      },
+      "quote": "I could feel his muscle tissues collapse under my force. It's ludicrous these mortals even attempt to enter my realm."
     }
   ]
 }

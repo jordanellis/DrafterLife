@@ -18,4 +18,12 @@ api.get('/teams', function(req, res) {
   res.send({data: leagueData["teams"]});
 });
 
+api.get('/team/:owner', function(req, res) {
+  const teams = leagueData["teams"];
+  var result = teams.find(team => {
+    return team.owner === req.params.owner
+  })
+  res.send({team: result});
+});
+
 module.exports = api;
