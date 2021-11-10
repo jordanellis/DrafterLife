@@ -69,7 +69,7 @@ const LeagueViewHome = () => {
   return (
     <Container maxWidth={false}>
       <Link style={{ textDecoration: "none" }} to="/">
-				<Button variant="text" color="secondary" sx={{ display: "inline-block", float: "left", paddingTop: "1.5rem" }}>
+				<Button variant="text" color="secondary" sx={{ display: "inline-block", float: "left", marginTop: "1.2rem" }}>
 					{"< Home"}
 				</Button>
 			</Link>

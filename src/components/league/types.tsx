@@ -1,6 +1,7 @@
 export type Team = {
   matches: Array<string[]>;
   owner: string;
+  ownerName: string;
   name: string;
   wins: number;
   losses: number;
@@ -12,6 +13,7 @@ export type Team = {
     flex: string[];
     bench: string[];
   }
+  bio: string;
   quote: string;
 }
 
