@@ -6,15 +6,17 @@ export type Team = {
   wins: number;
   losses: number;
   totalPoints: number;
-  players: {
-    tanks: string[];
-    dps: string[];
-    supports: string[];
-    flex: string[];
-    bench: string[];
-  }
+  players: Players;
   bio: string;
   quote: string;
+}
+
+export type Players = {
+  tanks: string[];
+  dps: string[];
+  supports: string[];
+  flex: string[];
+  bench: string[];
 }
 
 export type ScheduledMatches = {

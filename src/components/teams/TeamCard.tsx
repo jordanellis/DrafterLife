@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { 
   Card, 
   CardActionArea, 
@@ -32,11 +32,11 @@ type TeamCardProps = {
 }
 
 export default function TeamCard({logo, name, players, colors}: TeamCardProps) {
-	const history = useHistory();
+	const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
 
-  const navigateToPlayerStats = (playerName: string, role: string) => {
-    history.push("/player-stats/" + playerName, {teamname: name, logo, colors, role})
+  const navigateToPlayerStats = (playerName: string) => {
+    navigate("/player-stats/" + playerName)
   }
 
   return (
@@ -61,17 +61,17 @@ export default function TeamCard({logo, name, players, colors}: TeamCardProps) {
         <Divider sx={{ background: colors.tertiary, opacity: 0.2 }} />
         <CardContent sx={{ fontSize: "1.2rem" }}>
           {players.tanks.map((tank, key) => (
-            <ListItem onClick={() => navigateToPlayerStats(tank, "tank")} button key={key}>
+            <ListItem onClick={() => navigateToPlayerStats(tank)} button key={key}>
               <ShieldIcon sx={{ color: colors.secondary }} />&nbsp;{ tank }
             </ListItem>
           ))}
           {players.dps.map((dpsPlayer, key) => (
-            <ListItem onClick={() => navigateToPlayerStats(dpsPlayer, "dps")} button key={key}>
+            <ListItem onClick={() => navigateToPlayerStats(dpsPlayer)} button key={key}>
               <SportsMmaIcon sx={{ color: colors.secondary }} />&nbsp;{ dpsPlayer }
             </ListItem>
           ))}
           {players.supports.map((support, key) => (
-            <ListItem onClick={() => navigateToPlayerStats(support, "support")} button key={key}>
+            <ListItem onClick={() => navigateToPlayerStats(support)} button key={key}>
               <LocalHospitalIcon sx={{ color: colors.secondary }} />&nbsp;{ support }
             </ListItem>
           ))}

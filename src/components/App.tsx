@@ -1,6 +1,5 @@
 import React from "react";
-import { createBrowserHistory } from "history";
-import { Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
   Box,
   CssBaseline
@@ -13,24 +12,22 @@ import PlayerStats from "./players/PlayerStats";
 import Teams from "./teams/Teams";
 import Header from "./Header";
 
-const defaultHistory = createBrowserHistory({ basename: "/" });
-
-const App = ({ history = defaultHistory }) => {
+const App = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <CssBaseline />
-      <Router history={history}>
+      <BrowserRouter>
         <Header />
         <Box sx={{ margin: "0 auto" }}>
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/league/" component={LeagueViewHome} />
-            <Route exact path="/league/:ownerName" component={LeagueTeamView} />
-            <Route exact path="/player-stats/:player" component={PlayerStats} />
-            <Route exact path="/teams/" component={Teams} />
-          </Switch>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/league/" element={<LeagueViewHome />} />
+            <Route path="/league/:ownerName" element={<LeagueTeamView />} />
+            <Route path="/player-stats/:player" element={<PlayerStats />} />
+            <Route path="/teams/" element={<Teams />} />
+          </Routes>
         </Box>
-      </Router>
+      </BrowserRouter>
     </Box>
   );
 }

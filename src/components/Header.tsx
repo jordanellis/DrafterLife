@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { 
   AppBar, 
   Box, 
@@ -18,7 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useEffect } from "react";
 
 const Header = () => {
-	const history = useHistory();
+  let navigate = useNavigate();
 	
   const [showDrawer, setShowDrawer] = useState(false);
   const [version, setVersion] = useState("");
@@ -73,7 +73,7 @@ const Header = () => {
 						</List>
 					</Box>
 				</Drawer>
-				<Typography variant="h6" sx={{ flexGrow: 1, cursor: "pointer" }} onClick={() => history.push("/")}>
+				<Typography variant="h6" sx={{ flexGrow: 1, cursor: "pointer" }} onClick={() => navigate("/")}>
 					DrafterLife
 				</Typography>
 				<Typography variant="subtitle1" sx={{ flexGrow: 1 }}>

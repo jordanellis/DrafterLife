@@ -28,4 +28,13 @@ api.get('/team/:player', function(req, res) {
   res.send({data: {team, role}});
 });
 
+api.post('/', (req, res) => {
+    const stats = {};
+  req.body.players.forEach(player => {
+    stats[player] = playerData[player];
+  });
+  console.log(stats)
+  res.send({data: stats});
+})
+
 module.exports = api;

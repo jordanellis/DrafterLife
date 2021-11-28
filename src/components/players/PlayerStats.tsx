@@ -1,12 +1,13 @@
 import { Alert, Box, Button, Card, CardContent, Collapse, Container, Divider, IconButton, MenuItem, Paper, Skeleton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import PersonIcon from "@mui/icons-material/Person";
 import ShieldIcon from '@mui/icons-material/Shield';
 import SportsMmaIcon from '@mui/icons-material/SportsMma';
+import { MatchStats, PlayerStatistics } from "../types";
 
 type TeamResp = {
 	team: OWLTeam;
@@ -28,42 +29,12 @@ type OWLTeam = {
 	}
 }
 
-type PlayerStatistics = {
-	matches: Match;
-	totals: Stats;
-}
-
-type Match = {
-	[matchID: string]: MatchStats;
-}
-
-type MatchStats = {
-	week:			number;
-	stage:		string;
-	date:			Date;
-	maps:			Maps;
-	totals: 	any;
-	averages: any;
-}
-
-type Maps = {
-	[U: string]: Stats;
-}
-
-type Stats = {
-	[U: string]: any;
-}
-
 type Week = {
 	week: number;
 	stage: string;
 	start: Date;
 	stop: Date;
 }
-
-type PlayerStatsParams = {
-	player: string;
-};
 
 const ALL_HEROES = "All Heroes";
 const MATCH_TOTALS = "totals";
@@ -158,7 +129,13 @@ function Row({ stats, colors }: { stats: MatchStats, colors: any }) {
 }
 
 export default function PlayerStats() {
-	const { player } = useParams<PlayerStatsParams>();
+	let navigate = useNavigate();
+	
+	const goToPreviousPath = () => {
+			navigate(-1)
+	}
+
+	const { player } = useParams();
 
 	const [loading, setLoading] = useState(true);
 	const [playerStats, setPlayerStats] = useState<PlayerStatistics>();
@@ -169,13 +146,12 @@ export default function PlayerStats() {
 	const [sortedMatches, setSortedMatches] = useState<(string | MatchStats)[][]>([]);
 	
 	useEffect(() => {
-		Promise.all([
+		player && Promise.all([
 			fetchPlayerStats(player),
 			fetchPlayerTeam(player),
 			fetchWeeks()
 		]).then(([stats, { team, role }, weeks]: [PlayerStatistics, TeamResp, Week[]]) => {
 			if (stats && stats !== undefined) {
-				console.log(team)
 				setRole(role);
 				setTeam(team);
 				const stagesArray: string[] = [];
@@ -277,11 +253,9 @@ export default function PlayerStats() {
 	
   return (
 		<div>
-			<Link style={{ textDecoration: "none" }} to="/teams/">
-				<Button variant="text" color="secondary">
-					{"< Teams"}
-				</Button>
-			</Link>
+			<Button variant="text" color="secondary" onClick={goToPreviousPath}>
+				{"< Back"}
+			</Button>
 			<Card sx={{ maxWidth: 900, display: "flex", flexDirection: "row", m: "auto" }}>
 				<Box sx={{ maxWidth: 210, background: team.colors.primary, flex: 1 }}>
 					<CardContent sx={{ padding: "1!important" }}>

@@ -2,17 +2,17 @@ import * as React from 'react';
 import { Container, List, ListItemButton, ListItemText, ListSubheader, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { Team } from './types';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 type LeagueStandingsProps = {
   teams: Team[];
 }
 
 const LeagueStandingsSidebar = ({teams}: LeagueStandingsProps) => {
-	const history = useHistory();
+	const navigate = useNavigate();
 
   const navigateToTeamPage = (team: Team) => {
-    history.push("/league/" + team.owner, {team});
+    navigate("/league/" + team.owner);
   }
 
   useEffect(() => {
