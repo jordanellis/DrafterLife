@@ -14,6 +14,7 @@ export type MatchStats = {
 	maps:			Maps;
 	totals: 	any;
 	averages: any;
+	score: 		number;
 }
 
 export type Maps = {

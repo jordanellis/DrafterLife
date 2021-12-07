@@ -84,9 +84,10 @@ function Row({ stats, colors }: { stats: MatchStats, colors: any }) {
 				{rows.map((row, index) => (
 					row.header && <TableCell key={index} align="right">{stats[MATCH_TOTALS][row.key]}</TableCell>
 				))}
+				<TableCell align="right">{stats["score"].toFixed(2)}</TableCell>
 			</TableRow>
 			<TableRow sx={{ bgcolor: colors.primary+"80" }}>
-				<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
+				<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
 					<Collapse in={open} timeout="auto" unmountOnExit>
 						<Box sx={{ margin: 1 }}>
 							<Typography variant="h6" gutterBottom component="div">
@@ -163,7 +164,6 @@ export default function PlayerStats() {
 				});
 				setStages(stagesArray);
 				setCurrentStage(stagesArray[0]);
-				mapMatchIDsToWeeks(stats, weeks);
 				setPlayerStats(stats);
 				var sortable = [];
 				for (var match in stats.matches) {
@@ -214,20 +214,6 @@ export default function PlayerStats() {
       throw Error(body.message);
     }
     return body.data;
-	}
-
-	const mapMatchIDsToWeeks = (stats: PlayerStatistics, weeks: Week[]) => {
-		for (const [key, value] of Object.entries(stats.matches)) {
-			weeks.forEach(week => {
-				const date = new Date(value.date).getTime();
-				const weekStart = new Date(week.start).getTime();
-				const weekStop = new Date(week.stop).getTime();
-				if (weekStart < date && date < weekStop) {
-					stats.matches[key].week = week.week;
-					stats.matches[key].stage = week.stage;
-				}
-			})
-		}
 	}
 
   const stageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -321,6 +307,7 @@ export default function PlayerStats() {
 										{rows.map((row, index) => (
 											row.header && <TableCell key={index} align="right">{row.label}</TableCell>
 										))}
+										<TableCell align="right">{"Score"}</TableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody>
