@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import LeagueHeader from "./LeagueHeader";
 import LeagueStandingsSidebar from "./LeagueStandingsSidebar";
-import { ScheduledMatches, Team } from "./types";
+import { ScheduledMatches, LeagueTeam } from "./types";
 
 type CurrentWeekResp = {
   weekNumber: number;
@@ -14,13 +14,13 @@ type ScheduleResp = {
 }
 
 type TeamsResp = {
-  data: Team[];
+  data: LeagueTeam[];
 }
 
 const LeagueViewHome = () => {
   const [currentWeek, setCurrentWeek] = useState(0);
   const [schedule, setSchedule] = useState<ScheduledMatches[]>();
-  const [teams, setTeams] = useState<Team[]>();
+  const [teams, setTeams] = useState<LeagueTeam[]>();
 
 	useEffect(() => {
     Promise.all([
@@ -87,9 +87,11 @@ const LeagueViewHome = () => {
         <Typography variant="h6">
           View my team
         </Typography>
-        <Typography variant="h6">
-          Free Agents
-        </Typography>
+        <Link style={{ textDecoration: "none" }} to="/league/free-agency">
+          <Button variant="outlined" color="secondary">
+            {"Free Agents"}
+          </Button>
+        </Link>
       </Container>
     </Container>
   );

@@ -4,6 +4,10 @@ var teams = require("../data/teams.json");
 
 var api = express.Router();
 
+api.get('/', function(req, res) {
+  res.send({data: playerData});
+});
+
 api.get('/:player', function(req, res) {
   res.send({data: playerData[req.params.player]});
 });

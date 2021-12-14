@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { Container, List, ListItemButton, ListItemText, ListSubheader, Typography } from '@mui/material';
 import { useEffect } from 'react';
-import { Team } from './types';
+import { LeagueTeam } from './types';
 import { useNavigate } from 'react-router-dom';
 
 type LeagueStandingsProps = {
-  teams: Team[];
+  teams: LeagueTeam[];
 }
 
 const LeagueStandingsSidebar = ({teams}: LeagueStandingsProps) => {
 	const navigate = useNavigate();
 
-  const navigateToTeamPage = (team: Team) => {
+  const navigateToTeamPage = (team: LeagueTeam) => {
     navigate("/league/" + team.owner);
   }
 
@@ -19,7 +19,7 @@ const LeagueStandingsSidebar = ({teams}: LeagueStandingsProps) => {
     teams.sort(compare)
   });
 
-  function compare( a: Team, b: Team ) {
+  function compare( a: LeagueTeam, b: LeagueTeam ) {
     if (a.wins < b.wins){
       return 1;
     }

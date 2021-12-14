@@ -7,6 +7,7 @@ import {
 
 import HomePage from "./HomePage";
 import LeagueViewHome from "./league/LeagueViewHome";
+import FreeAgencyView from "./league/FreeAgencyView";
 import LeagueTeamView from "./league/LeagueTeamView";
 import PlayerStats from "./players/PlayerStats";
 import Teams from "./teams/Teams";
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/league/" element={<LeagueViewHome />} />
             <Route path="/league/:ownerName" element={<LeagueTeamView />} />
+            <Route path="/league/free-agency" element={<FreeAgencyView />} />
             <Route path="/player-stats/:player" element={<PlayerStats />} />
             <Route path="/teams/" element={<Teams />} />
           </Routes>

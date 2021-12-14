@@ -7,11 +7,11 @@ import {
   Stack, 
   Typography, 
 } from '@mui/material';
-import { ScheduledMatches, Team } from "./types";
+import { ScheduledMatches, LeagueTeam } from "./types";
 
 type LeagueHeaderProps = {
   schedule: ScheduledMatches;
-  teams: Team[];
+  teams: LeagueTeam[];
   weekNumber: number;
 }
 

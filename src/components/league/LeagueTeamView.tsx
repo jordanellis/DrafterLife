@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { 
-  AppBar, Container, List, ListItemButton, ListSubheader, Paper, Skeleton, Typography, 
+  AppBar, Button, Container, List, ListItemButton, ListSubheader, Paper, Skeleton, Typography, 
 } from '@mui/material';
-import { Players, Team } from "./types";
+import { Players, LeagueTeam } from "./types";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box } from "@mui/system";
 import AutorenewIcon from '@mui/icons-material/Autorenew';
@@ -13,7 +13,7 @@ import SportsMmaIcon from '@mui/icons-material/SportsMma';
 import { PlayerStatistics } from "../types";
 
 type TeamsResp = {
-  team: Team;
+  team: LeagueTeam;
 }
 
 type RosterStatsResp = {
@@ -23,7 +23,7 @@ type RosterStatsResp = {
 const TeamView = () => {
   const navigate = useNavigate();
 	const { ownerName } = useParams();
-  const [team, setTeam] = useState<Team>();
+  const [team, setTeam] = useState<LeagueTeam>();
   const [rosterStats, setRosterStats] = useState<RosterStatsResp>();
 
 	useEffect(() => {
@@ -129,6 +129,9 @@ const TeamView = () => {
             </Typography>
           </Box>
         </AppBar>
+        <Button variant="text" color="secondary" onClick={() => navigate(-1)}>
+          {"< Back"}
+        </Button>
         <Container maxWidth="md" sx={{ marginTop: "1rem" }}>
           <Paper elevation={3}>
             <List

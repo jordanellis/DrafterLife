@@ -1,4 +1,4 @@
-export type Team = {
+export type LeagueTeam = {
   matches: Array<string[]>;
   owner: string;
   ownerName: string;

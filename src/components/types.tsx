@@ -24,3 +24,21 @@ export type Maps = {
 export type Stats = {
 	[statName: string]: any;
 }
+
+export type Team = {
+	id: number;
+	name: string;
+	division: string;
+	abbr: string;
+	players: {
+    tanks: Array<string>,
+    dps: Array<string>,
+    supports: Array<string>
+  };
+	logo: string;
+	colors: {
+		primary: string,
+		secondary: string,
+		tertiary: string
+	};
+}

@@ -6,24 +6,7 @@ import { useEffect } from "react";
 
 import TeamCard from './TeamCard';
 import { Box, Skeleton } from '@mui/material';
-
-type Team = {
-	id: number;
-	name: string;
-	division: string;
-	abbr: string;
-	players: {
-    tanks: Array<string>,
-    dps: Array<string>,
-    supports: Array<string>
-  };
-	logo: string;
-	colors: {
-		primary: string,
-		secondary: string,
-		tertiary: string
-	};
-}
+import { Team } from '../types';
 
 export default function Teams() {
 	const [loading, setLoading] = useState(true);
