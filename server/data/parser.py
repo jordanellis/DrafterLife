@@ -167,5 +167,29 @@ for player, player_items in player_data.items():
     "Time Played": time_played_player_totals
   }
 
+for player, player_items in player_data.items():
+  games = player_items['matches']
+  weekly_player_scores = {
+    1:  [], 2:  [], 3:  [], 4:  [], 5:  [], 6:  [], 7:  [], 8:  [],
+    9:  [], 10: [], 11: [], 12: [], 13: [], 14: [], 15: [], 16: [],
+    17: [], 18: [], 19: [], 20: [], 21: [], 22: [], 23: [], 24: []
+  }
+  # weekly_player_scores will be average of all week match scores
+  for game, game_items in games.items():
+    # exclude any matches not from tournament qualifiers
+    if "Qualifiers" in game_items['stage']:
+      week = game_items['week']
+      curr_week_score = weekly_player_scores.get(week, [])
+      curr_week_score.append(game_items['score'])
+      weekly_player_scores.update({week: curr_week_score})
+  
+  for week in weekly_player_scores:
+    week_score = weekly_player_scores.get(week, [])
+    if len(week_score) > 0:
+      weekly_player_scores.update({week: sum(week_score) / len(week_score)})
+    else:
+      weekly_player_scores.update({week: 0})
+  player_data[player]["weekly_player_scores"] = weekly_player_scores
+
 with open('player_stats.json', 'w') as fp:
   json.dump(player_data, fp)

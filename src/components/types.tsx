@@ -1,6 +1,11 @@
 export type PlayerStatistics = {
 	matches: Match;
 	totals: Stats;
+	weekly_player_scores: WeeklyPlayerScores;
+}
+
+export type WeeklyPlayerScores = {
+	[week: number]: number;
 }
 
 export type Match = {

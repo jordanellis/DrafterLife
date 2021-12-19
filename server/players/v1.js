@@ -33,11 +33,10 @@ api.get('/team/:player', function(req, res) {
 });
 
 api.post('/', (req, res) => {
-    const stats = {};
+  const stats = {};
   req.body.players.forEach(player => {
     stats[player] = playerData[player];
   });
-  console.log(stats)
   res.send({data: stats});
 })
 
