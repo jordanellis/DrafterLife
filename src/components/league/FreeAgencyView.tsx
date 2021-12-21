@@ -1,4 +1,4 @@
-import { Button, Container, Typography } from "@mui/material";
+import { Button, Checkbox, Container, FormControl, FormControlLabel, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +21,7 @@ type FormattedPlayerData = {
   }
   previousScore: number;
   averageScore: number;
+  totalScore: number;
   isAvailable: boolean;
 }
 
@@ -31,6 +32,9 @@ type PlayerData = {
 const FreeAgencyView = () => {
   const navigate = useNavigate();
   const [playerData, setPlayerData] = useState<FormattedPlayerData[]>();
+  const [roleFilter, setRoleFilter] = useState("tank/support/dps");
+  const [showFreeAgentsOnly, setShowFreeAgentsOnly] = useState(true);
+  const [sortByValue, setSortByValue] = useState("totalScore");
 
   const setTeamAndRole = (player: FormattedPlayerData, teams: Team[]) => {
     teams.forEach(team => {
@@ -50,6 +54,9 @@ const FreeAgencyView = () => {
         return;
       }
     });
+    if (!player.team) {
+      player.team = "Free Agent";
+    }
   }
 
   const setPreviousScore = (weekly_player_scores: WeeklyPlayerScores, currentWeek: number, player: FormattedPlayerData) => {
@@ -76,7 +83,11 @@ const FreeAgencyView = () => {
       numScores++;
       sum += score;
     }
-    player.averageScore = sum/numScores;
+    if (sum === 0) {
+      player.averageScore = 0;
+    } else {
+      player.averageScore = sum/numScores;
+    }
   }
 
 	useEffect(() => {
@@ -104,8 +115,8 @@ const FreeAgencyView = () => {
           }
           setPreviousScore(playerData.weekly_player_scores, currWeek, formattedPlayer);
           setAverageScore(playerData.weekly_player_scores, currWeek, formattedPlayer);
-          formattedPlayer.isAvailable = true;
-          playerName === "DOHA" && console.log(formattedPlayer);
+          formattedPlayer.totalScore = playerData.total_player_score;
+          formattedPlayer.isAvailable = playerName !== "DOHA";
           formattedPlayerData.push(formattedPlayer);
         }
         setPlayerData(formattedPlayerData);
@@ -142,9 +153,29 @@ const FreeAgencyView = () => {
     }
     return body.data;
   };
+  
+  const handleSortByChange = (event: SelectChangeEvent) => {
+    setSortByValue(event.target.value as string);
+  };
 
-  // Fetch All players, fetch all league teams' players
-  // add to players object whether or not they're on a team
+  const tabChange = (event: React.ChangeEvent<{}>, newValue: string) => {
+    setRoleFilter(newValue);
+  };
+
+  const checkboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setShowFreeAgentsOnly(event.target.checked);
+  };
+
+  const compare = (a: FormattedPlayerData, b: FormattedPlayerData) => {
+    const property = sortByValue === "averageScore" ? "averageScore" : "totalScore";
+    if ( a[property] < b[property] ){
+      return 1;
+    }
+    if ( a[property] > b[property] ){
+      return -1;
+    }
+    return 0;
+  }
 
   return (
     <Container maxWidth={false}>
@@ -152,12 +183,77 @@ const FreeAgencyView = () => {
 				{"< Back"}
 			</Button>
       <Box>Checkbox to view all players, not just FAs</Box>
-      <Box>Slider toggle to view players by role (tank, dps, support)</Box>
-      <Box>List of FAs/players</Box>
+      <Box>Change role text to icon</Box>
       <Typography variant="h2" align="center">Players</Typography>
-      {playerData && playerData.map((player, index) => (
-        <Typography key={index}>{player.name}</Typography>
-      ))}
+      <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", padding: ".5rem 0" }}>
+        <FormControlLabel
+          label="Free Agents Only"
+          control={
+            <Checkbox
+              color="secondary"
+              checked={showFreeAgentsOnly}
+              onChange={checkboxChange}
+            />
+          }
+          sx={{ maxWidth: "15rem" }}
+        />
+				<Paper sx={{ marginLeft: "4rem", flexGrow: 1, maxWidth: "28rem" }}>
+					<Tabs
+						value={roleFilter}
+						onChange={tabChange}
+						indicatorColor="secondary"
+						textColor="secondary"
+						centered
+					>
+						<Tab label="All Roles" value="tank/support/dps" />
+						<Tab label="Tank" value="tank" />
+						<Tab label="DPS" value="dps" />
+						<Tab label="Support" value="support" />
+					</Tabs>
+				</Paper>
+        <FormControl sx={{ flexGrow: 1, maxWidth: "15rem" }}>
+          <InputLabel color="secondary">Sort By</InputLabel>
+          <Select
+            color="secondary"
+            label="Sort By"
+            value={sortByValue}
+            onChange={handleSortByChange}
+          >
+            <MenuItem value={"averageScore"}>Average Points</MenuItem>
+            <MenuItem value={"totalScore"}>Total Points</MenuItem>
+          </Select>
+        </FormControl>
+			</Box>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Role</TableCell>
+              <TableCell>Team</TableCell>
+              <TableCell align="right">Average Points</TableCell>
+              <TableCell align="right">Total Points</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {playerData && playerData.filter(player => roleFilter.includes(player.role) && (player.isAvailable || !showFreeAgentsOnly))
+              .sort(compare).map((player) => (
+              <TableRow
+                key={player.name}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 }, paddingBottom: "1 rem" }}
+              >
+                <TableCell component="th" scope="row">
+                  {player.name}
+                </TableCell>
+                <TableCell>{player.role ? player.role : "--"}</TableCell>
+                <TableCell>{player.team}</TableCell>
+                <TableCell align="right">{player.averageScore.toFixed(2)}</TableCell>
+                <TableCell align="right">{player.totalScore.toFixed(2)}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Container>
   );
 }

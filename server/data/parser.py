@@ -183,12 +183,15 @@ for player, player_items in player_data.items():
       curr_week_score.append(game_items['score'])
       weekly_player_scores.update({week: curr_week_score})
   
+  total_player_score = 0
   for week in weekly_player_scores:
     week_score = weekly_player_scores.get(week, [])
     if len(week_score) > 0:
       weekly_player_scores.update({week: sum(week_score) / len(week_score)})
+      total_player_score = total_player_score + sum(week_score)
     else:
       weekly_player_scores.update({week: 0})
+  player_data[player]["total_player_score"] = total_player_score
   player_data[player]["weekly_player_scores"] = weekly_player_scores
 
 with open('player_stats.json', 'w') as fp:

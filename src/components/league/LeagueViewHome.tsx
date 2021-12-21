@@ -5,10 +5,6 @@ import LeagueHeader from "./LeagueHeader";
 import LeagueStandingsSidebar from "./LeagueStandingsSidebar";
 import { ScheduledMatches, LeagueTeam } from "./types";
 
-type CurrentWeekResp = {
-  weekNumber: number;
-}
-
 type ScheduleResp = {
   data: ScheduledMatches[];
 }
@@ -28,10 +24,10 @@ const LeagueViewHome = () => {
 			fetchSchedule(),
 			fetchTeams()
 		])
-			.then(([currWeek, schedule, teams]: [CurrentWeekResp, ScheduleResp, TeamsResp]) => {
+			.then(([currWeek, schedule, teams]: [number, ScheduleResp, TeamsResp]) => {
         setTeams(teams.data);
         setSchedule(schedule.data);
-        setCurrentWeek(currWeek.weekNumber);
+        setCurrentWeek(currWeek);
       })
 			.catch(err => console.log(err))
 	}, []);
@@ -43,7 +39,7 @@ const LeagueViewHome = () => {
     if (response.status !== 200) {
       throw Error(body.message) 
     }
-    return body;
+    return body.weekNumber;
   };
 
 	const fetchTeams = async () => {

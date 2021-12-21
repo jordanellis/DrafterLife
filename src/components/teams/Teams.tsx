@@ -11,6 +11,7 @@ import { Team } from '../types';
 export default function Teams() {
 	const [loading, setLoading] = useState(true);
 	const [teams, setTeams] = useState<Team[]>([]);
+  const [tab, setTab] = React.useState("east/west");
 
 	const fetchTeams = async () => {
     const response = await fetch('/api/teams');
@@ -30,8 +31,6 @@ export default function Teams() {
 				})
 			.catch(err => console.log(err))
 	}, []);
-
-  const [tab, setTab] = React.useState("east/west");
 
   const tabChange = (event: React.ChangeEvent<{}>, newValue: string) => {
     setTab(newValue);
