@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PlayerStatistics, WeeklyPlayerScores } from "../types";
 import { Team } from "../types";
+import { LeagueTeam } from "./types";
 
 type FormattedPlayerData = {
   name: string;
@@ -90,13 +91,36 @@ const FreeAgencyView = () => {
     }
   }
 
+  const isPlayerFreeAgent = (name: string, leagueTeams: LeagueTeam[]) => {
+    let isPlayerFA = true;
+    leagueTeams.forEach(team => {
+      if (team.players.tanks.includes(name)) {
+        isPlayerFA = false;
+      }
+      if (team.players.dps.includes(name)) {
+        isPlayerFA = false;
+      }
+      if (team.players.supports.includes(name)) {
+        isPlayerFA = false;
+      }
+      if (team.players.flex.includes(name)) {
+        isPlayerFA = false;
+      }
+      if (team.players.bench.includes(name)) {
+        isPlayerFA = false;
+      }
+    });
+    return isPlayerFA;
+  }
+
 	useEffect(() => {
     Promise.all([
       fetchCurrentWeek(),
       fetchPlayers(),
-			fetchTeams()
+			fetchTeams(),
+      fetchLeagueTeams()
 		])
-      .then(([currWeek, players, teams]: [number, PlayerData, Team[]]) => {
+      .then(([currWeek, players, teams, leagueTeams]: [number, PlayerData, Team[], LeagueTeam[]]) => {
         const formattedPlayerData: FormattedPlayerData[] = [];
         for (let playerName of Object.keys(players)){
           const playerData = players[playerName];
@@ -116,7 +140,7 @@ const FreeAgencyView = () => {
           setPreviousScore(playerData.weekly_player_scores, currWeek, formattedPlayer);
           setAverageScore(playerData.weekly_player_scores, currWeek, formattedPlayer);
           formattedPlayer.totalScore = playerData.total_player_score;
-          formattedPlayer.isAvailable = playerName !== "DOHA";
+          formattedPlayer.isAvailable = isPlayerFreeAgent(playerName, leagueTeams);
           formattedPlayerData.push(formattedPlayer);
         }
         setPlayerData(formattedPlayerData);
@@ -153,6 +177,20 @@ const FreeAgencyView = () => {
     }
     return body.data;
   };
+
+	const fetchLeagueTeams = async () => {
+    const response = await fetch('/api/league/teams');
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message) 
+    }
+    return body.data;
+  };
+
+  const navigateToPlayerStats = (playerName: string) => {
+    navigate("/player-stats/" + playerName);
+  }
   
   const handleSortByChange = (event: SelectChangeEvent) => {
     setSortByValue(event.target.value as string);
@@ -182,10 +220,10 @@ const FreeAgencyView = () => {
       <Button variant="text" color="secondary" onClick={() => navigate(-1)}>
 				{"< Back"}
 			</Button>
-      <Box>Checkbox to view all players, not just FAs</Box>
+      <Box>Set whether or not they are FAs</Box>
       <Box>Change role text to icon</Box>
       <Typography variant="h2" align="center">Players</Typography>
-      <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", padding: ".5rem 0" }}>
+      <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", margin: ".5rem 0" }}>
         <FormControlLabel
           label="Free Agents Only"
           control={
@@ -197,7 +235,7 @@ const FreeAgencyView = () => {
           }
           sx={{ maxWidth: "15rem" }}
         />
-				<Paper sx={{ marginLeft: "4rem", flexGrow: 1, maxWidth: "28rem" }}>
+				<Paper sx={{ marginLeft: "4rem", flexGrow: 1, maxWidth: "28rem", maxHeight: "3.07rem" }}>
 					<Tabs
 						value={roleFilter}
 						onChange={tabChange}
@@ -224,9 +262,9 @@ const FreeAgencyView = () => {
           </Select>
         </FormControl>
 			</Box>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{ marginBottom: "1.5rem" }}>
         <Table sx={{ minWidth: 650 }} size="small">
-          <TableHead>
+          <TableHead sx={{ bgcolor: "#203547" }}>
             <TableRow>
               <TableCell>Name</TableCell>
               <TableCell>Role</TableCell>
@@ -236,11 +274,14 @@ const FreeAgencyView = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {playerData && playerData.filter(player => roleFilter.includes(player.role) && (player.isAvailable || !showFreeAgentsOnly))
+            {playerData && 
+              playerData.filter(player => roleFilter.includes(player.role) && (player.isAvailable || !showFreeAgentsOnly))
               .sort(compare).map((player) => (
               <TableRow
                 key={player.name}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 }, paddingBottom: "1 rem" }}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 }, paddingBottom: "1 rem", cursor: "pointer" }}
+                hover
+                onClick={() => navigateToPlayerStats(player.name)}
               >
                 <TableCell component="th" scope="row">
                   {player.name}

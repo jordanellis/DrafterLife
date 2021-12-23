@@ -4,7 +4,7 @@ var scheduleData = require("../data/schedule");
 
 var api = express.Router();
 
-const CURRENT_WEEK = 4;
+const CURRENT_WEEK = 24;
 
 api.get('/currentWeek', function(req, res) {
   res.send({weekNumber: CURRENT_WEEK});

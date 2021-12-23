@@ -110,7 +110,7 @@ for player, player_items in player_data.items():
 
     # calculate match totals
     for map_name, heros in maps.items():
-      # skip date object
+      # skip date/week/etc objects
       if not isinstance(heros, str):
         for hero_name, stats in heros.items():
           if hero_name == "All Heroes":
