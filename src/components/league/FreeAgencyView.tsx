@@ -1,5 +1,6 @@
-import { Button, Checkbox, Container, FormControl, FormControlLabel, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs, Typography } from "@mui/material";
+import { Button, Checkbox, Container, FormControl, FormControlLabel, IconButton, InputLabel, Link, MenuItem, Paper, Select, SelectChangeEvent, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PlayerStatistics, WeeklyPlayerScores } from "../types";
@@ -220,8 +221,7 @@ const FreeAgencyView = () => {
       <Button variant="text" color="secondary" onClick={() => navigate(-1)}>
 				{"< Back"}
 			</Button>
-      <Box>Set whether or not they are FAs</Box>
-      <Box>Change role text to icon</Box>
+      {/* <Box>Change role text to icon</Box> */}
       <Typography variant="h2" align="center">Players</Typography>
       <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", margin: ".5rem 0" }}>
         <FormControlLabel
@@ -266,6 +266,7 @@ const FreeAgencyView = () => {
         <Table sx={{ minWidth: 650 }} size="small">
           <TableHead sx={{ bgcolor: "#203547" }}>
             <TableRow>
+              <TableCell></TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Role</TableCell>
               <TableCell>Team</TableCell>
@@ -279,12 +280,25 @@ const FreeAgencyView = () => {
               .sort(compare).map((player) => (
               <TableRow
                 key={player.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 }, paddingBottom: "1 rem", cursor: "pointer" }}
-                hover
-                onClick={() => navigateToPlayerStats(player.name)}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 }, paddingBottom: "1 rem" }}
               >
+                {player.isAvailable ? 
+                <TableCell>
+                  <IconButton color="success" onClick={() => console.log(true)}>
+                    <AddBoxIcon fontSize="small"/>
+                  </IconButton>
+                </TableCell>
+                : 
+                <TableCell>
+                  <IconButton disabled color="success" onClick={() => {}}>
+                    <AddBoxIcon />
+                  </IconButton>
+                </TableCell>
+                }
                 <TableCell component="th" scope="row">
-                  {player.name}
+                  <Link color="secondary" underline="hover" onClick={() => navigateToPlayerStats(player.name)} sx={{ cursor: "pointer" }}>
+                    {player.name}
+                  </Link>
                 </TableCell>
                 <TableCell>{player.role ? player.role : "--"}</TableCell>
                 <TableCell>{player.team}</TableCell>
