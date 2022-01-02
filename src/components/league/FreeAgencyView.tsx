@@ -1,4 +1,4 @@
-import { Button, Checkbox, Container, FormControl, FormControlLabel, IconButton, InputLabel, Link, MenuItem, Paper, Select, SelectChangeEvent, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs, Typography } from "@mui/material";
+import { Button, Checkbox, Container, FormControl, FormControlLabel, IconButton, InputLabel, Link, MenuItem, Paper, Select, SelectChangeEvent, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs, Tooltip, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import React, { useEffect, useState } from "react";
@@ -284,15 +284,21 @@ const FreeAgencyView = () => {
                 key={player.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 }, paddingBottom: "1 rem" }}
               >
+                {player.isAvailable && sessionUser ? 
                 <TableCell>
-                  <IconButton
-                    disabled={(!sessionUser || sessionUser === "") || !player.isAvailable}
-                    color="success"
-                    onClick={() => {}}
-                  >
+                  <Tooltip title="Add Player">
+                    <IconButton color="success" onClick={() => console.log(true)}>
+                      <AddBoxIcon fontSize="small"/>
+                    </IconButton>
+                  </Tooltip>
+                </TableCell>
+                : 
+                <TableCell>
+                  <IconButton disabled>
                     <AddBoxIcon />
                   </IconButton>
                 </TableCell>
+                }
                 <TableCell component="th" scope="row">
                   <Link color="secondary" underline="hover" onClick={() => navigateToPlayerStats(player.name)} sx={{ cursor: "pointer" }}>
                     {player.name}
