@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { PlayerStatistics, WeeklyPlayerScores } from "../types";
 import { Team } from "../types";
 import { LeagueTeam } from "./types";
+import { useSessionUser } from "../../hooks/useSessionUser";
 
 type FormattedPlayerData = {
   name: string;
@@ -33,6 +34,7 @@ type PlayerData = {
 
 const FreeAgencyView = () => {
   const navigate = useNavigate();
+	const [sessionUser] = useSessionUser();
   const [playerData, setPlayerData] = useState<FormattedPlayerData[]>();
   const [roleFilter, setRoleFilter] = useState("tank/support/dps");
   const [showFreeAgentsOnly, setShowFreeAgentsOnly] = useState(true);
@@ -282,19 +284,15 @@ const FreeAgencyView = () => {
                 key={player.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 }, paddingBottom: "1 rem" }}
               >
-                {player.isAvailable ? 
                 <TableCell>
-                  <IconButton color="success" onClick={() => console.log(true)}>
-                    <AddBoxIcon fontSize="small"/>
-                  </IconButton>
-                </TableCell>
-                : 
-                <TableCell>
-                  <IconButton disabled color="success" onClick={() => {}}>
+                  <IconButton
+                    disabled={(!sessionUser || sessionUser === "") || !player.isAvailable}
+                    color="success"
+                    onClick={() => {}}
+                  >
                     <AddBoxIcon />
                   </IconButton>
                 </TableCell>
-                }
                 <TableCell component="th" scope="row">
                   <Link color="secondary" underline="hover" onClick={() => navigateToPlayerStats(player.name)} sx={{ cursor: "pointer" }}>
                     {player.name}

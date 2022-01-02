@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
-const key = "SESSION_USER"
+const KEY = "SESSION_USER"
 
 function getStorageValue() {
-  return localStorage.getItem(key) || "";
+  return localStorage.getItem(KEY) || "";
 }
 
 export const useSessionUser = () => {
@@ -12,7 +12,7 @@ export const useSessionUser = () => {
   });
 
   useEffect(() => {
-    localStorage.setItem(key, user);
+    localStorage.setItem(KEY, user);
   }, [user]);
 
   return [user, setUser] as const;

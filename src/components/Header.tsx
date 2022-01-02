@@ -50,6 +50,7 @@ const Header = () => {
 	const loginClicked = () => {
 		setSessionUser(username);
 		handleModalClose();
+		window.location.reload();
 	};
 
 	const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -124,7 +125,10 @@ const Header = () => {
 					<Typography variant="subtitle1" sx={{ marginRight: "1rem" }}>Welcome, {sessionUser}!</Typography>
 				}
 				{ sessionUser ? 
-					<Button color="inherit" onClick={() => {setSessionUser("")}}>Logout</Button>
+					<Button color="inherit" onClick={() => {
+						setSessionUser("");
+						window.location.reload();
+					}}>Logout</Button>
 				:
 					<Button color="inherit" onClick={handleModalOpen}>Login</Button>
 				}
@@ -165,13 +169,6 @@ const Header = () => {
 						</Box>
 					</Box>
 				</Modal>
-				{/*
-				- onClick brings up modal
-				- modal has name input (pw too?) and login button
-				- onSubmit checks if user is a real league team owner
-				- if using pw, it'll check to validate
-				- display any errors in the UI or close and login
-				*/}
 			</Toolbar>
 		</AppBar>
     );
