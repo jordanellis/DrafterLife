@@ -47,6 +47,12 @@ const Header = () => {
     return body;
   };
 
+	const keyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+		if (event.key === "Enter" && !loginDisabled){
+			loginClicked();
+		}
+ }
+
 	const loginClicked = () => {
 		setSessionUser(username);
 		handleModalClose();
@@ -155,6 +161,7 @@ const Header = () => {
 							fullWidth
 							color="secondary"
 							label="Username"
+							onKeyDown={keyPress}
 							onChange={handleUsernameChange}
 							onBlur={validateUsername}
 							error={isUserInvalid}

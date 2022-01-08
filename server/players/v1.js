@@ -38,6 +38,6 @@ api.post('/', (req, res) => {
     stats[player] = playerData[player];
   });
   res.send({data: stats});
-})
+});
 
 module.exports = api;

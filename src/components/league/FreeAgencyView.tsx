@@ -1,7 +1,7 @@
-import { Button, Checkbox, Container, FormControl, FormControlLabel, IconButton, InputLabel, Link, MenuItem, Paper, Select, SelectChangeEvent, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs, Tooltip, Typography } from "@mui/material";
+import { Alert, Button, Checkbox, CircularProgress, Container, FormControl, FormControlLabel, IconButton, InputLabel, Link, MenuItem, Modal, Paper, Radio, RadioGroup, Select, SelectChangeEvent, Snackbar, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs, Tooltip, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PlayerStatistics, WeeklyPlayerScores } from "../types";
 import { Team } from "../types";
@@ -34,9 +34,18 @@ type PlayerData = {
 
 const FreeAgencyView = () => {
   const navigate = useNavigate();
+
 	const [sessionUser] = useSessionUser();
+
+	const [isModalOpen, setModalOpen] = useState(false);
+  const [isModalProcessing, setModalProcessing] = useState(false);
+  const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false);
+  const [errorSnackbarOpen, setErrorSnackbarOpen] = useState(false);
   const [playerData, setPlayerData] = useState<FormattedPlayerData[]>();
+  const [playerToAdd, setPlayerToAdd] = useState("");
+  const [playerToDrop, setPlayerToDrop] = useState("");
   const [roleFilter, setRoleFilter] = useState("tank/support/dps");
+  const [sessionUsersTeam, setSessionUsersTeam] = useState<LeagueTeam>();
   const [showFreeAgentsOnly, setShowFreeAgentsOnly] = useState(true);
   const [sortByValue, setSortByValue] = useState("totalScore");
 
@@ -116,7 +125,7 @@ const FreeAgencyView = () => {
     return isPlayerFA;
   }
 
-	useEffect(() => {
+  const initData = useCallback(() => {
     Promise.all([
       fetchCurrentWeek(),
       fetchPlayers(),
@@ -144,12 +153,19 @@ const FreeAgencyView = () => {
           setAverageScore(playerData.weekly_player_scores, currWeek, formattedPlayer);
           formattedPlayer.totalScore = playerData.total_player_score;
           formattedPlayer.isAvailable = isPlayerFreeAgent(playerName, leagueTeams);
+          leagueTeams.forEach(team => {
+            if (team.owner === sessionUser) {
+              setSessionUsersTeam(team);
+            }
+          });
           formattedPlayerData.push(formattedPlayer);
         }
         setPlayerData(formattedPlayerData);
       })
 			.catch(err => console.log(err))
-	}, []);
+	}, [sessionUser]);
+
+	useEffect(() => initData(), [initData]);
 
   const fetchCurrentWeek = async () => {
     const response = await fetch('/api/league/currentWeek');
@@ -216,7 +232,63 @@ const FreeAgencyView = () => {
       return -1;
     }
     return 0;
-  }
+  };
+
+  const handlePlayerToDropChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPlayerToDrop((event.target as HTMLInputElement).value);
+  };
+
+	const handleModalOpen = (playerName: string) => {
+    setPlayerToAdd(playerName);
+		setModalOpen(true);
+	};
+
+  const handleModalClose = () => {
+    setPlayerToAdd("");
+    setPlayerToDrop("");
+		setModalOpen(false);
+	};
+
+  const handlePlayerSwapApproved = () => {
+    // set a variable to show processing
+    setModalProcessing(true);
+    fetch('/api/league/pickup', {
+      method: 'PUT',
+      headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        owner: sessionUser,
+        playerToAdd,
+        playerToDrop
+      })
+    })
+      .then(response => {
+        // set the above variable to not show processing
+        setModalProcessing(false);
+        if (response.ok) {
+          setSuccessSnackbarOpen(true);
+          // move all in useEffect to own function to be called again here
+          handleModalClose();
+          initData();
+        } else {
+          setErrorSnackbarOpen(true);
+          handleModalClose();
+        }
+      });
+  };
+
+  const handleCloseErrorSnackbar = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setErrorSnackbarOpen(false);
+  };
+
+  const handleCloseSuccessSnackbar = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSuccessSnackbarOpen(false);
+  };
 
   return (
     <Container maxWidth={false}>
@@ -287,7 +359,7 @@ const FreeAgencyView = () => {
                 {player.isAvailable && sessionUser ? 
                 <TableCell>
                   <Tooltip title="Add Player">
-                    <IconButton color="success" onClick={() => console.log(true)}>
+                    <IconButton color="success" onClick={() => handleModalOpen(player.name)}>
                       <AddBoxIcon fontSize="small"/>
                     </IconButton>
                   </Tooltip>
@@ -313,8 +385,71 @@ const FreeAgencyView = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Modal
+        open={isModalOpen}
+        onClose={handleModalClose}
+      >
+        <Box sx={{
+          position: "absolute" as "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: 500,
+          bgcolor: "background.paper",
+          border: "1px solid #000",
+          borderRadius: "0.5rem",
+          boxShadow: 24,
+          p: 3,
+        }}>
+          {isModalProcessing ?
+          <Box sx={{ m: "10rem 0", display: "flex", justifyContent: "center" }} >
+            <CircularProgress disableShrink size={150} color="secondary"/>
+          </Box>
+          :
+          <React.Fragment>
+            <Typography variant="h6" component="h2" sx={{ mb: ".5rem" }}>
+              {"Select the player to drop for " + playerToAdd + ":"}
+            </Typography>
+            <FormControl component="fieldset">
+              <RadioGroup
+                value={playerToDrop}
+                onChange={handlePlayerToDropChange}
+              >
+                {sessionUsersTeam && 
+                [
+                  ...sessionUsersTeam.players.tanks,
+                  ...sessionUsersTeam.players.dps,
+                  ...sessionUsersTeam.players.supports,
+                  ...sessionUsersTeam.players.flex,
+                  ...sessionUsersTeam.players.bench
+                ].map(player => {
+                  return <FormControlLabel key={player} value={player} control={<Radio color="secondary" />} label={player} />;
+                })}
+              </RadioGroup>
+            </FormControl>
+            {playerToDrop !== "" && <Alert variant="outlined" severity="info" sx={{ mt: 2 }}>
+              {playerToAdd + " will be added to your bench. Make sure to adjust your roster if you wish to play him."}
+            </Alert>}
+            <Box sx={{ display: "flex", justifyContent: "center", mt: "1.5rem" }}>
+              <Button disabled={playerToDrop === ""} variant="contained" color="primary" onClick={handlePlayerSwapApproved} sx={{ m: "0rem .5rem" }}>Approve</Button>
+              <Button variant="contained" color="secondary" onClick={handleModalClose} sx={{ m: "0rem .5rem" }}>Cancel</Button>
+            </Box>
+          </React.Fragment>
+          }
+        </Box>
+      </Modal>
+      <Snackbar open={errorSnackbarOpen} autoHideDuration={6000} onClose={handleCloseErrorSnackbar}>
+        <Alert onClose={handleCloseErrorSnackbar} severity="error" sx={{ width: '100%' }}>
+          Something went wrong with your pickup.
+        </Alert>
+      </Snackbar>
+      <Snackbar open={successSnackbarOpen} autoHideDuration={6000} onClose={handleCloseSuccessSnackbar}>
+        <Alert onClose={handleCloseSuccessSnackbar} severity="success" sx={{ width: '100%' }}>
+          Your pickup was successful!
+        </Alert>
+      </Snackbar>
     </Container>
   );
-}
+} 
 
 export default FreeAgencyView
