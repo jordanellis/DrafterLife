@@ -19,13 +19,16 @@ const HomePage = () => {
 					</Button>
 				</Link>
 			</Box>
-			<Box>- Style for mobile</Box>
+			<Box>1 Move roster around (bench to starting)</Box>
+			<Box>2 Head to head game view (my matchup)</Box>
+			<Box>2 Backend = process match stats and move to new week</Box>
+			<Box>3 Loading skeletons</Box>
+			<Box>3 OWL Schedule</Box>
+			<Box>3 Trades?</Box>
+			<Box>4 Commish posts</Box>
 			<Box>- Cleanup fetches</Box>
 			<Box>- Cleanup types/typescript</Box>
-			<Box>- Commish posts</Box>
-			<Box>- Head to head game view (my matchup)</Box>
-			<Box>- Backend = process match stats and move to new week</Box>
-			<Box>- Trades?</Box>
+			<Box>- Style for mobile</Box>
     </div>
   );
 }

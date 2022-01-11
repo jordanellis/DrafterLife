@@ -360,7 +360,7 @@ const FreeAgencyView = () => {
                 <TableCell>
                   <Tooltip title="Add Player">
                     <IconButton color="success" onClick={() => handleModalOpen(player.name)}>
-                      <AddBoxIcon fontSize="small"/>
+                      <AddBoxIcon />
                     </IconButton>
                   </Tooltip>
                 </TableCell>
