@@ -1,5 +1,5 @@
 var express = require("express");
-var teamData = require("../data/teams");
+var teamData = require("../../data/teams");
 
 var api = express.Router();
 

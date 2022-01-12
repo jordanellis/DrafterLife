@@ -1,6 +1,6 @@
 var express = require("express");
-var playerData = require("../data/player_stats");
-var teams = require("../data/teams.json");
+var playerData = require("../../data/player_stats");
+var teams = require("../../data/teams.json");
 
 var api = express.Router();
 

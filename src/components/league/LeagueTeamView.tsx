@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { 
-  AppBar, Avatar, Button, Container, List, ListItemAvatar, ListItemButton, ListItemText, ListSubheader, Paper, Skeleton, Typography, 
+  AppBar, Avatar, Backdrop, Button, CircularProgress, Container, List, ListItemAvatar, ListItemButton, ListItemText, ListSubheader, Paper, Skeleton, Tooltip, Typography, 
 } from '@mui/material';
 import { Players, LeagueTeam } from "./types";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box } from "@mui/system";
-import AutorenewIcon from '@mui/icons-material/Autorenew';
 import PersonIcon from "@mui/icons-material/Person";
-import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
-import ShieldIcon from '@mui/icons-material/Shield';
-import SportsMmaIcon from '@mui/icons-material/SportsMma';
-import ChairIcon from '@mui/icons-material/Chair';
+import SwapVertIcon from '@mui/icons-material/SwapVert';
 import { PlayerStatistics, Team } from "../types";
+import { useSessionUser } from "../../hooks/useSessionUser";
 
 type TeamsResp = {
   team: LeagueTeam;
@@ -26,56 +23,63 @@ type PlayerInfo = {
   role: string;
 }
 
+const TANK = "TANK";
+const DPS = "DPS";
+const SUP = "SUP";
 const TeamView = () => {
   const navigate = useNavigate();
+	const [sessionUser] = useSessionUser();
 	const { ownerName } = useParams();
+  const [backdropOpen, setBackdropOpen] = useState(false);
   const [team, setTeam] = useState<LeagueTeam>();
   const [rosterStats, setRosterStats] = useState<RosterStatsResp>();
   const [playerInfo, setPlayerInfo] = useState<Map<string, PlayerInfo>>();
+  const [playerToSwap, setPlayerToSwap] = useState("");
+  const [playerToSwapCurrLocation, setPlayerToSwapCurrLocation] = useState("");
+  const [playerToSwapRole, setPlayerToSwapRole] = useState("");
 
-	useEffect(() => {
+  const initData = useCallback(() => {
     ownerName && fetchRoster(ownerName)
-			.then((resp: TeamsResp) => {
-        setTeam(resp.team)
+			.then((teamResp: TeamsResp) => {
+        setTeam(teamResp.team)
+        
+        if (teamResp.team && teamResp.team !== undefined) {
+          Promise.all([
+            fetchRosterStats(teamResp.team.players),
+            fetchTeams()
+          ])
+            .then(([resp, teamsResp]: [RosterStatsResp, Team[]]) => {
+              setRosterStats(resp);
+              const allPlayers = [
+                ...teamResp.team.players.tanks,
+                ...teamResp.team.players.dps,
+                ...teamResp.team.players.supports,
+                ...teamResp.team.players.flex,
+                ...teamResp.team.players.bench
+              ];
+              let playerInfoMap = new Map<string, PlayerInfo>();
+              teamsResp.forEach(teamResp => {
+                teamResp.players.tanks.forEach(tank => {
+                  if (allPlayers.includes(tank)) {
+                    playerInfoMap.set(tank, {team: teamResp.name, role: TANK});
+                  }
+                });
+                teamResp.players.dps.forEach(dps => {
+                  playerInfoMap.set(dps, {team: teamResp.name, role: DPS});
+                });
+                teamResp.players.supports.forEach(support => {
+                  playerInfoMap.set(support, {team: teamResp.name, role: SUP});
+                });
+              });
+              setPlayerInfo(playerInfoMap);
+            })
+            .catch(err => console.log(err))
+        }
       })
 			.catch(err => console.log(err))
-	}, [ownerName]);
+  }, [ownerName]);
 
-	useEffect(() => {
-    if (team && team !== undefined) {
-      Promise.all([
-        fetchRosterStats(team.players),
-        fetchTeams()
-      ])
-        .then(([resp, teamsResp]: [RosterStatsResp, Team[]]) => {
-          console.log(resp)
-          setRosterStats(resp);
-          const allPlayers = [
-            ...team.players.tanks,
-            ...team.players.dps,
-            ...team.players.supports,
-            ...team.players.flex,
-            ...team.players.bench
-          ];
-          let playerInfoMap = new Map<string, PlayerInfo>();
-          teamsResp.forEach(teamResp => {
-            teamResp.players.tanks.forEach(tank => {
-              if (allPlayers.includes(tank)) {
-                playerInfoMap.set(tank, {team: teamResp.name, role: "tank"});
-              }
-            });
-            teamResp.players.dps.forEach(dps => {
-              playerInfoMap.set(dps, {team: teamResp.name, role: "dps"});
-            });
-            teamResp.players.supports.forEach(support => {
-              playerInfoMap.set(support, {team: teamResp.name, role: "support"});
-            });
-          });
-          setPlayerInfo(playerInfoMap);
-        })
-        .catch(err => console.log(err))
-    }
-	}, [team]);
+	useEffect(() => initData(), [initData]);
 
 	const fetchRoster = async (ownerName: string) => {
     const response = await fetch('/api/league/team/'+ownerName);
@@ -119,12 +123,79 @@ const TeamView = () => {
     navigate("/player-stats/" + playerName);
   }
 
-  const displayPlayers = (players: string[], icon: JSX.Element = <React.Fragment/>, numToDisplay: number = -1) => {
+  const swapPlayers = (playersToSwap: { name: string; newRole: string; }[]) => {
+    setBackdropOpen(true);
+    fetch('/api/league/swap', {
+      method: 'PUT',
+      headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        owner: sessionUser,
+        playersToSwap
+      })
+    })
+      .then(response => {
+        if (response.ok) {
+          initData();
+        }
+        setPlayerToSwap("");
+        setPlayerToSwapCurrLocation("");
+        setPlayerToSwapRole("");
+        setBackdropOpen(false);
+      });
+  };
+
+  const swapPlayerIconButtonClick = (playerName: string, roleAbbr: string, event: React.MouseEvent) => {
+    event.stopPropagation();
+    if (playerToSwap) {
+      let playersToSwap = [];
+      !"-".includes(playerToSwap) && playersToSwap.push({"name": playerToSwap, "newRole": roleAbbr});
+      !"-".includes(playerName) && playersToSwap.push({"name": playerName, "newRole": playerToSwapCurrLocation});
+      console.log(playersToSwap);
+      swapPlayers(playersToSwap);
+    } else {
+      setPlayerToSwap(playerName);
+      setPlayerToSwapCurrLocation(roleAbbr);
+      const selectedPlayerInfo = playerInfo ? playerInfo.get(playerName) : undefined;
+      setPlayerToSwapRole(selectedPlayerInfo ? selectedPlayerInfo.role : "");
+    }
+  };
+
+  const shouldDisableListItem = (playerName: string, roleDestination: string) => {
+    if (ownerName !== sessionUser) {
+      return true;
+    }
+    const currPlayerInfo = playerInfo?.get(playerName);
+    if (playerName !== "" && !"FLEX|BN".includes(playerToSwapCurrLocation) && currPlayerInfo?.role !== playerToSwapCurrLocation) {
+      return true;
+    }
+    if (playerToSwapRole !== "" && roleDestination !== "BN" && roleDestination !== "FLEX" && playerToSwapRole !== roleDestination) {
+      return true;
+    }
+    return false;
+  };
+
+  const displayPlayers = (players: string[], roleAbbr: string, avatarColor: string, numToDisplay = -1) => {
     let playerArray = players.map((player, index) => {
-      return (<ListItemButton key={index} onClick={() => navigateToPlayerStats(player)} sx={{ pt: "0.25rem", pb: "0.25rem" }}>
+      return (<ListItemButton key={index} onClick={() => navigateToPlayerStats(player)} sx={{ pt: "0.1rem", pb: "0.1rem" }}>
             <Container sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <Box sx={{ display: "flex", alignItems: "center", width: "18rem" }}>
-                <ListItemAvatar><Avatar sx={{ bgcolor: "#55a5a3" }}>{icon}</Avatar></ListItemAvatar>
+              <Box sx={{ display: "flex", alignItems: "center", width: "23rem" }}>
+                {
+                  shouldDisableListItem(player, roleAbbr)
+                ?
+                  <ListItemAvatar onClick={(e) => {e.stopPropagation()}} sx={{ mr: "1.5rem" }}>
+                    <Avatar variant="rounded" sx={{ height: "2rem", width: "4.5rem", color: "#666666", bgcolor: "#888888" }}>
+                      <SwapVertIcon/><Typography variant="button">{roleAbbr}</Typography>
+                    </Avatar>
+                  </ListItemAvatar>
+                :
+                  <Tooltip title="Swap Player">
+                    <ListItemAvatar onClick={(e) => {swapPlayerIconButtonClick(player, roleAbbr, e)}} sx={{ mr: "1.5rem" }}>
+                      <Avatar variant="rounded" sx={{ height: "2rem", width: "4.5rem", color: avatarColor, bgcolor: "#232329" }}>
+                        <SwapVertIcon/><Typography variant="button">{roleAbbr}</Typography>
+                      </Avatar>
+                    </ListItemAvatar>
+                  </Tooltip>
+                }
                 <ListItemText
                   primary={player}
                   secondary={playerInfo?.get(player)?.team ?? "-"}
@@ -147,10 +218,26 @@ const TeamView = () => {
       );
     });
     for (let i = playerArray.length; i < numToDisplay; i++) {
-      playerArray.push((<ListItemButton sx={{ pt: "0.25rem", pb: "0.25rem" }}>
+      playerArray.push((<ListItemButton key={i} sx={{ pt: "0.1rem", pb: "0.1rem" }}>
         <Container sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <Box sx={{ display: "flex", alignItems: "center", width: "18rem" }}>
-            <ListItemAvatar><Avatar sx={{ bgcolor: "#55a5a3" }}>{icon}</Avatar></ListItemAvatar>
+          <Box sx={{ display: "flex", alignItems: "center", width: "23rem" }}>
+            {
+              shouldDisableListItem("", roleAbbr)
+            ?
+              <ListItemAvatar onClick={(e) => {e.stopPropagation()}} sx={{ mr: "1.5rem" }}>
+                <Avatar variant="rounded" sx={{ height: "2rem", width: "4.5rem", color: "#666666", bgcolor: "#888888" }}>
+                  <SwapVertIcon/><Typography variant="button">{roleAbbr}</Typography>
+                </Avatar>
+              </ListItemAvatar>
+            :
+              <Tooltip title="Swap Player">
+                <ListItemAvatar onClick={(e) => {swapPlayerIconButtonClick("-", roleAbbr, e)}} sx={{ mr: "1.5rem" }}>
+                  <Avatar variant="rounded" sx={{ height: "2rem", width: "4.5rem", color: avatarColor, bgcolor: "#333344" }}>
+                    <SwapVertIcon/><Typography variant="button">{roleAbbr}</Typography>
+                  </Avatar>
+                </ListItemAvatar>
+              </Tooltip>
+            }
             <ListItemText primary="-" sx={{ height: "2.75rem" }} />
           </Box>
           <ListItemText secondary="-" sx={{ width: "3rem" }} />
@@ -187,20 +274,19 @@ const TeamView = () => {
         <Button variant="text" color="secondary" onClick={() => navigate(-1)}>
           {"< Back"}
         </Button>
-        <Container maxWidth="md" sx={{ marginTop: "1rem" }}>
-          {"add ability to move players around"}
+        <Container maxWidth="md" sx={{ mb: "2rem" }}>
           <Paper elevation={3}>
             <List
               subheader={
                 <ListSubheader sx={{ bgcolor: "unset", color: "#359583", fontSize: "1rem" }}>
-                  Roster
+                  Starters
                 </ListSubheader>
               }
             >
-              {displayPlayers(team.players.tanks, <ShieldIcon/>, 1)}
-              {displayPlayers(team.players.dps, <SportsMmaIcon/>, 2)}
-              {displayPlayers(team.players.supports, <LocalHospitalIcon/>, 2)}
-              {displayPlayers(team.players.flex, <AutorenewIcon/>, 1)}
+              {displayPlayers(team.players.tanks, TANK, "#3555a3", 1)}
+              {displayPlayers(team.players.dps, DPS, "#a55553", 2)}
+              {displayPlayers(team.players.supports, SUP, "#55a553", 2)}
+              {displayPlayers(team.players.flex, "FLEX", "#754593", 1)}
             </List>
             <List
               subheader={
@@ -209,7 +295,7 @@ const TeamView = () => {
                 </ListSubheader>
               }
             >
-              {displayPlayers(team.players.bench, <ChairIcon/>)}
+              {displayPlayers(team.players.bench, "BN", "#666666")}
             </List>
           </Paper>
         </Container>
@@ -220,6 +306,12 @@ const TeamView = () => {
         <Skeleton variant="rectangular" height={400} sx={{ margin: "0 auto" }}></Skeleton>
       </Container>
     }
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={backdropOpen}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Box>
   );
 }

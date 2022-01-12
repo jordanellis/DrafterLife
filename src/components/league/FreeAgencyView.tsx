@@ -250,7 +250,6 @@ const FreeAgencyView = () => {
 	};
 
   const handlePlayerSwapApproved = () => {
-    // set a variable to show processing
     setModalProcessing(true);
     fetch('/api/league/pickup', {
       method: 'PUT',
@@ -262,11 +261,9 @@ const FreeAgencyView = () => {
       })
     })
       .then(response => {
-        // set the above variable to not show processing
         setModalProcessing(false);
         if (response.ok) {
           setSuccessSnackbarOpen(true);
-          // move all in useEffect to own function to be called again here
           handleModalClose();
           initData();
         } else {
@@ -438,13 +435,23 @@ const FreeAgencyView = () => {
           }
         </Box>
       </Modal>
-      <Snackbar open={errorSnackbarOpen} autoHideDuration={6000} onClose={handleCloseErrorSnackbar}>
-        <Alert onClose={handleCloseErrorSnackbar} severity="error" sx={{ width: '100%' }}>
+      <Snackbar 
+        anchorOrigin={{ vertical: "top", horizontal: "right" }} 
+        open={errorSnackbarOpen} 
+        autoHideDuration={6000} 
+        onClose={handleCloseErrorSnackbar}
+      >
+        <Alert variant="filled" onClose={handleCloseErrorSnackbar} severity="error" sx={{ width: '100%' }}>
           Something went wrong with your pickup.
         </Alert>
       </Snackbar>
-      <Snackbar open={successSnackbarOpen} autoHideDuration={6000} onClose={handleCloseSuccessSnackbar}>
-        <Alert onClose={handleCloseSuccessSnackbar} severity="success" sx={{ width: '100%' }}>
+      <Snackbar 
+        anchorOrigin={{ vertical: "top", horizontal: "right" }} 
+        open={successSnackbarOpen} 
+        autoHideDuration={6000} 
+        onClose={handleCloseSuccessSnackbar}
+      >
+        <Alert variant="filled" onClose={handleCloseSuccessSnackbar} severity="success" sx={{ width: '100%' }}>
           Your pickup was successful!
         </Alert>
       </Snackbar>
