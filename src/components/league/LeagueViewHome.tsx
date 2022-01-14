@@ -78,11 +78,13 @@ const LeagueViewHome = () => {
           Standings
         </Typography>
         <Typography variant="h6">
-          Schedule
-        </Typography>
-        <Typography variant="h6">
           View my team
         </Typography>
+        <Link style={{ textDecoration: "none" }} to="/league/schedule">
+          <Button variant="outlined" color="secondary">
+            {"Schedule"}
+          </Button>
+        </Link>
         <Link style={{ textDecoration: "none" }} to="/league/free-agency">
           <Button variant="outlined" color="secondary">
             {"Free Agents"}
