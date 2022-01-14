@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { ElementType, useEffect, useState } from "react";
 import {
   Container,
   Button,
   Paper,
   Typography,
   ListItemButton,
-  List,
-  ListSubheader,
   Box,
   ListItemText,
-  ListItemAvatar,
   Avatar,
-  Divider,
   Chip,
+  Grid,
 } from '@mui/material';
 import { useLocation, useNavigate } from "react-router-dom";
 import { LeagueTeam } from "./types";
@@ -56,73 +53,111 @@ const LeagueMatchupView = () => {
     navigate("/player-stats/" + playerName);
   }
 
-  const displayPlayers = (players: string[], avatarIcon: React.ReactElement, avatarColor: string, numToDisplay = -1) => {
-    let playerArray = players.map((player, index) => {
-      return (
-        <ListItemButton key={index} onClick={() => navigateToPlayerStats(player)} sx={{ pt: "0.1rem", pb: "0.1rem" }}>
-          <ListItemAvatar sx={{ mr: "1.5rem" }}>
-            <Avatar variant="rounded" sx={{ color: avatarColor, bgcolor: "#333344" }}>
-              {avatarIcon}
-            </Avatar>
-          </ListItemAvatar>
-          <Container sx={{ display: "flex", justifyContent: "stretch", alignItems: "center" }}>
-            <ListItemText
-              primary={player}
-              secondary={"VS -"}
-            />
-            <Chip label="0.00" />
-          </Container>
-        </ListItemButton>
+  const displayPlayers = (homePlayers: string[], awayPlayers: string[], role: string, AvatarIcon: ElementType, avatarColor: string, numToDisplay: number) => {
+    let playerArray: JSX.Element[] = [];
+    for (let i = 0; i < numToDisplay; i++) {
+      const homePlayer = homePlayers[i];
+      const awayPlayer = awayPlayers[i];
+      playerArray.push(
+        <Paper elevation={3} sx={{ mb: ".5rem", mt: ".5rem" }}>
+          <Grid container alignItems="center">
+            <Grid item xs={1}>
+              <AvatarIcon sx={{ color: avatarColor, fontSize: 30 }}/>
+            </Grid>
+            <Grid item xs={3}>
+              <ListItemButton key={i} onClick={() => homePlayer && navigateToPlayerStats(homePlayer)} sx={{ pt: "0.1rem", pb: "0.1rem" }}>
+                <ListItemText
+                  primary={homePlayer}
+                  secondary={homePlayer ? "VS -" : "-"}
+                />
+              </ListItemButton>
+            </Grid>
+            <Grid item xs={1}>
+              <Chip label="0.00" />
+            </Grid>
+            <Grid item xs={2}>
+              <Avatar
+                variant="rounded"
+                sx={{
+                  fontSize: ".9rem",
+                  fontWeight: "500",
+                  height: "2rem",
+                  width: "3.5rem",
+                  color: avatarColor,
+                  bgcolor: "#333344",
+                  margin: "auto"
+                }}
+              >
+                {role}
+              </Avatar>
+            </Grid>
+            <Grid item xs={1}>
+              <Chip label="0.00" />
+            </Grid>
+            <Grid item xs={3}>
+              <ListItemButton key={i} onClick={() => awayPlayer && navigateToPlayerStats(awayPlayer)} sx={{ pt: "0.1rem", pb: "0.1rem", textAlign: "right" }}>
+                <ListItemText
+                  primary={awayPlayer}
+                  secondary={awayPlayer ? "VS -" : "-"}
+                />
+              </ListItemButton>
+            </Grid>
+            <Grid item xs={1}>
+              <AvatarIcon sx={{ color: avatarColor, fontSize: 30 }}/>
+            </Grid>
+          </Grid>
+        </Paper>
       );
-    });
-    for (let i = playerArray.length; i < numToDisplay; i++) {
-      playerArray.push((
-        <ListItemButton key={i} sx={{ pt: "0.1rem", pb: "0.1rem" }}>
-          <ListItemAvatar sx={{ mr: "1.5rem" }}>
-            <Avatar variant="rounded" sx={{ color: avatarColor, bgcolor: "#333344" }}>
-              {avatarIcon}
-            </Avatar>
-          </ListItemAvatar>
-          <Container sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <ListItemText secondary="-" />
-            <Chip label="0.00" />
-          </Container>
-        </ListItemButton>
-      ));
     }
     return playerArray;
   }
 
-  const displayTeam = (team: LeagueTeam) => {
+  const displayTeams = (homeTeam: LeagueTeam, awayTeam: LeagueTeam) => {
     return (
-      <Container>
+      <Container sx={{ maxWidth: "50rem" }}>
         <Paper elevation={3}>
-          <Typography variant="h5">{team.name}</Typography>
-          <Typography variant="subtitle1" color="text.secondary">{team.ownerName}</Typography>
+          <Grid container alignItems="center" sx={{ height: "6rem" }}>
+            <Grid item xs={4}>
+              <Box>
+                <Typography variant="h5">{homeTeam.name}</Typography>
+                <Typography variant="subtitle1" color="text.secondary">{homeTeam.ownerName}</Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={1}>
+              <Chip label="0.00" />
+            </Grid>
+            <Grid item xs={2}>
+              <Typography>VS</Typography>
+            </Grid>
+            <Grid item xs={1}>
+              <Chip label="0.00" />
+            </Grid>
+            <Grid item xs={4}>
+              <Box>
+                <Typography variant="h5">{awayTeam.name}</Typography>
+                <Typography variant="subtitle1" color="text.secondary">{awayTeam.ownerName}</Typography>
+              </Box>
+            </Grid>
+          </Grid>
         </Paper>
-        <Paper elevation={3}>
-          <List
-            subheader={
-              <ListSubheader sx={{ bgcolor: "unset", color: "#359583", fontSize: "1rem" }}>
-                Starters
-              </ListSubheader>
-            }
-          >
-            {displayPlayers(team.players.tanks, <ShieldIcon/>, "#3555a3", 1)}
-            {displayPlayers(team.players.dps, <SportsMmaIcon/>, "#a55553", 2)}
-            {displayPlayers(team.players.supports, <LocalHospitalIcon/>, "#55a553", 2)}
-            {displayPlayers(team.players.flex, <AutorenewIcon/>, "#754593", 1)}
-          </List>
-          <List
-            subheader={
-              <ListSubheader sx={{ bgcolor: "unset", color: "#359583", fontSize: "1rem" }}>
-                Bench
-              </ListSubheader>
-            }
-          >
-            {displayPlayers(team.players.bench, <ChairIcon/>, "#666666")}
-          </List>
-        </Paper>
+        <Typography sx={{ bgcolor: "unset", color: "#359583", fontSize: "1rem", pt: "0.5rem" }}>
+          Starters
+        </Typography>
+        {displayPlayers(homeTeam.players.tanks, awayTeam.players.tanks, "TANK", ShieldIcon, "#3555a3", 1)}
+        {displayPlayers(homeTeam.players.dps, awayTeam.players.dps, "DPS", SportsMmaIcon, "#a55553", 2)}
+        {displayPlayers(homeTeam.players.supports, awayTeam.players.supports, "SUP", LocalHospitalIcon, "#55a553", 2)}
+        {displayPlayers(homeTeam.players.flex, awayTeam.players.flex, "FLEX", AutorenewIcon, "#754593", 1)}
+        <Typography sx={{ bgcolor: "unset", color: "#359583", fontSize: "1rem" }}>
+          Bench
+        </Typography>
+        {displayPlayers(
+          homeTeam.players.bench,
+          awayTeam.players.bench,
+          "BN",
+          ChairIcon,
+          "#666666",
+          homeTeam.players.bench.length > awayTeam.players.bench.length ? homeTeam.players.bench.length : awayTeam.players.bench.length
+        )}
       </Container>
     );
   }
@@ -134,9 +169,7 @@ const LeagueMatchupView = () => {
       </Button>
       <Container sx={{ textAlign: "center" }}>
         <Container sx={{ display: "flex", justifyContent: "space-evenly" }}>
-          {homeTeam && displayTeam(homeTeam)}
-          <Typography sx={{ mt: "17rem" }}>VS</Typography>
-          {awayTeam && displayTeam(awayTeam)}
+          {homeTeam && awayTeam && displayTeams(homeTeam, awayTeam)}
         </Container>
       </Container>
     </Container>
