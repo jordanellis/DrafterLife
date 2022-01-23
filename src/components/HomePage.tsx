@@ -19,12 +19,15 @@ const HomePage = () => {
 					</Button>
 				</Link>
 			</Box>
-			<Box>1 Head to head game view (my matchup)</Box>
 			<Box>1 Backend = process match stats and move to new week</Box>
-			<Box>2 Loading skeletons</Box>
-			<Box>2 OWL Schedule</Box>
-			<Box>2 Trades?</Box>
-			<Box>3 Commish posts</Box>
+			<Box>2 Update Schedule view</Box>
+			<Box>2 Fixup landing page and league home page</Box>
+			<Box>3 Lock Editing team once games start</Box>
+			<Box>3 Loading skeletons</Box>
+			<Box>3 OWL Schedule</Box>
+			<Box>3 Trades?</Box>
+			<Box>4 Commish posts</Box>
+			<Box>4 Edit team settings?</Box>
 			<Box>- Cleanup fetches</Box>
 			<Box>- Cleanup types/typescript</Box>
 			<Box>- Style for mobile</Box>

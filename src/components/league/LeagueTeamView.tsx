@@ -50,19 +50,10 @@ const TeamView = () => {
           ])
             .then(([resp, teamsResp]: [RosterStatsResp, Team[]]) => {
               setRosterStats(resp);
-              const allPlayers = [
-                ...teamResp.team.players.tanks,
-                ...teamResp.team.players.dps,
-                ...teamResp.team.players.supports,
-                ...teamResp.team.players.flex,
-                ...teamResp.team.players.bench
-              ];
               let playerInfoMap = new Map<string, PlayerInfo>();
               teamsResp.forEach(teamResp => {
                 teamResp.players.tanks.forEach(tank => {
-                  if (allPlayers.includes(tank)) {
-                    playerInfoMap.set(tank, {team: teamResp.name, role: TANK});
-                  }
+                  playerInfoMap.set(tank, {team: teamResp.name, role: TANK});
                 });
                 teamResp.players.dps.forEach(dps => {
                   playerInfoMap.set(dps, {team: teamResp.name, role: DPS});
@@ -232,7 +223,7 @@ const TeamView = () => {
             :
               <Tooltip title="Swap Player">
                 <ListItemAvatar onClick={(e) => {swapPlayerIconButtonClick("-", roleAbbr, e)}} sx={{ mr: "1.5rem" }}>
-                  <Avatar variant="rounded" sx={{ height: "2rem", width: "4.5rem", color: avatarColor, bgcolor: "#333344" }}>
+                  <Avatar variant="rounded" sx={{ height: "2rem", width: "4.5rem", color: avatarColor, bgcolor: "#232329" }}>
                     <SwapVertIcon/><Typography variant="button">{roleAbbr}</Typography>
                   </Avatar>
                 </ListItemAvatar>

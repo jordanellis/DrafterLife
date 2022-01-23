@@ -140,14 +140,14 @@ const LeagueMatchupView = () => {
             </Grid>
           </Grid>
         </Paper>
-        <Typography sx={{ bgcolor: "unset", color: "#359583", fontSize: "1rem", pt: "0.5rem" }}>
+        <Typography sx={{ bgcolor: "unset", color: "#359583", fontSize: "1rem", pt: "0.5rem", fontWeight: "500" }}>
           Starters
         </Typography>
         {displayPlayers(homeTeam.players.tanks, awayTeam.players.tanks, "TANK", ShieldIcon, "#3555a3", 1)}
         {displayPlayers(homeTeam.players.dps, awayTeam.players.dps, "DPS", SportsMmaIcon, "#a55553", 2)}
         {displayPlayers(homeTeam.players.supports, awayTeam.players.supports, "SUP", LocalHospitalIcon, "#55a553", 2)}
         {displayPlayers(homeTeam.players.flex, awayTeam.players.flex, "FLEX", AutorenewIcon, "#754593", 1)}
-        <Typography sx={{ bgcolor: "unset", color: "#359583", fontSize: "1rem" }}>
+        <Typography sx={{ bgcolor: "unset", color: "#359583", fontSize: "1rem", fontWeight: "500" }}>
           Bench
         </Typography>
         {displayPlayers(

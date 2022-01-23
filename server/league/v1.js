@@ -24,7 +24,7 @@ api.get('/currentWeek', function(req, res) {
 });
 
 api.get('/schedule', function(req, res) {
-  res.send({data: scheduleData["weeks"]});
+  res.send({data: scheduleData});
 });
 
 api.get('/teams', function(req, res) {

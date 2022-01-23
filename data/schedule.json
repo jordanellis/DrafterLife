@@ -1,100 +1,552 @@
 {
-  "weeks": [
-    {
-      "matches": [
-        ["JORDAN", "KELLEN"],
-        ["SAM", "ZACK"]
-      ]
-    },
-    {
-      "matches": [
-        ["JORDAN", "SAM"],
-        ["KELLEN", "ZACK"]
-      ]
-    },
-    {
-      "matches": [
-        ["JORDAN", "KELLEN"],
-        ["SAM", "ZACK"]
-      ]
-    },
-    {
-      "matches": [
-        ["JORDAN", "ZACK"],
-        ["KELLEN", "SAM"]
-      ]
-    },
-    {
-      "matches": [
-        ["ZACK", "SAM"],
-        ["KELLEN", "JORDAN"]
-      ]
-    },
-    {
-      "matches": [
-        ["JORDAN", "SAM"],
-        ["KELLEN", "ZACK"]
-      ]
-    },
-    {
-      "matches": [
-        ["JORDAN", "KELLEN"],
-        ["SAM", "ZACK"]
-      ]
-    },
-    {
-      "matches": [
-        ["JORDAN", "ZACK"],
-        ["KELLEN", "SAM"]
-      ]
-    },
-    {
-      "matches": [
-        ["ZACK", "SAM"],
-        ["JORDAN", "KELLEN"]
-      ]
-    },
-    {
-      "matches": [
-        ["JORDAN", "SAM"],
-        ["KELLEN", "ZACK"]
-      ]
-    },
-    {
-      "matches": [
-        ["JORDAN", "ZACK"],
-        ["KELLEN", "SAM"]
-      ]
-    },
-    {
-      "matches": [
-        ["ZACK", "SAM"],
-        ["JORDAN", "KELLEN"]
-      ]
-    },
-    {
-      "matches": [
-        ["ZACK", "SAM"],
-        ["KELLEN", "JORDAN"]
-      ]
-    },
-    {
-      "matches": [
-        ["JORDAN", "SAM"],
-        ["KELLEN", "ZACK"]
-      ]
-    },
-    {
-      "matches": [
-        ["JORDAN", "KELLEN"],
-        ["SAM", "ZACK"]
-      ]
-    },
-    {
-      "matches": [
-        ["SAM", "JORDAN"],
-        ["KELLEN", "ZACK"]
-      ]
-    }
-  ]
+    "weeks": [
+        {
+            "week": "1",
+            "matches": [
+                [
+                    "JORDAN",
+                    "KELLEN"
+                ],
+                [
+                    "SAM",
+                    "ZACK"
+                ]
+            ],
+            "final_rosters": {
+                "JORDAN": {
+                    "tanks": [
+                        "VOID"
+                    ],
+                    "dps": [
+                        "LEAVE",
+                        "PROFIT"
+                    ],
+                    "supports": [
+                        "SHU",
+                        "CRIMZO"
+                    ],
+                    "flex": [
+                        "GANGNAMJIN"
+                    ],
+                    "bench": [
+                        "SHY",
+                        "VESTOLA",
+                        "GARGOYLE",
+                        "LASTRO",
+                        "PELICAN",
+                        "DECAY"
+                    ]
+                },
+                "KELLEN": {
+                    "tanks": [
+                        "PIGGY"
+                    ],
+                    "dps": [
+                        "BQB",
+                        "FLETA"
+                    ],
+                    "supports": [
+                        "JJONAK",
+                        "CLOSER"
+                    ],
+                    "flex": [
+                        "FURY"
+                    ],
+                    "bench": [
+                        "TOYOU",
+                        "ARCHITECT",
+                        "FDGOD",
+                        "DANTEH",
+                        "JECSE",
+                        "BEBE"
+                    ]
+                },
+                "SAM": {
+                    "tanks": [
+                        "HANBIN"
+                    ],
+                    "dps": [
+                        "SP9RK1E",
+                        "ONIGOD"
+                    ],
+                    "supports": [
+                        "IR1S"
+                    ],
+                    "flex": [
+                        "KEVSTER"
+                    ],
+                    "bench": [
+                        "SHAX",
+                        "NERO",
+                        "VIOL2T",
+                        "HAWK",
+                        "CHOIHYOBIN",
+                        "JINMU",
+                        "LIP"
+                    ]
+                },
+                "ZACK": {
+                    "tanks": [
+                        "FEARLESS"
+                    ],
+                    "dps": [
+                        "YAKI",
+                        "DOHA"
+                    ],
+                    "supports": [
+                        "ALARM",
+                        "FIELDER"
+                    ],
+                    "flex": [
+                        "IZAYAKI"
+                    ],
+                    "bench": [
+                        "KALIOS",
+                        "MCD",
+                        "BIRDRING",
+                        "NA1ST",
+                        "SPACE",
+                        "HAPPY"
+                    ]
+                }
+            }
+        },
+        {
+            "week": "2",
+            "matches": [
+                [
+                    "JORDAN",
+                    "SAM"
+                ],
+                [
+                    "KELLEN",
+                    "ZACK"
+                ]
+            ],
+            "final_rosters": {
+                "JORDAN": {
+                    "tanks": [
+                        "VOID"
+                    ],
+                    "dps": [
+                        "LEAVE",
+                        "PROFIT"
+                    ],
+                    "supports": [
+                        "SHU",
+                        "CRIMZO"
+                    ],
+                    "flex": [
+                        "GANGNAMJIN"
+                    ],
+                    "bench": [
+                        "SHY",
+                        "VESTOLA",
+                        "GARGOYLE",
+                        "LASTRO",
+                        "PELICAN",
+                        "DECAY"
+                    ]
+                },
+                "KELLEN": {
+                    "tanks": [
+                        "PIGGY"
+                    ],
+                    "dps": [
+                        "BQB",
+                        "FLETA"
+                    ],
+                    "supports": [
+                        "JJONAK",
+                        "CLOSER"
+                    ],
+                    "flex": [
+                        "FURY"
+                    ],
+                    "bench": [
+                        "TOYOU",
+                        "ARCHITECT",
+                        "FDGOD",
+                        "DANTEH",
+                        "JECSE",
+                        "BEBE"
+                    ]
+                },
+                "SAM": {
+                    "tanks": [
+                        "HANBIN"
+                    ],
+                    "dps": [
+                        "SP9RK1E",
+                        "ONIGOD"
+                    ],
+                    "supports": [
+                        "IR1S"
+                    ],
+                    "flex": [
+                        "KEVSTER"
+                    ],
+                    "bench": [
+                        "SHAX",
+                        "NERO",
+                        "VIOL2T",
+                        "HAWK",
+                        "CHOIHYOBIN",
+                        "JINMU",
+                        "LIP"
+                    ]
+                },
+                "ZACK": {
+                    "tanks": [
+                        "FEARLESS"
+                    ],
+                    "dps": [
+                        "YAKI",
+                        "DOHA"
+                    ],
+                    "supports": [
+                        "ALARM",
+                        "FIELDER"
+                    ],
+                    "flex": [
+                        "IZAYAKI"
+                    ],
+                    "bench": [
+                        "KALIOS",
+                        "MCD",
+                        "BIRDRING",
+                        "NA1ST",
+                        "SPACE",
+                        "HAPPY"
+                    ]
+                }
+            }
+        },
+        {
+            "week": "3",
+            "matches": [
+                [
+                    "JORDAN",
+                    "KELLEN"
+                ],
+                [
+                    "SAM",
+                    "ZACK"
+                ]
+            ],
+            "final_rosters": {
+                "JORDAN": {
+                    "tanks": [
+                        "VOID"
+                    ],
+                    "dps": [
+                        "LEAVE",
+                        "PROFIT"
+                    ],
+                    "supports": [
+                        "SHU",
+                        "CRIMZO"
+                    ],
+                    "flex": [
+                        "GANGNAMJIN"
+                    ],
+                    "bench": [
+                        "SHY",
+                        "VESTOLA",
+                        "GARGOYLE",
+                        "LASTRO",
+                        "PELICAN",
+                        "DECAY"
+                    ]
+                },
+                "KELLEN": {
+                    "tanks": [
+                        "PIGGY"
+                    ],
+                    "dps": [
+                        "BQB",
+                        "FLETA"
+                    ],
+                    "supports": [
+                        "JJONAK",
+                        "CLOSER"
+                    ],
+                    "flex": [
+                        "FURY"
+                    ],
+                    "bench": [
+                        "TOYOU",
+                        "ARCHITECT",
+                        "FDGOD",
+                        "DANTEH",
+                        "JECSE",
+                        "BEBE"
+                    ]
+                },
+                "SAM": {
+                    "tanks": [
+                        "HANBIN"
+                    ],
+                    "dps": [
+                        "SP9RK1E",
+                        "ONIGOD"
+                    ],
+                    "supports": [
+                        "IR1S"
+                    ],
+                    "flex": [
+                        "KEVSTER"
+                    ],
+                    "bench": [
+                        "SHAX",
+                        "NERO",
+                        "VIOL2T",
+                        "HAWK",
+                        "CHOIHYOBIN",
+                        "JINMU",
+                        "LIP"
+                    ]
+                },
+                "ZACK": {
+                    "tanks": [
+                        "FEARLESS"
+                    ],
+                    "dps": [
+                        "YAKI",
+                        "DOHA"
+                    ],
+                    "supports": [
+                        "ALARM",
+                        "FIELDER"
+                    ],
+                    "flex": [
+                        "IZAYAKI"
+                    ],
+                    "bench": [
+                        "KALIOS",
+                        "MCD",
+                        "BIRDRING",
+                        "NA1ST",
+                        "SPACE",
+                        "HAPPY"
+                    ]
+                }
+            }
+        },
+        {
+            "week": "6",
+            "matches": [
+                [
+                    "JORDAN",
+                    "ZACK"
+                ],
+                [
+                    "KELLEN",
+                    "SAM"
+                ]
+            ],
+            "final_rosters": {
+                "JORDAN": {
+                    "tanks": [
+                        "VESTOLA"
+                    ],
+                    "dps": [
+                        "LEAVE",
+                        "PROFIT"
+                    ],
+                    "supports": [
+                        "LASTRO",
+                        "CRIMZO"
+                    ],
+                    "flex": [
+                        "DECAY"
+                    ],
+                    "bench": [
+                        "SHY",
+                        "VOID",
+                        "GARGOYLE",
+                        "SHU",
+                        "PELICAN",
+                        "GANGNAMJIN"
+                    ]
+                },
+                "KELLEN": {
+                    "tanks": [
+                        "PIGGY"
+                    ],
+                    "dps": [
+                        "BQB",
+                        "FLETA"
+                    ],
+                    "supports": [
+                        "JJONAK",
+                        "CLOSER"
+                    ],
+                    "flex": [
+                        "FURY"
+                    ],
+                    "bench": [
+                        "TOYOU",
+                        "ARCHITECT",
+                        "FDGOD",
+                        "DANTEH",
+                        "JECSE",
+                        "BEBE"
+                    ]
+                },
+                "SAM": {
+                    "tanks": [
+                        "HANBIN"
+                    ],
+                    "dps": [
+                        "SP9RK1E",
+                        "ONIGOD"
+                    ],
+                    "supports": [
+                        "IR1S"
+                    ],
+                    "flex": [
+                        "KEVSTER"
+                    ],
+                    "bench": [
+                        "SHAX",
+                        "NERO",
+                        "VIOL2T",
+                        "HAWK",
+                        "CHOIHYOBIN",
+                        "JINMU",
+                        "LIP"
+                    ]
+                },
+                "ZACK": {
+                    "tanks": [
+                        "FEARLESS"
+                    ],
+                    "dps": [
+                        "YAKI",
+                        "DOHA"
+                    ],
+                    "supports": [
+                        "ALARM",
+                        "FIELDER"
+                    ],
+                    "flex": [
+                        "IZAYAKI"
+                    ],
+                    "bench": [
+                        "KALIOS",
+                        "MCD",
+                        "BIRDRING",
+                        "NA1ST",
+                        "SPACE",
+                        "HAPPY"
+                    ]
+                }
+            }
+        },
+        {
+            "week": "7",
+            "matches": [
+                [
+                    "ZACK",
+                    "SAM"
+                ],
+                [
+                    "KELLEN",
+                    "JORDAN"
+                ]
+            ]
+        },
+        {
+            "week": "8",
+            "matches": [
+                [
+                    "JORDAN",
+                    "SAM"
+                ],
+                [
+                    "KELLEN",
+                    "ZACK"
+                ]
+            ]
+        },
+        {
+            "week": "11",
+            "matches": [
+                [
+                    "JORDAN",
+                    "KELLEN"
+                ],
+                [
+                    "SAM",
+                    "ZACK"
+                ]
+            ]
+        },
+        {
+            "week": "12",
+            "matches": [
+                [
+                    "JORDAN",
+                    "ZACK"
+                ],
+                [
+                    "KELLEN",
+                    "SAM"
+                ]
+            ]
+        },
+        {
+            "week": "13",
+            "matches": [
+                [
+                    "ZACK",
+                    "SAM"
+                ],
+                [
+                    "JORDAN",
+                    "KELLEN"
+                ]
+            ]
+        },
+        {
+            "week": "16",
+            "matches": [
+                [
+                    "JORDAN",
+                    "SAM"
+                ],
+                [
+                    "KELLEN",
+                    "ZACK"
+                ]
+            ]
+        },
+        {
+            "week": "17",
+            "matches": [
+                [
+                    "JORDAN",
+                    "ZACK"
+                ],
+                [
+                    "KELLEN",
+                    "SAM"
+                ]
+            ]
+        },
+        {
+            "week": "18",
+            "matches": [
+                [
+                    "ZACK",
+                    "SAM"
+                ],
+                [
+                    "JORDAN",
+                    "KELLEN"
+                ]
+            ]
+        }
+    ]
 }

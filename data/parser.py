@@ -4,7 +4,7 @@ from datetime import datetime
 
 player_data = {}
 
-f = open('./weeks.json')
+f = open('./data/weeks.json')
 week_data = json.load(f)
 f.close()
 
@@ -24,7 +24,7 @@ def retrieve_match_stage(match_time):
     if start <= datetime_time <= stop:
       return week["stage"]
 
-with open('./phs_2021_1.csv', mode='r', encoding='utf-8-sig') as csvfile:
+with open('./data/phs_2021_1.csv', mode='r', encoding='utf-8-sig') as csvfile:
   reader = csv.DictReader(csvfile)
   for row in reader:
     # check player name
@@ -194,5 +194,5 @@ for player, player_items in player_data.items():
   player_data[player]["total_player_score"] = total_player_score
   player_data[player]["weekly_player_scores"] = weekly_player_scores
 
-with open('player_stats.json', 'w') as fp:
+with open('data/player_stats.json', 'w') as fp:
   json.dump(player_data, fp)

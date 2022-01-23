@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import LeagueHeader from "./LeagueHeader";
 import LeagueStandingsSidebar from "./LeagueStandingsSidebar";
-import { ScheduledMatches, LeagueTeam } from "./types";
+import { Schedule, LeagueTeam } from "./types";
 
 type ScheduleResp = {
-  data: ScheduledMatches[];
+  data: Schedule;
 }
 
 type TeamsResp = {
@@ -15,7 +15,7 @@ type TeamsResp = {
 
 const LeagueViewHome = () => {
   const [currentWeek, setCurrentWeek] = useState(0);
-  const [schedule, setSchedule] = useState<ScheduledMatches[]>();
+  const [schedule, setSchedule] = useState<Schedule>();
   const [teams, setTeams] = useState<LeagueTeam[]>();
 
 	useEffect(() => {
@@ -69,7 +69,7 @@ const LeagueViewHome = () => {
 					{"< Home"}
 				</Button>
 			</Link>
-      {schedule && teams && <LeagueHeader teams={teams} schedule={schedule[currentWeek]} weekNumber={currentWeek} />}
+      {schedule && teams && <LeagueHeader teams={teams} schedule={schedule} weekNumber={currentWeek} />}
       <Container maxWidth={false} disableGutters sx={{ width: "20%", minWidth: "16rem", display: "inline-block", float: "left" }}>
         {teams && <LeagueStandingsSidebar teams={teams} />}
       </Container>

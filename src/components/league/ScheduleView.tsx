@@ -6,15 +6,15 @@ import {
   Typography, 
 } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import { ScheduledMatches } from "./types";
+import { Schedule } from "./types";
 
 type ScheduleResp = {
-  data: ScheduledMatches[];
+  data: Schedule;
 }
 
 const ScheduleView = () => {
   const navigate = useNavigate();
-  const [schedule, setSchedule] = useState<ScheduledMatches[]>();
+  const [schedule, setSchedule] = useState<Schedule>();
 
   useEffect(() => {
     fetchSchedule()
@@ -40,10 +40,10 @@ const ScheduleView = () => {
       <Button variant="text" color="secondary" onClick={() => navigate(-1)}>
         {"< Back"}
       </Button>
-      {schedule && schedule.map((week, key) => {
+      {schedule && schedule.weeks.map((week, key) => {
         return (
-          <Container key={key}>
-            <Typography>{"Week " + (key+1)}</Typography>
+          <Container key={key} sx={{ pb: "2rem" }}>
+            <Typography>{"Week " + week.week}</Typography>
             {week.matches.map((match, key) => {
               return (
                 <Card key={key}>{match[0] + " vs. " + match[1]}</Card>

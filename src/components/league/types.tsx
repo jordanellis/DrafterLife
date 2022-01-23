@@ -19,6 +19,22 @@ export type Players = {
   bench: string[];
 }
 
-export type ScheduledMatches = {
+export type Schedule = {
+  weeks: ScheduleWeek[];
+}
+
+export type ScheduleWeek = {
+  week: string;
   matches: Array<string[]>;
+  final_rosters?: FinalRosters;
+}
+
+type FinalRosters = {
+  [owner: string]: {
+    tanks: Array<string>,
+    dps: Array<string>,
+    supports: Array<string>
+    flex: Array<string>,
+    bench: Array<string>
+  };
 }
