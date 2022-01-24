@@ -19,9 +19,9 @@ const HomePage = () => {
 					</Button>
 				</Link>
 			</Box>
-			<Box>1 Backend = process match stats and move to new week</Box>
-			<Box>2 Update Schedule view</Box>
+			<Box>1 Update Schedule view</Box>
 			<Box>2 Fixup landing page and league home page</Box>
+			<Box>2 Drop player/Add player to empty spot?</Box>
 			<Box>3 Lock Editing team once games start</Box>
 			<Box>3 Loading skeletons</Box>
 			<Box>3 OWL Schedule</Box>

@@ -18,23 +18,30 @@ import ChairIcon from '@mui/icons-material/Chair';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import ShieldIcon from '@mui/icons-material/Shield';
 import SportsMmaIcon from '@mui/icons-material/SportsMma';
+import { Team } from "../types";
 
 const LeagueMatchupView = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [homeTeam, setHomeTeam] = useState<LeagueTeam>();
   const [awayTeam, setAwayTeam] = useState<LeagueTeam>();
+  const [owlTeams, setOWLTeams] = useState<Team[]>();
+  // TODO: add api endpoint to get player/team name map
 
-  const { home, away } = location.state as {home: string, away: string};
+  const { home, away, weekNumber, isPastMatch } = location.state as {
+    home: string, away: string, weekNumber: number, isPastMatch: boolean
+  };
 
   useEffect(() => {
     Promise.all([
       fetchRoster(home),
-      fetchRoster(away)
+      fetchRoster(away),
+      fetchTeams()
     ])
-    .then(([homeTeamResp, awayTeamResp]: [LeagueTeam, LeagueTeam]) => {
+    .then(([homeTeamResp, awayTeamResp, owlTeamsResp]: [LeagueTeam, LeagueTeam, Team[]]) => {
       setHomeTeam(homeTeamResp);
       setAwayTeam(awayTeamResp);
+      setOWLTeams(owlTeamsResp);
     })
     .catch(err => console.log(err))
   }, [home, away]);
@@ -49,17 +56,49 @@ const LeagueMatchupView = () => {
     return body.team;
   };
 
+	const fetchTeams = async () => {
+    const response = await fetch('/api/teams');
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message) 
+    }
+    return body.data;
+  };
+
   const navigateToPlayerStats = (playerName: string) => {
     navigate("/player-stats/" + playerName);
   }
 
-  const displayPlayers = (homePlayers: string[], awayPlayers: string[], role: string, AvatarIcon: ElementType, avatarColor: string, numToDisplay: number) => {
+  const getTeamAbbr = (playerName: string) => {
+    let teamAbbr = "-";
+    owlTeams?.forEach(team => {
+      const players = [
+        ...team.players.tanks,
+        ...team.players.dps,
+        ...team.players.supports
+      ];
+      if (players.includes(playerName)) {
+        teamAbbr = team.abbr;
+      }
+    });
+    return teamAbbr;
+  }
+
+  const displayPlayers = (
+    homePlayers: string[],
+    awayPlayers: string[],
+    role: string,
+    AvatarIcon: ElementType,
+    avatarColor: string,
+    numToDisplay: number
+  ) => {
     let playerArray: JSX.Element[] = [];
     for (let i = 0; i < numToDisplay; i++) {
       const homePlayer = homePlayers[i];
       const awayPlayer = awayPlayers[i];
       playerArray.push(
-        <Paper elevation={3} sx={{ mb: ".5rem", mt: ".5rem" }}>
+        <Paper key={i} elevation={3} sx={{ mb: ".5rem", mt: ".5rem" }}>
           <Grid container alignItems="center">
             <Grid item xs={1}>
               <AvatarIcon sx={{ color: avatarColor, fontSize: 30 }}/>
@@ -68,7 +107,7 @@ const LeagueMatchupView = () => {
               <ListItemButton key={i} onClick={() => homePlayer && navigateToPlayerStats(homePlayer)} sx={{ pt: "0.1rem", pb: "0.1rem" }}>
                 <ListItemText
                   primary={homePlayer}
-                  secondary={homePlayer ? "VS -" : "-"}
+                  secondary={homePlayer ? getTeamAbbr(homePlayer) : "-"}
                 />
               </ListItemButton>
             </Grid>
@@ -98,7 +137,7 @@ const LeagueMatchupView = () => {
               <ListItemButton key={i} onClick={() => awayPlayer && navigateToPlayerStats(awayPlayer)} sx={{ pt: "0.1rem", pb: "0.1rem", textAlign: "right" }}>
                 <ListItemText
                   primary={awayPlayer}
-                  secondary={awayPlayer ? "VS -" : "-"}
+                  secondary={awayPlayer ? getTeamAbbr(awayPlayer) : "-"}
                 />
               </ListItemButton>
             </Grid>

@@ -141,7 +141,6 @@ const TeamView = () => {
       let playersToSwap = [];
       !"-".includes(playerToSwap) && playersToSwap.push({"name": playerToSwap, "newRole": roleAbbr});
       !"-".includes(playerName) && playersToSwap.push({"name": playerName, "newRole": playerToSwapCurrLocation});
-      console.log(playersToSwap);
       swapPlayers(playersToSwap);
     } else {
       setPlayerToSwap(playerName);

@@ -19,7 +19,6 @@ const ScheduleView = () => {
   useEffect(() => {
     fetchSchedule()
     .then((scheduleResp: ScheduleResp) => {
-      console.log(scheduleResp.data)
       setSchedule(scheduleResp.data);
     })
     .catch(err => console.log(err))
