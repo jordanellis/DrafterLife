@@ -34,9 +34,24 @@ api.get('/teams', function(req, res) {
 api.get('/team/:owner', function(req, res) {
   const teams = leagueData["teams"];
   var result = teams.find(team => {
-    return team.owner === req.params.owner
-  })
+    return team.owner === req.params.owner;
+  });
   res.send({team: result});
+});
+
+api.get('/team/historic/:owner', function(req, res) {
+  const weekNumber = req.query.weekNumber;
+  const owner = req.params.owner;
+  const teams = leagueData["teams"];
+  const result = teams.find(team => {
+    return team.owner === owner;
+  });
+  const scheduleWeek = scheduleData["weeks"].find(week => {
+    return weekNumber === week.week;
+  });
+  let teamHistoric = JSON.parse(JSON.stringify(result));
+  teamHistoric.players = scheduleWeek["final_rosters"][owner]
+  res.send({team: teamHistoric});
 });
 
 api.put('/pickup', function (req, res) {

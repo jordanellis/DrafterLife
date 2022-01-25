@@ -36,7 +36,7 @@ const Header = ({schedule, teams, weekNumber}: LeagueHeaderProps) => {
         <Stack direction="row" margin="0.5rem" justifyContent="center" divider={<Divider orientation="vertical" flexItem />} spacing={3}>
           <Typography variant="subtitle1" sx={{ margin: "auto 0" }}>{"Week " + weekNumber + ":"}</Typography>
           {matches && matches.map((match, index) => (
-            <Link key={index} to="/league/matchup" state={{home: match[0], away: match[1], weekNumber}}>
+            <Link key={index} to="/league/matchup" state={{home: match[0], away: match[1], weekNumber, isPastMatch: false}}>
               <ListItemButton sx={{ display: "inline-block", float: "left", flexDirection: "column", textAlign: "center" }}>
                 <Typography variant="subtitle2" sx={{ color: "white" }}>{ ownerTeamNameMap && ownerTeamNameMap.get(match[0]) }</Typography>
                 <Typography variant="caption" sx={{ color: "white" }}>vs</Typography>

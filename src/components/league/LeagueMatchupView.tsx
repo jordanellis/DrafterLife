@@ -18,7 +18,11 @@ import ChairIcon from '@mui/icons-material/Chair';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import ShieldIcon from '@mui/icons-material/Shield';
 import SportsMmaIcon from '@mui/icons-material/SportsMma';
-import { Team } from "../types";
+import { PlayerStatistics, Team } from "../types";
+
+type PlayerData = {
+  [playerName: string]: PlayerStatistics;
+}
 
 const LeagueMatchupView = () => {
   const navigate = useNavigate();
@@ -26,28 +30,95 @@ const LeagueMatchupView = () => {
   const [homeTeam, setHomeTeam] = useState<LeagueTeam>();
   const [awayTeam, setAwayTeam] = useState<LeagueTeam>();
   const [owlTeams, setOWLTeams] = useState<Team[]>();
-  // TODO: add api endpoint to get player/team name map
+  const [playerData, setPlayerData] = useState<PlayerData>();
+  const [homeTeamScore, setHomeTeamScore] = useState(0);
+  const [awayTeamScore, setAwayTeamScore] = useState(0);
 
   const { home, away, weekNumber, isPastMatch } = location.state as {
     home: string, away: string, weekNumber: number, isPastMatch: boolean
   };
 
   useEffect(() => {
-    Promise.all([
-      fetchRoster(home),
-      fetchRoster(away),
-      fetchTeams()
-    ])
-    .then(([homeTeamResp, awayTeamResp, owlTeamsResp]: [LeagueTeam, LeagueTeam, Team[]]) => {
-      setHomeTeam(homeTeamResp);
-      setAwayTeam(awayTeamResp);
-      setOWLTeams(owlTeamsResp);
-    })
-    .catch(err => console.log(err))
-  }, [home, away]);
+    if (isPastMatch) {
+      Promise.all([
+        fetchRosterHistoric(home, weekNumber),
+        fetchRosterHistoric(away, weekNumber),
+        fetchTeams(),
+        fetchPlayers()
+      ])
+      .then(([homeTeamResp, awayTeamResp, owlTeamsResp, playerDataResp]: [LeagueTeam, LeagueTeam, Team[], PlayerData]) => {
+        setHomeTeam(homeTeamResp);
+        setAwayTeam(awayTeamResp);
+        setOWLTeams(owlTeamsResp);
+        setPlayerData(playerDataResp);
+        console.log(playerDataResp);
+        const homeStarters = [
+          ...homeTeamResp.players.tanks,
+          ...homeTeamResp.players.dps,
+          ...homeTeamResp.players.supports,
+          ...homeTeamResp.players.flex
+        ];
+        const awayStarters = [
+          ...awayTeamResp.players.tanks,
+          ...awayTeamResp.players.dps,
+          ...awayTeamResp.players.supports,
+          ...awayTeamResp.players.flex
+        ];
+        let homeScore = 0;
+        homeStarters.forEach(player => {
+          if (playerDataResp) {
+            homeScore += playerDataResp[player].weekly_player_scores[weekNumber];
+          }
+        })
+        setHomeTeamScore(homeScore);
+        let awayScore = 0;
+        awayStarters.forEach(player => {
+          if (playerDataResp) {
+            awayScore += playerDataResp[player].weekly_player_scores[weekNumber];
+          }
+        })
+        setAwayTeamScore(awayScore);
+      })
+      .catch(err => console.log(err))
+    } else {
+      Promise.all([
+        fetchRoster(home),
+        fetchRoster(away),
+        fetchTeams()
+      ])
+      .then(([homeTeamResp, awayTeamResp, owlTeamsResp]: [LeagueTeam, LeagueTeam, Team[]]) => {
+        setHomeTeam(homeTeamResp);
+        setAwayTeam(awayTeamResp);
+        setOWLTeams(owlTeamsResp);
+      })
+      .catch(err => console.log(err))
+    }
+  }, [home, away, isPastMatch, weekNumber]);
+
+	const fetchPlayers = async () => {
+    const response = await fetch('/api/player-stats');
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message) 
+    }
+    return body.data;
+  };
 
 	const fetchRoster = async (ownerName: string) => {
     const response = await fetch('/api/league/team/'+ownerName);
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message) 
+    }
+    return body.team;
+  };
+
+	const fetchRosterHistoric = async (ownerName: string, weekNumber: number) => {
+    const response = await fetch('/api/league/team/historic/' + ownerName + '?' + new URLSearchParams([
+      ['weekNumber', weekNumber.toString()]
+    ]));
     const body = await response.json();
 
     if (response.status !== 200) {
@@ -112,7 +183,10 @@ const LeagueMatchupView = () => {
               </ListItemButton>
             </Grid>
             <Grid item xs={1}>
-              <Chip label="0.00" />
+              <Chip
+                label={playerData && homePlayer ? playerData[homePlayer].weekly_player_scores[weekNumber].toFixed(2) : "0.00"}
+                sx={{ width: "4.5rem" }}
+              />
             </Grid>
             <Grid item xs={2}>
               <Avatar
@@ -131,7 +205,10 @@ const LeagueMatchupView = () => {
               </Avatar>
             </Grid>
             <Grid item xs={1}>
-              <Chip label="0.00" />
+            <Chip
+              label={playerData && awayPlayer ? playerData[awayPlayer].weekly_player_scores[weekNumber].toFixed(2) : "0.00"}
+              sx={{ width: "4.5rem" }}
+            />
             </Grid>
             <Grid item xs={3}>
               <ListItemButton key={i} onClick={() => awayPlayer && navigateToPlayerStats(awayPlayer)} sx={{ pt: "0.1rem", pb: "0.1rem", textAlign: "right" }}>
@@ -163,13 +240,13 @@ const LeagueMatchupView = () => {
               </Box>
             </Grid>
             <Grid item xs={1}>
-              <Chip label="0.00" />
+              <Chip label={homeTeamScore.toFixed(2)} sx={{ width: "4.5rem" }} />
             </Grid>
             <Grid item xs={2}>
               <Typography>VS</Typography>
             </Grid>
             <Grid item xs={1}>
-              <Chip label="0.00" />
+              <Chip label={awayTeamScore.toFixed(2)} sx={{ width: "4.5rem" }} />
             </Grid>
             <Grid item xs={4}>
               <Box>
