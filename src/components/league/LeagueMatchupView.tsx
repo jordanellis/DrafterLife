@@ -175,7 +175,12 @@ const LeagueMatchupView = () => {
               <AvatarIcon sx={{ color: avatarColor, fontSize: 30 }}/>
             </Grid>
             <Grid item xs={3}>
-              <ListItemButton key={i} onClick={() => homePlayer && navigateToPlayerStats(homePlayer)} sx={{ pt: "0.1rem", pb: "0.1rem" }}>
+              <ListItemButton
+                disabled={!homePlayer}
+                key={i}
+                onClick={() => homePlayer && navigateToPlayerStats(homePlayer)}
+                sx={{ pt: "0.1rem", pb: "0.1rem" }}
+              >
                 <ListItemText
                   primary={homePlayer}
                   secondary={homePlayer ? getTeamAbbr(homePlayer) : "-"}
@@ -211,7 +216,12 @@ const LeagueMatchupView = () => {
             />
             </Grid>
             <Grid item xs={3}>
-              <ListItemButton key={i} onClick={() => awayPlayer && navigateToPlayerStats(awayPlayer)} sx={{ pt: "0.1rem", pb: "0.1rem", textAlign: "right" }}>
+              <ListItemButton
+                disabled={!awayPlayer}
+                key={i}
+                onClick={() => awayPlayer && navigateToPlayerStats(awayPlayer)}
+                sx={{ pt: "0.1rem", pb: "0.1rem", textAlign: "right" }}
+              >
                 <ListItemText
                   primary={awayPlayer}
                   secondary={awayPlayer ? getTeamAbbr(awayPlayer) : "-"}

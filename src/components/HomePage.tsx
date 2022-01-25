@@ -20,8 +20,9 @@ const HomePage = () => {
 				</Link>
 			</Box>
 			<Box>1 Update Schedule view</Box>
-			<Box>1 Week Number might be off one?</Box>
+			<Box>1 Fix in memory loading of json on backend</Box>
 			<Box>2 Fixup landing page and league home page</Box>
+			<Box>2 Store winner/loser of matchup in schedule</Box>
 			<Box>2 Drop player/Add player to empty spot?</Box>
 			<Box>3 Lock Editing team once games start</Box>
 			<Box>3 Loading skeletons</Box>

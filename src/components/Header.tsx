@@ -15,7 +15,9 @@ import {
   Toolbar, 
   Typography 
 } from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+import AssessmentIcon from '@mui/icons-material/Assessment';
+import BallotIcon from '@mui/icons-material/Ballot';
+import GroupsIcon from '@mui/icons-material/Groups';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useEffect } from "react";
 import { useSessionUser } from "../hooks/useSessionUser";
@@ -87,33 +89,35 @@ const Header = () => {
 		setModalOpen(false);
 	};
 
+	const drawerItemClicked = (path: string) => {
+		setShowDrawer(false);
+		navigate(path);
+	};
+
 	return (
     <AppBar position="sticky">
 			<Toolbar>
 				<IconButton
-                    onClick={() => setShowDrawer(true)}
-                    edge="start"
-                    sx={{
-											marginRight: 2
-										}}
-                    color="inherit"
-                    size="large">
+					onClick={() => setShowDrawer(true)}
+					edge="start"
+					sx={{
+						marginRight: 2
+					}}
+					color="inherit"
+					size="large"
+				>
 					<MenuIcon />
 				</IconButton>
 				<Drawer anchor="left" open={showDrawer} onClose={() => setShowDrawer(false)} >
-					<Box
-						role="presentation"
-						onClick={() => setShowDrawer(false)}
-						onKeyDown={() => setShowDrawer(false)}
-					>
+					<Box role="presentation" >
 						<List>
 							{[
-								{text: 'Match Stats', icon: <InboxIcon/>},
-								{text: 'My Team', icon: <InboxIcon/>},
-								{text: 'League Home', icon: <InboxIcon/>},
-								{text: 'My Profile', icon: <InboxIcon/>}
+								{text: 'Player Stats', icon: <AssessmentIcon/>, show: true, clickHandler: () => drawerItemClicked("/teams/")},
+								{text: 'League Home', icon: <GroupsIcon/>, show: true, clickHandler: () => drawerItemClicked("/league/")},
+								{text: 'My Team', icon: <BallotIcon/>, show: sessionUser, clickHandler: () => drawerItemClicked("/league/"+sessionUser)},
+								//{text: 'My Profile', icon: <InboxIcon/>, show: sessionUser, clickHandler: () => drawerItemClicked("/")}
 							].map((item, index) => (
-								<ListItem button key={index}>
+								<ListItem button key={index} disabled={!item.show} onClick={item.clickHandler}>
 									<ListItemIcon>{item.icon}</ListItemIcon>
 									<ListItemText primary={item.text} />
 								</ListItem>
