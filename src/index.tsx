@@ -3,12 +3,57 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import { createTheme, ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 
+const TEXT_COLOR = "#dfcfb2";
+
+declare module '@mui/material/styles' {
+  interface TypographyVariants {
+    white: React.CSSProperties;
+  }
+
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    white?: React.CSSProperties;
+  }
+}
+
+// Update the Typography's variant prop options
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    white: true;
+  }
+}
+
 const theme = createTheme({
   components: {
     MuiAppBar: {
-      defaultProps: {
-        enableColorOnDark: true,
-      },
+      styleOverrides: {
+        root: {
+          background: '#1a2d40',
+          opacity: "92%"
+        }
+      }
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          color: TEXT_COLOR
+        }
+      }
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          color: TEXT_COLOR
+        }
+      }
+    },
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          borderColor: "#395785",
+          borderBottomWidth: "0.1rem"
+        }
+      }
     }
   },
   palette: {
@@ -20,10 +65,22 @@ const theme = createTheme({
       main: '#4889cf',
     },
     background: {
-      default: '#1a1c1e',
-      paper: '#1a1d22'
+      default: '#101a28',
+      paper: '#010216'
+    },
+    text: {
+      primary: TEXT_COLOR,
+      secondary: TEXT_COLOR+"90"
     }
   },
+  typography: {
+    allVariants: {
+      color: TEXT_COLOR
+    },
+    white: {
+      color: "#ffffff"
+    }
+  }
 });
 
 ReactDOM.render(

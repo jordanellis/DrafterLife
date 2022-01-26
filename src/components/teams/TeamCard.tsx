@@ -49,7 +49,7 @@ export default function TeamCard({logo, name, players, colors}: TeamCardProps) {
           title={ name }
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2" sx={{ paddingRight: "2rem" }}>
+          <Typography color="#ffffff" gutterBottom variant="h5" component="h2" sx={{ paddingRight: "2rem" }}>
             <IconButton component="div" aria-label="share" size="large" onClick={() => {setExpanded(!expanded)}}>
               { expanded ? <KeyboardArrowDown /> : <KeyboardArrowRight /> }
             </IconButton>
@@ -58,21 +58,21 @@ export default function TeamCard({logo, name, players, colors}: TeamCardProps) {
         </CardContent>
       </CardActionArea>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <Divider sx={{ background: colors.tertiary, opacity: 0.2 }} />
+        <Divider sx={{ borderColor: colors.tertiary, opacity: 0.2 }} />
         <CardContent sx={{ fontSize: "1.2rem" }}>
           {players.tanks.map((tank, key) => (
             <ListItem onClick={() => navigateToPlayerStats(tank)} button key={key}>
-              <ShieldIcon sx={{ color: colors.secondary }} />&nbsp;{ tank }
+              <ShieldIcon sx={{ color: colors.secondary }} />&nbsp;<Typography variant="white">{tank}</Typography>
             </ListItem>
           ))}
           {players.dps.map((dpsPlayer, key) => (
             <ListItem onClick={() => navigateToPlayerStats(dpsPlayer)} button key={key}>
-              <SportsMmaIcon sx={{ color: colors.secondary }} />&nbsp;{ dpsPlayer }
+              <SportsMmaIcon sx={{ color: colors.secondary }} />&nbsp;<Typography variant="white">{dpsPlayer}</Typography>
             </ListItem>
           ))}
           {players.supports.map((support, key) => (
             <ListItem onClick={() => navigateToPlayerStats(support)} button key={key}>
-              <LocalHospitalIcon sx={{ color: colors.secondary }} />&nbsp;{ support }
+              <LocalHospitalIcon sx={{ color: colors.secondary }} />&nbsp;<Typography variant="white">{support}</Typography>
             </ListItem>
           ))}
         </CardContent>

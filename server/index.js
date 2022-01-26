@@ -1,6 +1,7 @@
 const express = require("express");
 var app = express();
 const port = 5000;
+var posts = require("../data/posts");
 
 app.use(express.json());
 app.use("/api/games", require("./games/v1"));
@@ -10,6 +11,10 @@ app.use("/api/teams", require("./teams/v1"));
 
 app.get("/api/version", ( req, res ) => {
   res.send({version: "v0.1.0"});
+});
+
+app.get("/api/posts", ( req, res ) => {
+  res.send({posts});
 });
 
 app.listen(port, () => {

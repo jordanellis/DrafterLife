@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { 
   AppBar, 
   Box, 
-  Button, 
+  Button,
+  Container,
   Drawer,
+  Grid,
   IconButton,
   List,
   ListItem,
@@ -18,6 +20,7 @@ import {
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import BallotIcon from '@mui/icons-material/Ballot';
 import GroupsIcon from '@mui/icons-material/Groups';
+import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useEffect } from "react";
 import { useSessionUser } from "../hooks/useSessionUser";
@@ -26,7 +29,7 @@ const Header = () => {
   let navigate = useNavigate();
 	
   const [showDrawer, setShowDrawer] = useState(false);
-  const [version, setVersion] = useState("");
+  const [weekNumber, setWeekNumber] = useState(0);
   const [username, setUsername] = useState("");
 	const [sessionUser, setSessionUser] = useSessionUser();
 	const [isModalOpen, setModalOpen] = useState(false);
@@ -34,19 +37,19 @@ const Header = () => {
 	const [isUserInvalid, setUserInvalid] = useState(false);
 
 	useEffect(() => {
-		fetchVersionEndpoint()
-			.then(res => setVersion(res.version))
+		fetchCurrentWeek()
+			.then(res => setWeekNumber(res))
 			.catch(err => console.log(err))
 	}, []);
 
-	const fetchVersionEndpoint = async () => {
-    const response = await fetch('/api/version');
+	const fetchCurrentWeek = async () => {
+    const response = await fetch('/api/league/currentWeek');
     const body = await response.json();
 
     if (response.status !== 200) {
       throw Error(body.message) 
     }
-    return body;
+    return body.weekNumber;
   };
 
 	const keyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -95,53 +98,83 @@ const Header = () => {
 	};
 
 	return (
-    <AppBar position="sticky">
+		<AppBar position="sticky">
 			<Toolbar>
-				<IconButton
-					onClick={() => setShowDrawer(true)}
-					edge="start"
-					sx={{
-						marginRight: 2
-					}}
-					color="inherit"
-					size="large"
-				>
-					<MenuIcon />
-				</IconButton>
-				<Drawer anchor="left" open={showDrawer} onClose={() => setShowDrawer(false)} >
-					<Box role="presentation" >
-						<List>
-							{[
-								{text: 'Player Stats', icon: <AssessmentIcon/>, show: true, clickHandler: () => drawerItemClicked("/teams/")},
-								{text: 'League Home', icon: <GroupsIcon/>, show: true, clickHandler: () => drawerItemClicked("/league/")},
-								{text: 'My Team', icon: <BallotIcon/>, show: sessionUser, clickHandler: () => drawerItemClicked("/league/"+sessionUser)},
-								//{text: 'My Profile', icon: <InboxIcon/>, show: sessionUser, clickHandler: () => drawerItemClicked("/")}
-							].map((item, index) => (
-								<ListItem button key={index} disabled={!item.show} onClick={item.clickHandler}>
-									<ListItemIcon>{item.icon}</ListItemIcon>
-									<ListItemText primary={item.text} />
-								</ListItem>
-							))}
-						</List>
-					</Box>
-				</Drawer>
-				<Typography variant="h6" sx={{ flexGrow: 1, cursor: "pointer" }} onClick={() => navigate("/")}>
-					DrafterLife
-				</Typography>
-				<Typography variant="subtitle1" sx={{ flexGrow: 1 }}>
-					{version}
-				</Typography>
-				{ sessionUser && 
-					<Typography variant="subtitle1" sx={{ marginRight: "1rem" }}>Welcome, {sessionUser}!</Typography>
-				}
-				{ sessionUser ? 
-					<Button color="inherit" onClick={() => {
-						setSessionUser("");
-						window.location.reload();
-					}}>Logout</Button>
-				:
-					<Button color="inherit" onClick={handleModalOpen}>Login</Button>
-				}
+				<Grid container alignItems="center">
+					<Grid item xs={1}>
+						<IconButton
+							onClick={() => setShowDrawer(true)}
+							edge="start"
+							sx={{
+								marginRight: 2
+							}}
+							color="inherit"
+							size="large"
+						>
+							<MenuIcon />
+						</IconButton>
+          </Grid>
+					<Drawer anchor="left" open={showDrawer} onClose={() => setShowDrawer(false)} >
+						<Box role="presentation">
+							<List>
+								{[
+									{text: 'Home', icon: <HomeIcon/>, show: true, clickHandler: () => drawerItemClicked("/")},
+									{text: 'Player Stats', icon: <AssessmentIcon/>, show: true, clickHandler: () => drawerItemClicked("/teams/")},
+									{text: 'League Home', icon: <GroupsIcon/>, show: true, clickHandler: () => drawerItemClicked("/league/")},
+									{text: 'My Team', icon: <BallotIcon/>, show: sessionUser, clickHandler: () => drawerItemClicked("/league/"+sessionUser)},
+									//{text: 'My Profile', icon: <InboxIcon/>, show: sessionUser, clickHandler: () => drawerItemClicked("/")}
+								].map((item, index) => (
+									<ListItem
+										button
+										key={index}
+										disabled={!item.show}
+										onClick={item.clickHandler}
+										sx={{ p: "0.5rem 4rem 0.5rem 2rem" }}
+									>
+										<ListItemIcon>{item.icon}</ListItemIcon>
+										<ListItemText primary={item.text} />
+									</ListItem>
+								))}
+							</List>
+						</Box>
+					</Drawer>
+					<Grid item xs={4.65}>
+						<Box>
+							<Typography variant="h6" sx={{ display: "inline-block", cursor: "pointer" }} onClick={() => navigate("/")}>
+								DrafterLife
+							</Typography>
+						</Box>
+          </Grid>
+					<Grid item xs={3.35}>
+						<Container disableGutters sx={{ display: "flex" }}>
+							<Box sx={{ bgcolor: "background.paper", p: "0.2rem", borderTopLeftRadius: "0.5rem", borderBottomLeftRadius: "0.5rem" }} >
+								<Typography variant="body2" sx={{ m: "0 0.4rem" }}>
+									Week
+								</Typography>
+							</Box>
+							<Box sx={{ bgcolor: "text.primary", p: "0.2rem", borderTopRightRadius: "0.5rem", borderBottomRightRadius: "0.5rem" }} >
+								<Typography variant="body2" sx={{ color: "background.paper", m: "0 0.5rem" }}>
+									{weekNumber}
+								</Typography>
+							</Box>
+						</Container>
+					</Grid>
+					<Grid item xs={2} sx={{ display: "flex", alignItems: "center" }}>
+						{ sessionUser && 
+							<Typography variant="subtitle1" sx={{ marginRight: "1rem" }}>Welcome, {sessionUser}!</Typography>
+						}
+					</Grid>
+					<Grid item xs={1} sx={{ display: "flex", alignItems: "center" }}>
+						{ sessionUser ? 
+							<Button onClick={() => {
+								setSessionUser("");
+								window.location.reload();
+							}}>Logout</Button>
+						:
+							<Button onClick={handleModalOpen}>Login</Button>
+						}
+					</Grid>
+				</Grid>
 				<Modal
 					open={isModalOpen}
 					onClose={handleModalClose}
@@ -182,7 +215,7 @@ const Header = () => {
 				</Modal>
 			</Toolbar>
 		</AppBar>
-    );
+  );
 }
 
 export default Header

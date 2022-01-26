@@ -225,10 +225,10 @@ export default function PlayerStats() {
 			<Container sx={{ display: "flex", flexDirection: "row" }}>
 				{statKeys.map((statKey, i) => (
 				<Container key={i} >
-					<Typography variant="subtitle1">
+					<Typography color="#ffffff" variant="subtitle1">
 						{ statKey }
 					</Typography>
-					<Typography variant="h4">
+					<Typography color="#ffffff" variant="h4">
 						{ playerStats && (playerStats.totals[statKey]/playerStats.totals['Time Played']*600).toFixed(4) }
 					</Typography>
 				</Container>
@@ -245,8 +245,8 @@ export default function PlayerStats() {
 			<Card sx={{ maxWidth: 900, display: "flex", flexDirection: "row", m: "auto" }}>
 				<Box sx={{ maxWidth: 210, background: team.colors.primary, flex: 1 }}>
 					<CardContent sx={{ padding: "1!important" }}>
-						<PersonIcon sx={{ fontSize: "11rem!important" }} />
-						<Typography variant="body1">
+						<PersonIcon sx={{ fontSize: "11rem!important", color:"#ffffff" }} />
+						<Typography color="#ffffff" variant="body1">
 							{ team.name }
 						</Typography>
 						<Divider sx={{ background: team.colors.tertiary, opacity: 0.2, marginTop: 1, marginBottom: 1 }} />
@@ -262,14 +262,14 @@ export default function PlayerStats() {
 							fontSize="medium"
 							sx={{ display: "inline", float: "left", color: team.colors.secondary }}
 							/>}
-						<Typography variant="subtitle1" color="text.secondary" sx={{ display: "inline", paddingLeft: 1 }} >
+						<Typography variant="subtitle1" color="#ffffff" sx={{ display: "inline", paddingLeft: 1 }} >
 							{ player }
 						</Typography>
 					</CardContent>
 				</Box>
 				<Box sx={{ background: team.colors.primary+"99", flex: 1, textAlign: "center" }}>
 					<CardContent>
-						<Typography variant="h6">
+						<Typography color="#ffffff" variant="h6">
 							Averages Per 10 Minutes
 						</Typography>
 						<Divider sx={{ background: team.colors.tertiary, opacity: 0.2, marginTop: 2, marginBottom: 7 }} />
