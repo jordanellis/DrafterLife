@@ -29,7 +29,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           background: '#1a2d40',
-          opacity: "92%"
+          opacity: "90%"
         }
       }
     },
@@ -44,6 +44,13 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           color: TEXT_COLOR
+        }
+      }
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundImage: "none"
         }
       }
     },
@@ -66,7 +73,7 @@ const theme = createTheme({
     },
     background: {
       default: '#101a28',
-      paper: '#010216'
+      paper: '#192B3D'
     },
     text: {
       primary: TEXT_COLOR,

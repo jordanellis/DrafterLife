@@ -1,6 +1,7 @@
-import { Box, Button, Container, Divider, Typography } from "@mui/material";
+import { Box, Button, Card, CardActionArea, CardContent, CardMedia, Container, Divider, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import logo from '../logo.svg';
 
 const HomePage = () => {
 	const [posts, setPosts] = useState<string[]>();
@@ -24,28 +25,54 @@ const HomePage = () => {
     }
     return body.posts;
   };
+
+	const displayPostCards = () => {
+		return (
+			<Container sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
+				{[1,2,3,4,5].map(i => {
+					return (
+						<Card key={i} sx={{ margin: "1rem", textAlign: "center", minWidth: 345, maxWidth: 345 }}>
+							<CardActionArea>
+								<CardMedia
+									component="img"
+									height="140"
+									image={logo}
+								/>
+								<CardContent>
+									<Typography gutterBottom variant="h5" component="div">
+										Lizard
+									</Typography>
+									<Typography variant="body2" color="text.secondary">
+										Lizards are a widespread group of squamate reptiles, with over 6,000
+										species, ranging across all continents except Antarctica
+									</Typography>
+								</CardContent>
+							</CardActionArea>
+						</Card>
+					);
+				})}
+			</Container>
+		);
+	}
+
   return (
-    <div className="home-page-container">
-			<Box>
-				<Link style={{ textDecoration: 'none' }} to="/teams/">
-					<Button variant="contained" color="primary">
-							OWL Teams
-					</Button>
-				</Link>
-			</Box>
-			<Box>
-				<Link style={{ textDecoration: 'none' }} to="/league/">
-					<Button variant="contained" color="secondary">
-						View My League
-					</Button>
-				</Link>
-			</Box>
+    <Box>
+			<Link style={{ textDecoration: 'none' }} to="/teams/">
+				<Button variant="contained" color="primary">
+						OWL Teams
+				</Button>
+			</Link>
+			<Link style={{ textDecoration: 'none' }} to="/league/">
+				<Button variant="contained" color="secondary">
+					View My League
+				</Button>
+			</Link>
 			<Container>
 				<Typography variant="h5">News</Typography>
 				<Divider sx={{ m: "0.75rem" }} />
 				<Typography variant="body1">{posts ? posts[postsIndex] : ""}</Typography>
 			</Container>
-			
+			{displayPostCards()}
 			{/* TODO:
 			1 Fix in memory loading of json on backend
 			2 Fixup landing page and league home page
@@ -61,7 +88,7 @@ const HomePage = () => {
 			- Cleanup types/typescript
 			- Style for mobile 
 			*/}
-    </div>
+    </Box>
   );
 }
 
