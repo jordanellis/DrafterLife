@@ -147,7 +147,7 @@ const Header = () => {
           </Grid>
 					<Grid item xs={3.35}>
 						<Container disableGutters sx={{ display: "flex" }}>
-							<Box sx={{ bgcolor: "background.paper", p: "0.2rem", borderTopLeftRadius: "0.5rem", borderBottomLeftRadius: "0.5rem" }} >
+							<Box sx={{ bgcolor: "background.default", p: "0.2rem", borderTopLeftRadius: "0.5rem", borderBottomLeftRadius: "0.5rem" }} >
 								<Typography variant="body2" sx={{ m: "0 0.4rem" }}>
 									Week
 								</Typography>
@@ -161,7 +161,7 @@ const Header = () => {
 					</Grid>
 					<Grid item xs={2} sx={{ display: "flex", alignItems: "center" }}>
 						{ sessionUser && 
-							<Typography variant="subtitle1" sx={{ marginRight: "1rem" }}>Welcome, {sessionUser}!</Typography>
+							<Typography variant="subtitle1" sx={{ marginRight: "1rem" }}>Welcome, {sessionUser}</Typography>
 						}
 					</Grid>
 					<Grid item xs={1} sx={{ display: "flex", alignItems: "center" }}>
