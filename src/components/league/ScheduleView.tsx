@@ -66,7 +66,7 @@ const ScheduleView = () => {
     if (week === currentWeek) {
       return "#2a4f2c";
     }
-    return week < currentWeek ? "#394d3d" : "inherit";
+    return week < currentWeek ? "#354f5a" : "background.paper";
   };
 
 	return (

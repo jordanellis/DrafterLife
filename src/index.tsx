@@ -40,13 +40,6 @@ const theme = createTheme({
         }
       }
     },
-    MuiSvgIcon: {
-      styleOverrides: {
-        root: {
-          color: TEXT_COLOR
-        }
-      }
-    },
     MuiPaper: {
       styleOverrides: {
         root: {

@@ -103,7 +103,6 @@ const HomePage = () => {
 			{displayPostCards()}
 			{/* TODO:
 			1 Fix in memory loading of json on backend
-			2 Fixup landing page and league home page
 			2 Store winner/loser of matchup in schedule
 			2 Drop player/Add player to empty spot?
 			3 Lock Editing team once games start
