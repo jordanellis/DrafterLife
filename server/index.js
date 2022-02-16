@@ -1,6 +1,6 @@
 const express = require("express");
 var app = express();
-const port = 5000;
+const port = 5001;
 var posts = require("../data/posts");
 
 app.use(express.json());
