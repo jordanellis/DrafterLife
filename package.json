@@ -29,6 +29,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "server-prod": "node server/index.js",
     "server": "nodemon server/index.js --ignore ./data/",
     "build": "react-scripts build",
     "test": "react-scripts test",
