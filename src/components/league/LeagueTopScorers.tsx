@@ -53,7 +53,7 @@ export default function LeagueTopScorers() {
           {topPlayers?.map((player, i) => (
             <ListItem key={i} disablePadding>
               <ListItemButton sx={{ display: "flex" }}>
-                <Typography sx={{ width: "4.5rem" }}>{i+1 + "."}</Typography>
+                <Typography sx={{ width: "4.4rem" }}>{i+1 + "."}</Typography>
                 <Typography sx={{ width: "12rem" }}>{player[0]}</Typography>
                 <Typography sx={{ textAlign: "right", width: "100%" }}>
                   {typeof player[1] === "number" ? player[1].toFixed(2) : parseInt(player[1]).toFixed(2)}
