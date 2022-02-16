@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { 
   AppBar, 
+  Avatar, 
   Box, 
   Button,
   Container,
@@ -24,6 +25,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useEffect } from "react";
 import { useSessionUser } from "../hooks/useSessionUser";
+import logo from "../drafterlife-logo.png";
 
 const Header = () => {
   let navigate = useNavigate();
@@ -101,7 +103,7 @@ const Header = () => {
 		<AppBar position="sticky">
 			<Toolbar>
 				<Grid container alignItems="center">
-					<Grid item xs={1}>
+					<Grid item xs={5.65} sx={{ display: "flex" }}>
 						<IconButton
 							onClick={() => setShowDrawer(true)}
 							edge="start"
@@ -113,34 +115,33 @@ const Header = () => {
 						>
 							<MenuIcon />
 						</IconButton>
-          </Grid>
-					<Drawer anchor="left" open={showDrawer} onClose={() => setShowDrawer(false)} >
-						<Box role="presentation">
-							<List>
-								{[
-									{text: 'Home', icon: <HomeIcon/>, show: true, clickHandler: () => drawerItemClicked("/")},
-									{text: 'Player Stats', icon: <AssessmentIcon/>, show: true, clickHandler: () => drawerItemClicked("/teams/")},
-									{text: 'League Home', icon: <GroupsIcon/>, show: true, clickHandler: () => drawerItemClicked("/league/")},
-									{text: 'My Team', icon: <BallotIcon/>, show: sessionUser, clickHandler: () => drawerItemClicked("/league/"+sessionUser)},
-									//{text: 'My Profile', icon: <InboxIcon/>, show: sessionUser, clickHandler: () => drawerItemClicked("/")}
-								].map((item, index) => (
-									<ListItem
-										button
-										key={index}
-										disabled={!item.show}
-										onClick={item.clickHandler}
-										sx={{ p: "0.5rem 4rem 0.5rem 2rem" }}
-									>
-										<ListItemIcon>{item.icon}</ListItemIcon>
-										<ListItemText primary={item.text} />
-									</ListItem>
-								))}
-							</List>
-						</Box>
-					</Drawer>
-					<Grid item xs={4.65}>
-						<Box>
-							<Typography variant="h6" sx={{ display: "inline-block", cursor: "pointer" }} onClick={() => navigate("/")}>
+						<Drawer anchor="left" open={showDrawer} onClose={() => setShowDrawer(false)} >
+							<Box role="presentation">
+								<List>
+									{[
+										{text: 'Home', icon: <HomeIcon/>, show: true, clickHandler: () => drawerItemClicked("/")},
+										{text: 'Player Stats', icon: <AssessmentIcon/>, show: true, clickHandler: () => drawerItemClicked("/teams/")},
+										{text: 'League Home', icon: <GroupsIcon/>, show: true, clickHandler: () => drawerItemClicked("/league/")},
+										{text: 'My Team', icon: <BallotIcon/>, show: sessionUser, clickHandler: () => drawerItemClicked("/league/"+sessionUser)},
+										//{text: 'My Profile', icon: <InboxIcon/>, show: sessionUser, clickHandler: () => drawerItemClicked("/")}
+									].map((item, index) => (
+										<ListItem
+											button
+											key={index}
+											disabled={!item.show}
+											onClick={item.clickHandler}
+											sx={{ p: "0.5rem 4rem 0.5rem 2rem" }}
+										>
+											<ListItemIcon>{item.icon}</ListItemIcon>
+											<ListItemText primary={item.text} />
+										</ListItem>
+									))}
+								</List>
+							</Box>
+						</Drawer>
+						<Box onClick={() => navigate("/")} sx={{ display: "flex", cursor: "pointer", alignItems: "center", width: "11rem" }}>
+							<Avatar alt="DrafterLife" src={logo} sx={{ width: 50, height: 50 }}/>
+							<Typography variant="h6" sx={{ ml: "0.5rem" }}>
 								DrafterLife
 							</Typography>
 						</Box>

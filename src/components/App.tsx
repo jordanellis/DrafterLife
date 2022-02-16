@@ -14,6 +14,7 @@ import Teams from "./teams/Teams";
 import Header from "./Header";
 import LeagueMatchupView from "./league/LeagueMatchupView";
 import ScheduleView from "./league/ScheduleView";
+import LeagueTeamProfile from "./league/LeagueTeamProfile";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/league/" element={<LeagueViewHome />} />
             <Route path="/league/:ownerName" element={<LeagueTeamView />} />
+            <Route path="/league/profile/:ownerName" element={<LeagueTeamProfile />} />
             <Route path="/league/free-agency" element={<FreeAgencyView />} />
             <Route path="/league/matchup" element={<LeagueMatchupView />} />
             <Route path="/league/schedule" element={<ScheduleView />} />

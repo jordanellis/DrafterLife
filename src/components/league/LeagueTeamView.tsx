@@ -10,10 +10,6 @@ import SwapVertIcon from '@mui/icons-material/SwapVert';
 import { PlayerStatistics, Team } from "../types";
 import { useSessionUser } from "../../hooks/useSessionUser";
 
-type TeamsResp = {
-  team: LeagueTeam;
-}
-
 type RosterStatsResp = {
   [player: string]: PlayerStatistics;
 }
@@ -39,13 +35,13 @@ const TeamView = () => {
   const [playerToSwapRole, setPlayerToSwapRole] = useState("");
 
   const initData = useCallback(() => {
-    ownerName && fetchRoster(ownerName)
-			.then((teamResp: TeamsResp) => {
-        setTeam(teamResp.team)
+    ownerName && fetchLeagueTeam(ownerName)
+			.then((teamResp: LeagueTeam) => {
+        setTeam(teamResp)
         
-        if (teamResp.team && teamResp.team !== undefined) {
+        if (teamResp && teamResp !== undefined) {
           Promise.all([
-            fetchRosterStats(teamResp.team.players),
+            fetchRosterStats(teamResp.players),
             fetchTeams()
           ])
             .then(([resp, teamsResp]: [RosterStatsResp, Team[]]) => {
@@ -72,14 +68,14 @@ const TeamView = () => {
 
 	useEffect(() => initData(), [initData]);
 
-	const fetchRoster = async (ownerName: string) => {
+	const fetchLeagueTeam = async (ownerName: string) => {
     const response = await fetch('/api/league/team/'+ownerName);
     const body = await response.json();
 
     if (response.status !== 200) {
       throw Error(body.message) 
     }
-    return body;
+    return body.team;
   };
 
 	const fetchRosterStats = async (p: Players) => {

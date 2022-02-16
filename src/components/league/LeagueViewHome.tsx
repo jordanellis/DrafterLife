@@ -1,17 +1,11 @@
-import { Button, Container, Typography } from "@mui/material";
+import { Container, Divider, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import LeagueHeader from "./LeagueHeader";
+import LeagueMatchupPreview from "./LeagueMatchupPreview";
+import LeagueNav from "./LeagueNav";
 import LeagueStandingsSidebar from "./LeagueStandingsSidebar";
+import LeagueTopScorers from "./LeagueTopScorers";
 import { Schedule, LeagueTeam } from "./types";
-
-type ScheduleResp = {
-  data: Schedule;
-}
-
-type TeamsResp = {
-  data: LeagueTeam[];
-}
 
 const LeagueViewHome = () => {
   const [currentWeek, setCurrentWeek] = useState(0);
@@ -24,9 +18,9 @@ const LeagueViewHome = () => {
 			fetchSchedule(),
 			fetchTeams()
 		])
-			.then(([currWeek, schedule, teams]: [number, ScheduleResp, TeamsResp]) => {
-        setTeams(teams.data);
-        setSchedule(schedule.data);
+			.then(([currWeek, schedule, teams]: [number, Schedule, LeagueTeam[]]) => {
+        setTeams(teams);
+        setSchedule(schedule);
         setCurrentWeek(currWeek);
       })
 			.catch(err => console.log(err))
@@ -49,7 +43,7 @@ const LeagueViewHome = () => {
     if (response.status !== 200) {
       throw Error(body.message) 
     }
-    return body;
+    return body.data;
   };
 
 	const fetchSchedule = async () => {
@@ -59,37 +53,26 @@ const LeagueViewHome = () => {
     if (response.status !== 200) {
       throw Error(body.message) 
     }
-    return body;
+    return body.data;
   };
 
   return (
-    <Container maxWidth={false}>
-      <Link style={{ textDecoration: "none" }} to="/">
-				<Button variant="text" color="secondary" sx={{ display: "inline-block", float: "left", marginTop: "1.2rem" }}>
-					{"< Home"}
-				</Button>
-			</Link>
-      {schedule && teams && <LeagueHeader teams={teams} schedule={schedule} weekNumber={currentWeek} />}
-      <Container maxWidth={false} disableGutters sx={{ width: "20%", minWidth: "16rem", display: "inline-block", float: "left" }}>
+    <Container disableGutters maxWidth={false}>
+      <Box sx={{ textAlign: "center", mb: "2rem" }}>
+        <LeagueNav />
+      </Box>
+      <Container sx={{ textAlign: "center", mb: "1rem" }}>
+        <Typography variant="h4">Sweet Lactations</Typography>
+        <Divider/>
+      </Container>
+      <Container maxWidth={false} disableGutters sx={{ width: "25%", minWidth: "16rem", display: "inline-block", float: "left" }}>
         {teams && <LeagueStandingsSidebar teams={teams} />}
       </Container>
-      <Container sx={{ width: "60%", display: "inline-block", float: "left" }}>
-        <Typography variant="h6">
-          Standings
-        </Typography>
-        <Typography variant="h6">
-          View my team
-        </Typography>
-        <Link style={{ textDecoration: "none" }} to="/league/schedule">
-          <Button variant="outlined" color="secondary">
-            {"Schedule"}
-          </Button>
-        </Link>
-        <Link style={{ textDecoration: "none" }} to="/league/free-agency">
-          <Button variant="outlined" color="secondary">
-            {"Free Agents"}
-          </Button>
-        </Link>
+      <Container maxWidth={false} disableGutters sx={{ width: "50%", minWidth: "16rem", display: "inline-block", float: "left" }}>
+        <LeagueTopScorers />
+      </Container>
+      <Container maxWidth={false} disableGutters sx={{ width: "20%", minWidth: "16rem", display: "inline-block", float: "right" }}>
+        {schedule && teams && <LeagueMatchupPreview teams={teams} schedule={schedule} weekNumber={currentWeek} />}
       </Container>
     </Container>
   );

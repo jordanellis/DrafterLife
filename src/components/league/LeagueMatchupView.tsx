@@ -51,7 +51,6 @@ const LeagueMatchupView = () => {
         setAwayTeam(awayTeamResp);
         setOWLTeams(owlTeamsResp);
         setPlayerData(playerDataResp);
-        console.log(playerDataResp);
         const homeStarters = [
           ...homeTeamResp.players.tanks,
           ...homeTeamResp.players.dps,
