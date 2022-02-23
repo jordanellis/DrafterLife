@@ -1,7 +1,7 @@
-import os
 import csv
 import json
 from datetime import datetime
+import os
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
@@ -9,8 +9,6 @@ load_dotenv()
 client = MongoClient(f"mongodb+srv://{os.getenv('MONGO_USER')}:{os.getenv('MONGO_PASS')}@cluster0.jh0gw.mongodb.net/drafterlife")
 db = client.drafterlife
 week_data = list(db.weeks.find({}))
-
-player_data = {}
 
 important_stats = [
   "Assists",
@@ -21,6 +19,8 @@ important_stats = [
   "Healing Done",
   "Time Played"
 ]
+
+player_data = {}
 
 def retrieve_match_week(match_time):
   datetime_time = datetime.strptime(match_time, "%Y-%m-%d %H:%M:%S")
