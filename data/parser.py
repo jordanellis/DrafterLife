@@ -1,12 +1,26 @@
+import os
 import csv
 import json
 from datetime import datetime
+from pymongo import MongoClient
+from dotenv import load_dotenv
+
+load_dotenv()
+client = MongoClient(f"mongodb+srv://{os.getenv('MONGO_USER')}:{os.getenv('MONGO_PASS')}@cluster0.jh0gw.mongodb.net/drafterlife")
+db = client.drafterlife
+week_data = list(db.weeks.find({}))
 
 player_data = {}
 
-f = open('./data/weeks.json')
-week_data = json.load(f)
-f.close()
+important_stats = [
+  "Assists",
+  "Hero Damage Done",
+  "Deaths",
+  "Eliminations",
+  "Final Blows",
+  "Healing Done",
+  "Time Played"
+]
 
 def retrieve_match_week(match_time):
   datetime_time = datetime.strptime(match_time, "%Y-%m-%d %H:%M:%S")
@@ -27,6 +41,9 @@ def retrieve_match_stage(match_time):
 with open('./data/phs_2021_1.csv', mode='r', encoding='utf-8-sig') as csvfile:
   reader = csv.DictReader(csvfile)
   for row in reader:
+    if row['stat_name'] not in important_stats:
+      continue
+
     # check player name
     if row['player_name'].upper() not in player_data.keys():
       player_data[row['player_name'].upper()] = {
