@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Container, List, ListItem, ListItemButton, Typography } from "@mui/material";
 import { PlayerStatistics } from "../types";
+import { fetchCurrentWeek, fetchPlayers } from "../../service/fetches";
 
 interface PlayerData {
   [playerName: string]: PlayerStatistics;
@@ -22,26 +23,6 @@ export default function LeagueTopScorers() {
       })
 			.catch(err => console.log(err))
   }, []);
-
-	const fetchCurrentWeek = async () => {
-    const response = await fetch('/api/league/currentWeek');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.weekNumber;
-  };
-
-	const fetchPlayers = async () => {
-    const response = await fetch('/api/player-stats');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.data;
-  };
 
   return (
     <Container maxWidth="xs" disableGutters sx={{ textAlign: "center" }}>

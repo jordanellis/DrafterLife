@@ -7,11 +7,11 @@ import {
   Stack, 
   Typography,
 } from '@mui/material';
-import { Schedule, LeagueTeam } from "./types";
+import { ScheduleWeek, LeagueTeam } from "./types";
 import { useNavigate } from "react-router";
 
 type LeagueHeaderProps = {
-  schedule: Schedule;
+  schedule: ScheduleWeek[];
   teams: LeagueTeam[];
   weekNumber: number;
 }
@@ -26,7 +26,7 @@ const LeagueMatchupPreview = ({schedule, teams, weekNumber}: LeagueHeaderProps) 
     teams.forEach((team) => {
       ownerTeamName.set(team.owner, team.name);
     });
-    const week = schedule.weeks.find(week => week.week === weekNumber.toString());
+    const week = schedule.find(week => week.week === weekNumber.toString());
     setMatches(week?.matches)
     setTeamNameMap(ownerTeamName);
 	}, [schedule, teams, weekNumber]);

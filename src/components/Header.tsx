@@ -26,6 +26,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useEffect } from "react";
 import { useSessionUser } from "../hooks/useSessionUser";
 import logo from "../drafterlife-logo.png";
+import { fetchCurrentWeek } from "../service/fetches";
 
 const Header = () => {
   let navigate = useNavigate();
@@ -43,16 +44,6 @@ const Header = () => {
 			.then(res => setWeekNumber(res))
 			.catch(err => console.log(err))
 	}, []);
-
-	const fetchCurrentWeek = async () => {
-    const response = await fetch('/api/league/currentWeek');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.weekNumber;
-  };
 
 	const keyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
 		if (event.key === "Enter" && !loginDisabled){

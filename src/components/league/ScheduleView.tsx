@@ -10,53 +10,24 @@ import {
   Grid, 
 } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import { LeagueTeam, Schedule } from "./types";
+import { LeagueTeam, ScheduleWeek } from "./types";
+import { fetchCurrentWeek, fetchSchedule, fetchTeams } from "../../service/fetches";
 
 const ScheduleView = () => {
   const navigate = useNavigate();
-  const [schedule, setSchedule] = useState<Schedule>();
+  const [schedule, setSchedule] = useState<ScheduleWeek[]>();
   const [leagueTeams, setLeagueTeams] = useState<LeagueTeam[]>();
   const [currentWeek, setCurrentWeek] = useState(0);
 
   useEffect(() => {
     Promise.all([fetchCurrentWeek(), fetchSchedule(), fetchTeams()])
-    .then(([currWeek, scheduleResp, leagueTeamsResp]: [number, Schedule, LeagueTeam[]]) => {
+    .then(([currWeek, scheduleResp, leagueTeamsResp]: [number, ScheduleWeek[], LeagueTeam[]]) => {
       setSchedule(scheduleResp);
       setLeagueTeams(leagueTeamsResp);
       setCurrentWeek(currWeek);
     })
     .catch(err => console.log(err))
 	}, []);
-
-	const fetchCurrentWeek = async () => {
-    const response = await fetch('/api/league/currentWeek');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.weekNumber;
-  };
-
-	const fetchSchedule = async () => {
-    const response = await fetch('/api/league/schedule');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.data;
-  };
-
-	const fetchTeams = async () => {
-    const response = await fetch('/api/league/teams');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.data;
-  };
 
   const navigateToMatchup = (homeTeam: string, awayTeam: string, weekNumber: number) => {
     navigate("/league/matchup", { state: {home: homeTeam, away: awayTeam, weekNumber, isPastMatch: weekNumber < currentWeek} });
@@ -75,7 +46,7 @@ const ScheduleView = () => {
         {"< Back"}
       </Button>
       <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
-        {schedule && schedule.weeks.map((week, key) => {
+        {schedule?.map((week, key) => {
           return (
             <Box sx={{ float: "left", margin: ".75rem", textAlign: "center", minWidth: "28rem" }} key={key}>
               <Typography>{"Week " + week.week}</Typography>

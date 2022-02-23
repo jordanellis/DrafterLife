@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Box } from "@mui/system";
 import { useSessionUser } from "../../hooks/useSessionUser";
 import { Button, Container, Typography } from "@mui/material";
+import { fetchRoster } from "../../service/fetches";
 
 const LeagueTeamProfile = () => {
   const navigate = useNavigate();
@@ -12,22 +13,12 @@ const LeagueTeamProfile = () => {
   const [team, setTeam] = useState<LeagueTeam>();
 
 	useEffect(() => {
-    ownerName && fetchLeagueTeam(ownerName)
+    ownerName && fetchRoster(ownerName)
       .then((teamResp: LeagueTeam) => {
         setTeam(teamResp);
       })
       .catch(err => console.log(err))
   }, [ownerName]);
-
-	const fetchLeagueTeam = async (ownerName: string) => {
-    const response = await fetch('/api/league/team/'+ownerName);
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.team;
-  };
 
 	return (
     <Box>

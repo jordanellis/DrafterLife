@@ -7,6 +7,7 @@ import { PlayerStatistics, WeeklyPlayerScores } from "../types";
 import { Team } from "../types";
 import { LeagueTeam } from "./types";
 import { useSessionUser } from "../../hooks/useSessionUser";
+import { fetchCurrentWeek, fetchLeagueTeams, fetchPickup, fetchPlayers, fetchTeams } from "../../service/fetches";
 
 type FormattedPlayerData = {
   name: string;
@@ -167,46 +168,6 @@ const FreeAgencyView = () => {
 
 	useEffect(() => initData(), [initData]);
 
-  const fetchCurrentWeek = async () => {
-    const response = await fetch('/api/league/currentWeek');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.weekNumber;
-  };
-
-	const fetchPlayers = async () => {
-    const response = await fetch('/api/player-stats');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.data;
-  };
-
-	const fetchTeams = async () => {
-    const response = await fetch('/api/teams');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.data;
-  };
-
-	const fetchLeagueTeams = async () => {
-    const response = await fetch('/api/league/teams');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.data;
-  };
-
   const navigateToPlayerStats = (playerName: string) => {
     navigate("/player-stats/" + playerName);
   }
@@ -251,15 +212,7 @@ const FreeAgencyView = () => {
 
   const handlePlayerSwapApproved = () => {
     setModalProcessing(true);
-    fetch('/api/league/pickup', {
-      method: 'PUT',
-      headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        owner: sessionUser,
-        playerToAdd,
-        playerToDrop
-      })
-    })
+    fetchPickup(sessionUser, playerToAdd, playerToDrop)
       .then(response => {
         setModalProcessing(false);
         if (response.ok) {

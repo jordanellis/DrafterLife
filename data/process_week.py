@@ -14,10 +14,10 @@ schedule = json.load(f)
 f.close()
 
 owner_total_score_map = {}
-for week in schedule["weeks"]:
+for week in schedule:
   if week["week"] == str(week_number):
     week["final_rosters"] = {}
-    for team in league["teams"]:
+    for team in league:
       team_total = 0
       players = team["players"]["tanks"] + team["players"]["dps"] + team["players"]["supports"] + team["players"]["flex"]
       week["final_rosters"].update({
@@ -37,7 +37,7 @@ for week in schedule["weeks"]:
     print(owner_total_score_map)
     print("")
     print(win_loss_map)
-    for team in league["teams"]:
+    for team in league:
       team["totalPoints"] = team["totalPoints"] + owner_total_score_map[team["owner"]]
       if win_loss_map[team["owner"]]:
         team["wins"] = team["wins"] + 1

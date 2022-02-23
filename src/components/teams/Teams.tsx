@@ -7,26 +7,17 @@ import { useEffect } from "react";
 import TeamCard from './TeamCard';
 import { Box, Skeleton } from '@mui/material';
 import { Team } from '../types';
+import { fetchTeams } from '../../service/fetches';
 
 export default function Teams() {
 	const [loading, setLoading] = useState(true);
 	const [teams, setTeams] = useState<Team[]>([]);
   const [tab, setTab] = React.useState("east/west");
-
-	const fetchTeams = async () => {
-    const response = await fetch('/api/teams');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body;
-  };
 	
 	useEffect(() => {
 		fetchTeams()
 			.then(resp => {
-					setTeams(resp.data);
+					setTeams(resp);
 					setLoading(false);
 				})
 			.catch(err => console.log(err))

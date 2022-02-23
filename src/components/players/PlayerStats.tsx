@@ -8,6 +8,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import ShieldIcon from '@mui/icons-material/Shield';
 import SportsMmaIcon from '@mui/icons-material/SportsMma';
 import { MatchStats, PlayerStatistics } from "../types";
+import { fetchPlayerStats, fetchPlayerTeam, fetchWeeks } from "../../service/fetches";
 
 type TeamResp = {
 	team: OWLTeam;
@@ -185,36 +186,6 @@ export default function PlayerStats() {
 				console.log(err);
 		});
 	}, [player]);
-
-	const fetchPlayerStats = async (player: String) => {
-    const response = await fetch("/api/player-stats/" + player);
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message);
-    }
-    return body.data;
-  };
-
-	const fetchPlayerTeam = async (player: String) => {
-    const response = await fetch("/api/player-stats/team/" + player);
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message);
-    }
-    return body.data;
-  };
-
-	const fetchWeeks = async () => {
-		const response = await fetch("/api/games/weeks");
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message);
-    }
-    return body.data;
-	}
 
   const stageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentStage(event.target.value);

@@ -19,6 +19,7 @@ import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import ShieldIcon from '@mui/icons-material/Shield';
 import SportsMmaIcon from '@mui/icons-material/SportsMma';
 import { PlayerStatistics, Team } from "../types";
+import { fetchPlayers, fetchRoster, fetchRosterHistoric, fetchTeams } from "../../service/fetches";
 
 type PlayerData = {
   [playerName: string]: PlayerStatistics;
@@ -93,48 +94,6 @@ const LeagueMatchupView = () => {
       .catch(err => console.log(err))
     }
   }, [home, away, isPastMatch, weekNumber]);
-
-	const fetchPlayers = async () => {
-    const response = await fetch('/api/player-stats');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.data;
-  };
-
-	const fetchRoster = async (ownerName: string) => {
-    const response = await fetch('/api/league/team/'+ownerName);
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.team;
-  };
-
-	const fetchRosterHistoric = async (ownerName: string, weekNumber: number) => {
-    const response = await fetch('/api/league/team/historic/' + ownerName + '?' + new URLSearchParams([
-      ['weekNumber', weekNumber.toString()]
-    ]));
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.team;
-  };
-
-	const fetchTeams = async () => {
-    const response = await fetch('/api/teams');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.data;
-  };
 
   const navigateToPlayerStats = (playerName: string) => {
     navigate("/player-stats/" + playerName);

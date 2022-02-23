@@ -19,10 +19,6 @@ export type Players = {
   bench: string[];
 }
 
-export type Schedule = {
-  weeks: ScheduleWeek[];
-}
-
 export type ScheduleWeek = {
   week: string;
   matches: Array<string[]>;

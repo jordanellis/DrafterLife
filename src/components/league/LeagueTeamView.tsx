@@ -2,13 +2,14 @@ import React, { useCallback, useEffect, useState } from "react";
 import { 
   AppBar, Avatar, Backdrop, Button, CircularProgress, Container, List, ListItemAvatar, ListItemButton, ListItemText, ListSubheader, Paper, Skeleton, Tooltip, Typography, 
 } from '@mui/material';
-import { Players, LeagueTeam } from "./types";
+import { LeagueTeam } from "./types";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box } from "@mui/system";
 import PersonIcon from "@mui/icons-material/Person";
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 import { PlayerStatistics, Team } from "../types";
 import { useSessionUser } from "../../hooks/useSessionUser";
+import { fetchRoster, fetchRosterStats, fetchSwap, fetchTeams } from "../../service/fetches";
 
 type RosterStatsResp = {
   [player: string]: PlayerStatistics;
@@ -35,7 +36,7 @@ const TeamView = () => {
   const [playerToSwapRole, setPlayerToSwapRole] = useState("");
 
   const initData = useCallback(() => {
-    ownerName && fetchLeagueTeam(ownerName)
+    ownerName && fetchRoster(ownerName)
 			.then((teamResp: LeagueTeam) => {
         setTeam(teamResp)
         
@@ -68,58 +69,13 @@ const TeamView = () => {
 
 	useEffect(() => initData(), [initData]);
 
-	const fetchLeagueTeam = async (ownerName: string) => {
-    const response = await fetch('/api/league/team/'+ownerName);
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.team;
-  };
-
-	const fetchRosterStats = async (p: Players) => {
-    const players = p.tanks.concat(p.dps, p.supports, p.flex, p.bench);
-    const response = await fetch('/api/player-stats', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({players})
-    });
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.data;
-  };
-
-	const fetchTeams = async () => {
-    const response = await fetch('/api/teams');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.data;
-  };
-
   const navigateToPlayerStats = (playerName: string) => {
     navigate("/player-stats/" + playerName);
   }
 
   const swapPlayers = (playersToSwap: { name: string; newRole: string; }[]) => {
     setBackdropOpen(true);
-    fetch('/api/league/swap', {
-      method: 'PUT',
-      headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        owner: sessionUser,
-        playersToSwap
-      })
-    })
+    fetchSwap(sessionUser, playersToSwap)
       .then(response => {
         if (response.ok) {
           initData();

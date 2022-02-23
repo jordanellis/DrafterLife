@@ -1,60 +1,31 @@
 import { Container, Divider, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
+import { fetchCurrentWeek, fetchSchedule, fetchLeagueTeams } from "../../service/fetches";
 import LeagueMatchupPreview from "./LeagueMatchupPreview";
 import LeagueNav from "./LeagueNav";
 import LeagueStandingsSidebar from "./LeagueStandingsSidebar";
 import LeagueTopScorers from "./LeagueTopScorers";
-import { Schedule, LeagueTeam } from "./types";
+import { ScheduleWeek, LeagueTeam } from "./types";
 
 const LeagueViewHome = () => {
   const [currentWeek, setCurrentWeek] = useState(0);
-  const [schedule, setSchedule] = useState<Schedule>();
+  const [schedule, setSchedule] = useState<ScheduleWeek[]>();
   const [teams, setTeams] = useState<LeagueTeam[]>();
 
 	useEffect(() => {
     Promise.all([
 			fetchCurrentWeek(),
 			fetchSchedule(),
-			fetchTeams()
+			fetchLeagueTeams()
 		])
-			.then(([currWeek, schedule, teams]: [number, Schedule, LeagueTeam[]]) => {
+			.then(([currWeek, schedule, teams]: [number, ScheduleWeek[], LeagueTeam[]]) => {
         setTeams(teams);
         setSchedule(schedule);
         setCurrentWeek(currWeek);
       })
 			.catch(err => console.log(err))
 	}, []);
-
-	const fetchCurrentWeek = async () => {
-    const response = await fetch('/api/league/currentWeek');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.weekNumber;
-  };
-
-	const fetchTeams = async () => {
-    const response = await fetch('/api/league/teams');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.data;
-  };
-
-	const fetchSchedule = async () => {
-    const response = await fetch('/api/league/schedule');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.data;
-  };
 
   return (
     <Container disableGutters maxWidth={false}>

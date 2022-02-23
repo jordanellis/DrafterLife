@@ -1,6 +1,7 @@
 import { Box, Button, Card, CardActionArea, CardContent, CardMedia, Container, Divider, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { fetchPosts } from "../service/fetches";
 
 type Post = {
 	title: string;
@@ -19,16 +20,6 @@ const HomePage = () => {
 			})
 			.catch(err => console.log(err))
 	}, []);
-
-	const fetchPosts = async () => {
-    const response = await fetch('/api/posts');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body.posts;
-  };
 
 	const displayPostPreview = (post: string) => {
 		const maxLength = 120;
