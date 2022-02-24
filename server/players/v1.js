@@ -5,7 +5,19 @@ var api = express.Router();
 api.get('/', function(req, res) {
   req.app.db.collection("player-stats").findOne({}, (err, playerStats) => {
     if (err) throw err;
+    delete playerStats["_id"];
     res.send({data: playerStats});
+  });
+});
+
+api.post('/', (req, res) => {
+  req.app.db.collection("player-stats").findOne({}, (err, playerStats) => {
+    if (err) throw err;
+    const stats = {};
+    req.body.players.forEach(player => {
+      stats[player] = playerStats[player];
+    });
+    res.send({data: stats});
   });
 });
 
