@@ -93,15 +93,11 @@ const HomePage = () => {
 			</Box>
 			{displayPostCards()}
 			{/* TODO:
-			1 Fix in memory loading of json on backend?
-			2 Store winner/loser of matchup in schedule
-			2 Drop player/Add player to empty spot?
-			3 Lock Editing team once games start
-			3 Loading skeletons
-			3 OWL Schedule
+			1 Edit team settings
+			1 Lock Editing team once games start
+			1 Loading skeletons
+			2 OWL Schedule
 			3 Trades?
-			4 Edit team settings?
-			- Cleanup fetches
 			- Cleanup types/typescript
 			- Style for mobile 
 			*/}

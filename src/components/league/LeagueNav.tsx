@@ -15,7 +15,7 @@ export default function LeagueNav() {
       <Button sx={{ color: "background.paper", borderRadius: "0" }} onClick={() => navigate("/league/schedule")}>Full Schedule</Button>
       <Button sx={{ color: "background.paper", borderRadius: "0" }} onClick={() => window?.open("https://liquipedia.net/overwatch/Player_Transfers", '_blank')?.focus()}>Recent OWL Transfers</Button>
       <Button sx={{ color: "background.paper", borderRadius: "0" }} onClick={() => window?.open("https://overwatchleague.com/en-us/schedule", '_blank')?.focus()}>OWL Schedule</Button>
-      {/* {sessionUser && <Button sx={{ color: "background.paper", borderRadius: "0" }} onClick={() => navigate("/league/profile/" + sessionUser)}>Edit Profile</Button>} */}
+      {sessionUser && <Button sx={{ color: "background.paper", borderRadius: "0" }} onClick={() => navigate("/league/profile/" + sessionUser)}>Edit Profile</Button>}
     </Toolbar>
   );
 }
