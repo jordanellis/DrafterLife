@@ -5,9 +5,9 @@ require("dotenv").config();
 var app = express();
 const port = process.env.PORT || 5000;
 
-const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.jh0gw.mongodb.net/drafterlife?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.jh0gw.mongodb.net/drafterlife?retryReads=true&retryWrites=true&w=majority`;
 
-MongoClient.connect(uri, { useUnifiedTopology: true })
+MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(client => {
     app.db = client.db("drafterlife")
     app.use(express.static('build'));
@@ -32,9 +32,15 @@ MongoClient.connect(uri, { useUnifiedTopology: true })
       console.log("Current directory:", "app");
       const fs = require('fs');
 
-      fs.readdir("app", (err, files) => {
+      fs.readdir("/app", (err, files) => {
         files.forEach(file => {
-          console.log("app", file);
+          console.log("/app", file);
+        });
+      });
+
+      fs.readdir("/app/public", (err, files) => {
+        files.forEach(file => {
+          console.log("/app/public", file);
         });
       });
 
