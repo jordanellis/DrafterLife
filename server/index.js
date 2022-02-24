@@ -29,12 +29,9 @@ MongoClient.connect(uri, { useUnifiedTopology: true })
     });
 
     app.get('/*', function(req, res) {
-      res.sendFile(path.resolve(__dirname, 'index.html', function(err) {
-        if (err) {
-          res.status(500).send(err)
-        }
-      })
-    )});
+      console.log("Current directory:", __dirname);
+      res.sendFile(path.resolve(__dirname, "index.html"));
+    });
 
     app.listen(port, () => {
       console.log(`Listening on port: ${port}`);
