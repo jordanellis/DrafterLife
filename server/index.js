@@ -29,16 +29,16 @@ MongoClient.connect(uri, { useUnifiedTopology: true })
     });
 
     app.get('/*', function(req, res) {
-      console.log("Current directory:", __dirname);
+      console.log("Current directory:", "app");
       const fs = require('fs');
 
-      fs.readdir(__dirname, (err, files) => {
+      fs.readdir("app", (err, files) => {
         files.forEach(file => {
-          console.log(__dirname, file);
+          console.log("app", file);
         });
       });
 
-      res.sendFile(path.resolve(__dirname, "public/index.html"));
+      res.sendFile(path.resolve("app", "public/index.html"));
     });
 
     app.listen(port, () => {
