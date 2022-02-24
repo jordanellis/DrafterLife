@@ -38,18 +38,7 @@ MongoClient.connect(uri, { useUnifiedTopology: true })
         });
       });
 
-      fs.readdir(__dirname+"/build", (err, files) => {
-        files.forEach(file => {
-          console.log(__dirname+"/build", file);
-        });
-      });
-
-      fs.readdir(__dirname+"/public", (err, files) => {
-        files.forEach(file => {
-          console.log(__dirname+"/public", file);
-        });
-      });
-      res.sendFile(path.resolve(__dirname, "build/index.html"));
+      res.sendFile(path.resolve(__dirname, "public/index.html"));
     });
 
     app.listen(port, () => {
