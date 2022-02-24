@@ -34,7 +34,7 @@ MongoClient.connect(uri, { useUnifiedTopology: true })
           res.status(500).send(err)
         }
       })
-    })
+    )});
 
     app.listen(port, () => {
       console.log(`Listening on port: ${port}`);
