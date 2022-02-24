@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path")
 const { MongoClient } = require("mongodb");
 require("dotenv").config();
 var app = express();
@@ -9,6 +10,7 @@ const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@c
 MongoClient.connect(uri, { useUnifiedTopology: true })
   .then(client => {
     app.db = client.db("drafterlife")
+    app.use(express.static(path.join(__dirname, 'build')));
     app.use(express.json());
     app.use("/api/games", require("./games/v1"));
     app.use("/api/league", require("./league/v1"));
