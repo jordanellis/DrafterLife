@@ -30,7 +30,26 @@ MongoClient.connect(uri, { useUnifiedTopology: true })
 
     app.get('/*', function(req, res) {
       console.log("Current directory:", __dirname);
-      res.sendFile(path.resolve(__dirname, "index.html"));
+      const fs = require('fs');
+
+      fs.readdir(__dirname, (err, files) => {
+        files.forEach(file => {
+          console.log(__dirname, file);
+        });
+      });
+
+      fs.readdir(__dirname+"/build", (err, files) => {
+        files.forEach(file => {
+          console.log(__dirname+"/build", file);
+        });
+      });
+
+      fs.readdir(__dirname+"/public", (err, files) => {
+        files.forEach(file => {
+          console.log(__dirname+"/public", file);
+        });
+      });
+      res.sendFile(path.resolve(__dirname, "build/index.html"));
     });
 
     app.listen(port, () => {
