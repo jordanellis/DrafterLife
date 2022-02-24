@@ -44,7 +44,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         });
       });
 
-      res.sendFile(path.resolve("app", "public/index.html"));
+      res.sendFile(path.resolve("/app", "public/index.html"));
     });
 
     app.listen(port, () => {
