@@ -34,15 +34,15 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
       console.log("Current directory:", "app");
       const fs = require('fs');
 
-      fs.readdir("DIST_DIR", (err, files) => {
-        files.forEach(file => {
-          console.log("DIST_DIR", file);
-        });
-      });
-
       fs.readdir(__dirname, (err, files) => {
         files.forEach(file => {
           console.log(__dirname, file);
+        });
+      });
+
+      fs.readdir("DIST_DIR", (err, files) => {
+        files.forEach(file => {
+          console.log("DIST_DIR", file);
         });
       });
 
