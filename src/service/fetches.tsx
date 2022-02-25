@@ -1,4 +1,5 @@
 import { Players } from "../components/league/types";
+import "regenerator-runtime/runtime";
 
 /**
  * Retrieves the current week number
