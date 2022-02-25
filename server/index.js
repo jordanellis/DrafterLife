@@ -40,7 +40,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         });
       });
 
-      fs.readdir("DIST_DIR", (err, files) => {
+      fs.readdir(DIST_DIR, (err, files) => {
         files.forEach(file => {
           console.log("DIST_DIR", file);
         });
