@@ -5,14 +5,14 @@ require("dotenv").config();
 var app = express();
 
 const port = process.env.PORT || 5000;
-const DIST_DIR = path.join(__dirname, '../dist');
-const HTML_FILE = path.join(DIST_DIR, 'index.html');
+const BUILD_DIR = path.join(__dirname, '../build');
+const HTML_FILE = path.join(BUILD_DIR, 'index.html');
 const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.jh0gw.mongodb.net/drafterlife?retryReads=true&retryWrites=true&w=majority`;
 
 MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(client => {
     app.db = client.db("drafterlife")
-    app.use(express.static(DIST_DIR));
+    app.use(express.static(BUILD_DIR));
     app.use(express.json());
     app.use("/api/games", require("./games/v1"));
     app.use("/api/league", require("./league/v1"));
@@ -40,9 +40,9 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         });
       });
 
-      fs.readdir(DIST_DIR, (err, files) => {
+      fs.readdir(BUILD_DIR, (err, files) => {
         files.forEach(file => {
-          console.log("DIST_DIR", file);
+          console.log("BUILD_DIR", file);
         });
       });
 
