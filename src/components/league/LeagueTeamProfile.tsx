@@ -3,7 +3,7 @@ import { LeagueTeam } from "./types";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box } from "@mui/system";
 import { useSessionUser } from "../../hooks/useSessionUser";
-import { Button, Container, Typography } from "@mui/material";
+import { Button, Container, TextField, Typography } from "@mui/material";
 import { fetchRoster } from "../../service/fetches";
 
 const LeagueTeamProfile = () => {
@@ -27,9 +27,21 @@ const LeagueTeamProfile = () => {
       </Button>
       {team && team.owner === sessionUser && <Container>
         <Typography>{team.ownerName}</Typography>
-        <Typography>{team.name}</Typography>
-        <Typography>{team.quote}</Typography>
-        <Typography>{team.bio}</Typography>
+        <TextField
+          required
+          label="Team Name"
+          value={team.name}
+        />
+        <TextField
+          required
+          label="Team Motto"
+          value={team.name}
+        />
+        <TextField
+          required
+          label="Team Bio"
+          value={team.name}
+        />
       </Container>}
       
     </Box>
