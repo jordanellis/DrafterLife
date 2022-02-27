@@ -138,4 +138,16 @@ api.put("/swap", function (req, res) {
   });
 });
 
+api.put("/updateprofile", function (req, res) {
+  const updatedProfile = req.body.updatedProfile;
+  req.app.db.collection("league").updateOne(
+    {owner: req.body.owner},
+    {$set: { name: updatedProfile.name, quote: updatedProfile.quote, bio: updatedProfile.bio }},
+    function(err, response) {
+      if (err) throw err;
+      res.send({response});
+    }
+  );
+});
+
 module.exports = api;

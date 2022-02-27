@@ -199,3 +199,17 @@ export const fetchSwap = async (sessionUser: string, playersToSwap: { name: stri
     })
   });
 }
+
+/**
+ * Update fantasy team profile
+ */
+ export const fetchUpdateTeamProfile = async (sessionUser: string, updatedProfile: { name: string; quote: string; bio: string; }) => {
+  return await fetch('/api/league/updateprofile', {
+    method: 'PUT',
+    headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      owner: sessionUser,
+      updatedProfile
+    })
+  });
+}
