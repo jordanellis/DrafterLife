@@ -10,7 +10,7 @@ import {
 import { ScheduleWeek, LeagueTeam } from "./types";
 import { useNavigate } from "react-router";
 
-type LeagueHeaderProps = {
+interface LeagueHeaderProps {
   schedule: ScheduleWeek[];
   teams: LeagueTeam[];
   weekNumber: number;

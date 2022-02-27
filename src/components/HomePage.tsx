@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchPosts } from "../service/fetches";
 
-type Post = {
+interface Post {
 	title: string;
 	text: string;
 	image: string;

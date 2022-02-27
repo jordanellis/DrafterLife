@@ -1,19 +1,19 @@
-export type PlayerStatistics = {
+export interface PlayerStatistics {
 	matches: Match;
 	totals: Stats;
 	weekly_player_scores: WeeklyPlayerScores;
 	total_player_score: number
 }
 
-export type WeeklyPlayerScores = {
+export interface WeeklyPlayerScores {
 	[week: number]: number;
 }
 
-export type Match = {
+export interface Match {
 	[matchID: string]: MatchStats;
 }
 
-export type MatchStats = {
+export interface MatchStats {
 	week:			number;
 	stage:		string;
 	date:			Date;
@@ -23,15 +23,15 @@ export type MatchStats = {
 	score: 		number;
 }
 
-export type Maps = {
+export interface Maps {
 	[mapName: string]: Stats;
 }
 
-export type Stats = {
+export interface Stats {
 	[statName: string]: any;
 }
 
-export type Team = {
+export interface Team {
 	id: number;
 	name: string;
 	division: string;

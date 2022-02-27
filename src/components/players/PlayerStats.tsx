@@ -10,12 +10,12 @@ import SportsMmaIcon from '@mui/icons-material/SportsMma';
 import { MatchStats, PlayerStatistics } from "../types";
 import { fetchPlayerStats, fetchPlayerTeam, fetchWeeks } from "../../service/fetches";
 
-type TeamResp = {
+interface TeamResp {
 	team: OWLTeam;
 	role: string;
 }
 
-type OWLTeam = {
+interface OWLTeam {
   logo: string,
   name: string,
   players: {
@@ -30,7 +30,7 @@ type OWLTeam = {
 	}
 }
 
-type Week = {
+interface Week {
 	week: number;
 	stage: string;
 	start: Date;

@@ -21,7 +21,7 @@ import SportsMmaIcon from '@mui/icons-material/SportsMma';
 import { PlayerStatistics, Team } from "../types";
 import { fetchPlayers, fetchRoster, fetchRosterHistoric, fetchTeams } from "../../service/fetches";
 
-type PlayerData = {
+interface PlayerData {
   [playerName: string]: PlayerStatistics;
 }
 

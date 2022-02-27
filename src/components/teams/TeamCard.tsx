@@ -16,7 +16,7 @@ import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import ShieldIcon from '@mui/icons-material/Shield';
 import { KeyboardArrowDown, KeyboardArrowRight } from '@material-ui/icons';
 
-type TeamCardProps = {
+interface TeamCardProps {
   logo: string,
   name: string,
   players: {

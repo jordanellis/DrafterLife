@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { LeagueTeam } from './types';
 import { useNavigate } from 'react-router-dom';
 
-type LeagueStandingsProps = {
+interface LeagueStandingsProps {
   teams: LeagueTeam[];
 }
 

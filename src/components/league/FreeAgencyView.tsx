@@ -9,7 +9,7 @@ import { LeagueTeam } from "./types";
 import { useSessionUser } from "../../hooks/useSessionUser";
 import { fetchCurrentWeek, fetchLeagueTeams, fetchPickup, fetchPlayers, fetchTeams } from "../../service/fetches";
 
-type FormattedPlayerData = {
+interface FormattedPlayerData {
   name: string;
   team: string;
   role: string;
@@ -29,7 +29,7 @@ type FormattedPlayerData = {
   isAvailable: boolean;
 }
 
-type PlayerData = {
+interface PlayerData {
   [playerName: string]: PlayerStatistics;
 }
 

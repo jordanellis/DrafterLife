@@ -11,11 +11,11 @@ import { PlayerStatistics, Team } from "../types";
 import { useSessionUser } from "../../hooks/useSessionUser";
 import { fetchRoster, fetchRosterStats, fetchSwap, fetchTeams } from "../../service/fetches";
 
-type RosterStatsResp = {
+interface RosterStatsResp {
   [player: string]: PlayerStatistics;
 }
 
-type PlayerInfo = {
+interface PlayerInfo {
   team: string;
   role: string;
 }
