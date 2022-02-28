@@ -15,7 +15,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     app.db = client.db("drafterlife");
     app.use(express.static(BUILD_DIR));
     app.use(express.json());
-    app.use(favicon(path.join(BUILD_DIR, "favicon.ico")));
+    app.use(favicon(path.join("public", "favicon.ico")));
 
     app.use("/api/games", require("./games/v1"));
     app.use("/api/league", require("./league/v1"));
