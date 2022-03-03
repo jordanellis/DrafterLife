@@ -93,7 +93,6 @@ const HomePage = () => {
 			</Box>
 			{displayPostCards()}
 			{/* TODO:
-			1 Edit team settings
 			1 Lock Editing team once games start
 			1 Loading skeletons
 			2 OWL Schedule
