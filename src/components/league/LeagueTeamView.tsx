@@ -145,12 +145,6 @@ const TeamView = () => {
               </Box>
               {rosterStats &&
                 <ListItemText
-                  primary={<Typography variant="body2">Next Opponent:</Typography>}
-                  secondary={"-"}
-                />
-              }
-              {rosterStats &&
-                <ListItemText
                   primary={<Typography variant="body2">Avg Score:</Typography>}
                   secondary={(rosterStats[player].total_player_score/rosterStats[player].totals["Total Matches"]).toFixed(3)}
                 />
@@ -197,18 +191,17 @@ const TeamView = () => {
       <Box>
         <AppBar position="static" sx={{ backgroundColor: "primary.dark", padding: "1rem" }}>
 					<Box sx={{ width: "85%", margin: "auto" }}>
-            <Box sx={{ display: "flex", flexDirection: "row" }}>
-              <Container sx={{ margin: "unset", width: "unset", textAlign: "center" }}>
+            <Box sx={{ display: "flex", flexDirection: "row", mb: "1rem" }}>
+              <Box display={{ xs: "none", sm: "flex" }} sx={{ textAlign: "center" }}>
                 <PersonIcon sx={{ fontSize: "11rem!important" }} />
-              </Container>
-              <Container sx={{ margin: "unset", width: "unset" }}>
-                <Typography variant="h5">{team.name}</Typography>
-                <Typography variant="h6" sx={{ paddingBottom: "1.5rem" }}>{team.wins + "-" + team.losses}</Typography>
-                <Typography variant="body2" sx={{ opacity: "0.75" }}>{<span><b>Bio: </b>{team.bio}</span>}</Typography>
-              </Container>
+              </Box>
+              <Box>
+                <pre><Typography variant="h5">{team.name + "   " + team.wins + "-" + team.losses}</Typography></pre>
+                <Typography variant="h6" sx={{ paddingBottom: "1.5rem" }}>{team.ownerName}</Typography>
+                <Typography variant="body2">{<span><b>Bio: </b>{team.bio}</span>}</Typography>
+              </Box>
             </Box>
-            <Typography variant="h6">{team.ownerName}</Typography>
-            <Typography variant="body2" sx={{ opacity: "0.75" }}>
+            <Typography variant="body2">
               {<span><b>Team Motto: </b>{"\"" + team.quote + "\""}</span>}
             </Typography>
           </Box>
@@ -216,7 +209,7 @@ const TeamView = () => {
         <Button variant="text" color="secondary" onClick={() => navigate(-1)}>
           {"< Back"}
         </Button>
-        <Container maxWidth="md" sx={{ mb: "2rem" }}>
+        <Container maxWidth="sm" sx={{ mb: "2rem" }}>
           <Paper elevation={3}>
             <List
               subheader={

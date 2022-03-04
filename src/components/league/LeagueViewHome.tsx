@@ -1,4 +1,4 @@
-import { Container, Divider, Typography } from "@mui/material";
+import { Container, Divider, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { fetchCurrentWeek, fetchSchedule, fetchLeagueTeams } from "../../service/fetches";
@@ -36,15 +36,17 @@ const LeagueViewHome = () => {
         <Typography variant="h4">Sweet Lactations</Typography>
         <Divider/>
       </Container>
-      <Container maxWidth={false} disableGutters sx={{ width: "25%", minWidth: "16rem", display: "inline-block", float: "left" }}>
+      <Grid container>
+      <Grid item xs={12} sm={4}>
         {teams && <LeagueStandingsSidebar teams={teams} />}
-      </Container>
-      <Container maxWidth={false} disableGutters sx={{ width: "50%", minWidth: "16rem", display: "inline-block", float: "left" }}>
+      </Grid>
+      <Grid item xs={12} sm={4}>
         <LeagueTopScorers />
-      </Container>
-      <Container maxWidth={false} disableGutters sx={{ width: "20%", minWidth: "16rem", display: "inline-block", float: "right" }}>
+      </Grid>
+      <Grid item xs={12} sm={4}>
         {schedule && teams && <LeagueMatchupPreview teams={teams} schedule={schedule} weekNumber={currentWeek} />}
-      </Container>
+      </Grid>
+      </Grid>
     </Container>
   );
 }

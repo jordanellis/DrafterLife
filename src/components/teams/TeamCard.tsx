@@ -7,7 +7,7 @@ import {
   CardMedia, 
   Collapse,
   Divider,
-  IconButton,
+  Icon,
   ListItem,
   Typography
 } from '@mui/material';
@@ -41,7 +41,7 @@ export default function TeamCard({logo, name, players, colors}: TeamCardProps) {
 
   return (
     <Card sx={{ width: 360, background: colors.primary }}>
-      <CardActionArea>
+      <CardActionArea onClick={() => {setExpanded(!expanded)}}>
         <CardMedia
           component="img"
           sx={{ marginTop: 3, height: 350 }}
@@ -50,9 +50,13 @@ export default function TeamCard({logo, name, players, colors}: TeamCardProps) {
         />
         <CardContent>
           <Typography color="#ffffff" gutterBottom variant="h5" component="h2" sx={{ paddingRight: "2rem" }}>
-            <IconButton component="div" aria-label="share" size="large" onClick={() => {setExpanded(!expanded)}}>
-              { expanded ? <KeyboardArrowDown /> : <KeyboardArrowRight /> }
-            </IconButton>
+            <Icon fontSize="large">
+              { expanded ?
+                <KeyboardArrowDown style={{ verticalAlign: "middle" }}/>
+              : 
+                <KeyboardArrowRight style={{ verticalAlign: "middle" }} />
+              }
+            </Icon>
             { name }
           </Typography>
         </CardContent>

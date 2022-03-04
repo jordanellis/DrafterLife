@@ -10,6 +10,8 @@ import {
   Avatar,
   Chip,
   Grid,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import { useLocation, useNavigate } from "react-router-dom";
 import { LeagueTeam } from "./types";
@@ -27,6 +29,8 @@ interface PlayerData {
 
 const LeagueMatchupView = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const screenLargerThanXS = useMediaQuery(theme.breakpoints.up('sm'));
   const location = useLocation();
   const [homeTeam, setHomeTeam] = useState<LeagueTeam>();
   const [awayTeam, setAwayTeam] = useState<LeagueTeam>();
@@ -129,10 +133,12 @@ const LeagueMatchupView = () => {
       playerArray.push(
         <Paper key={i} elevation={3} sx={{ mb: ".5rem", mt: ".5rem" }}>
           <Grid container alignItems="center">
-            <Grid item xs={1}>
-              <AvatarIcon sx={{ color: avatarColor, fontSize: 30 }}/>
-            </Grid>
-            <Grid item xs={3}>
+            {screenLargerThanXS && 
+              <Grid item xs={1}>
+                <AvatarIcon sx={{ color: avatarColor, fontSize: 30 }}/>
+              </Grid>
+            }
+            <Grid item xs={4} sm={3}>
               <ListItemButton
                 disabled={!homePlayer}
                 key={i}
@@ -145,35 +151,51 @@ const LeagueMatchupView = () => {
                 />
               </ListItemButton>
             </Grid>
-            <Grid item xs={1}>
-              <Chip
-                label={playerData && homePlayer ? playerData[homePlayer].weekly_player_scores[weekNumber].toFixed(2) : "0.00"}
-                sx={{ width: "4.5rem" }}
-              />
+            {screenLargerThanXS ?
+              <React.Fragment>
+                <Grid item xs={1} sm={1}>
+                  <Chip
+                    label={playerData && homePlayer ? playerData[homePlayer].weekly_player_scores[weekNumber].toFixed(2) : "0.00"}
+                    sx={{ width: "4.5rem" }}
+                  />
+                </Grid>
+                <Grid item xs={2} sm={2}>
+                  <Avatar
+                    variant="rounded"
+                    sx={{
+                      fontSize: ".9rem",
+                      fontWeight: "500",
+                      height: "2rem",
+                      width: "3.5rem",
+                      color: avatarColor,
+                      bgcolor: "#333344",
+                      margin: "auto"
+                    }}
+                  >
+                    {role}
+                  </Avatar>
+                </Grid>
+                <Grid item xs={1} sm={1}>
+                  <Chip
+                    label={playerData && awayPlayer ? playerData[awayPlayer].weekly_player_scores[weekNumber].toFixed(2) : "0.00"}
+                    sx={{ width: "4.5rem" }}
+                    />
+                </Grid>
+              </React.Fragment>
+            :
+            <Grid item xs={4}>
+              <Box>
+                <Typography sx={{ color: avatarColor }} >{role}</Typography>
+                <Typography variant="body2">
+                  {playerData && homePlayer ? playerData[homePlayer].weekly_player_scores[weekNumber].toFixed(2) : "0.00"}
+                  &nbsp;-&nbsp;
+                  {playerData && awayPlayer ? playerData[awayPlayer].weekly_player_scores[weekNumber].toFixed(2) : "0.00"}
+                </Typography>
+              </Box>
+              
             </Grid>
-            <Grid item xs={2}>
-              <Avatar
-                variant="rounded"
-                sx={{
-                  fontSize: ".9rem",
-                  fontWeight: "500",
-                  height: "2rem",
-                  width: "3.5rem",
-                  color: avatarColor,
-                  bgcolor: "#333344",
-                  margin: "auto"
-                }}
-              >
-                {role}
-              </Avatar>
-            </Grid>
-            <Grid item xs={1}>
-            <Chip
-              label={playerData && awayPlayer ? playerData[awayPlayer].weekly_player_scores[weekNumber].toFixed(2) : "0.00"}
-              sx={{ width: "4.5rem" }}
-            />
-            </Grid>
-            <Grid item xs={3}>
+            }
+            <Grid item xs={4} sm={3}>
               <ListItemButton
                 disabled={!awayPlayer}
                 key={i}
@@ -186,9 +208,11 @@ const LeagueMatchupView = () => {
                 />
               </ListItemButton>
             </Grid>
-            <Grid item xs={1}>
-              <AvatarIcon sx={{ color: avatarColor, fontSize: 30 }}/>
-            </Grid>
+            {screenLargerThanXS && 
+              <Grid item xs={1}>
+                <AvatarIcon sx={{ color: avatarColor, fontSize: 30 }}/>
+              </Grid>
+            }
           </Grid>
         </Paper>
       );
@@ -198,29 +222,53 @@ const LeagueMatchupView = () => {
 
   const displayTeams = (homeTeam: LeagueTeam, awayTeam: LeagueTeam) => {
     return (
-      <Container sx={{ maxWidth: "50rem" }}>
+      <Box sx={{ width: "60rem" }}>
         <Paper elevation={3}>
           <Grid container alignItems="center" sx={{ height: "6rem" }}>
             <Grid item xs={4}>
-              <Box>
-                <Typography variant="h5">{homeTeam.name}</Typography>
-                <Typography variant="subtitle1" color="text.secondary">{homeTeam.ownerName}</Typography>
-              </Box>
+              {screenLargerThanXS ?
+                <Box>
+                  <Typography variant="h5">{homeTeam.name}</Typography>
+                  <Typography variant="subtitle1" color="text.secondary">{homeTeam.ownerName}</Typography>
+                </Box>
+              :
+                <Box>
+                  <Typography variant="subtitle1">{homeTeam.name}</Typography>
+                </Box>
+              }
             </Grid>
-            <Grid item xs={1}>
-              <Chip label={homeTeamScore.toFixed(2)} sx={{ width: "4.5rem" }} />
-            </Grid>
-            <Grid item xs={2}>
-              <Typography>VS</Typography>
-            </Grid>
-            <Grid item xs={1}>
-              <Chip label={awayTeamScore.toFixed(2)} sx={{ width: "4.5rem" }} />
-            </Grid>
+            {screenLargerThanXS ?
+              <React.Fragment>
+                <Grid item xs={1}>
+                  <Chip label={homeTeamScore.toFixed(2)} sx={{ width: "4.5rem" }} />
+                </Grid>
+                <Grid item xs={2}>
+                  <Typography>VS</Typography>
+                </Grid>
+                <Grid item xs={1}>
+                  <Chip label={awayTeamScore.toFixed(2)} sx={{ width: "4.5rem" }} />
+                </Grid>
+              </React.Fragment>
+            :
             <Grid item xs={4}>
-              <Box>
-                <Typography variant="h5">{awayTeam.name}</Typography>
-                <Typography variant="subtitle1" color="text.secondary">{awayTeam.ownerName}</Typography>
-              </Box>
+              <Typography variant="body2">
+                {homeTeamScore.toFixed(2)}
+                &nbsp;-&nbsp;
+                {awayTeamScore.toFixed(2)}
+              </Typography>
+            </Grid>
+            }
+            <Grid item xs={4}>
+              {screenLargerThanXS ?
+                <Box>
+                  <Typography variant="h5">{awayTeam.name}</Typography>
+                  <Typography variant="subtitle1" color="text.secondary">{awayTeam.ownerName}</Typography>
+                </Box>
+              :
+                <Box>
+                  <Typography variant="subtitle1">{awayTeam.name}</Typography>
+                </Box>
+              }
             </Grid>
           </Grid>
         </Paper>
@@ -242,7 +290,7 @@ const LeagueMatchupView = () => {
           "#666666",
           homeTeam.players.bench.length > awayTeam.players.bench.length ? homeTeam.players.bench.length : awayTeam.players.bench.length
         )}
-      </Container>
+      </Box>
     );
   }
 
@@ -251,11 +299,9 @@ const LeagueMatchupView = () => {
       <Button variant="text" color="secondary" onClick={() => navigate(-1)}>
         {"< Back"}
       </Button>
-      <Container sx={{ textAlign: "center" }}>
-        <Container sx={{ display: "flex", justifyContent: "space-evenly" }}>
-          {homeTeam && awayTeam && displayTeams(homeTeam, awayTeam)}
-        </Container>
-      </Container>
+      <Box sx={{ display: "flex", justifyContent: "center", textAlign: "center" }}>
+        {homeTeam && awayTeam && displayTeams(homeTeam, awayTeam)}
+      </Box>
     </Container>
     );
 }

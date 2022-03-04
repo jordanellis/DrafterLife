@@ -45,7 +45,6 @@ const LeagueTeamProfile = () => {
   }
 
   const handleTextFieldChange = (setter: Function, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    console.log(event.target.value);
     setter(event.target.value);
   };
 
@@ -68,7 +67,7 @@ const LeagueTeamProfile = () => {
             label={teamValues.label}
             defaultValue={teamValues.value}
             onChange={(e) => handleTextFieldChange(teamValues.setter, e)}
-            sx={{ width: "100%", m: "1rem" }}
+            sx={{ width: "95%", m: "1rem" }}
           />
         ))}
         <Button variant="contained" sx={{ display: "block", m: "0 auto" }} onClick={updateTeamProfile}>Save</Button>

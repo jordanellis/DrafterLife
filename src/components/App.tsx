@@ -22,7 +22,7 @@ const App = () => {
       <CssBaseline />
       <BrowserRouter>
         <Header />
-        <Box sx={{ margin: "0 auto" }}>
+        <Box sx={{ margin: "0 auto", overflowX: "hidden" }}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/league/" element={<LeagueViewHome />} />

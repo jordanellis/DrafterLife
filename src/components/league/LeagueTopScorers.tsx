@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Box, Container, List, ListItem, ListItemButton, Typography } from "@mui/material";
 import { PlayerStatistics } from "../types";
 import { fetchCurrentWeek, fetchPlayers } from "../../service/fetches";
+import { useNavigate } from "react-router-dom";
 
 interface PlayerData {
   [playerName: string]: PlayerStatistics;
 }
 
 export default function LeagueTopScorers() {
+  const navigate = useNavigate()
   const [topPlayers, setTopPlayers] = useState<Array<Array<string|number>>>();
 
   useEffect(() => {
@@ -25,7 +27,7 @@ export default function LeagueTopScorers() {
   }, []);
 
   return (
-    <Container maxWidth="xs" disableGutters sx={{ textAlign: "center" }}>
+    <Container maxWidth="xs" disableGutters sx={{ textAlign: "center", mb: "2rem" }}>
       <Typography variant="subtitle2" sx={{ margin: "0.8rem 0", fontWeight: "500", opacity: "70%" }}>
         Last Week's Top Scorers:
       </Typography>
@@ -33,9 +35,9 @@ export default function LeagueTopScorers() {
         <List>
           {topPlayers?.map((player, i) => (
             <ListItem key={i} disablePadding>
-              <ListItemButton sx={{ display: "flex" }}>
+              <ListItemButton sx={{ display: "flex" }} onClick={() => navigate("/player-stats/" + player[0])}>
                 <Typography sx={{ width: "4.4rem" }}>{i+1 + "."}</Typography>
-                <Typography sx={{ width: "12rem" }}>{player[0]}</Typography>
+                <Typography sx={{ width: "8rem" }}>{player[0]}</Typography>
                 <Typography sx={{ textAlign: "right", width: "100%" }}>
                   {typeof player[1] === "number" ? player[1].toFixed(2) : parseInt(player[1]).toFixed(2)}
                 </Typography>

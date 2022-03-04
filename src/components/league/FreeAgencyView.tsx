@@ -1,4 +1,4 @@
-import { Alert, Button, Checkbox, CircularProgress, Container, FormControl, FormControlLabel, IconButton, InputLabel, Link, MenuItem, Modal, Paper, Radio, RadioGroup, Select, SelectChangeEvent, Snackbar, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs, Tooltip, Typography } from "@mui/material";
+import { Alert, Button, Checkbox, CircularProgress, Container, FormControl, FormControlLabel, Grid, IconButton, InputLabel, Link, MenuItem, Modal, Paper, Radio, RadioGroup, Select, SelectChangeEvent, Snackbar, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs, Tooltip, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import React, { useCallback, useEffect, useState } from "react";
@@ -35,6 +35,8 @@ interface PlayerData {
 
 const FreeAgencyView = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const screenLargerThanSM = useMediaQuery(theme.breakpoints.up('md'));
 
 	const [sessionUser] = useSessionUser();
 
@@ -45,7 +47,7 @@ const FreeAgencyView = () => {
   const [playerData, setPlayerData] = useState<FormattedPlayerData[]>();
   const [playerToAdd, setPlayerToAdd] = useState("");
   const [playerToDrop, setPlayerToDrop] = useState("");
-  const [roleFilter, setRoleFilter] = useState("tank/support/dps");
+  const [roleFilter, setRoleFilter] = useState("TANK/SUP/DPS");
   const [sessionUsersTeam, setSessionUsersTeam] = useState<LeagueTeam>();
   const [showFreeAgentsOnly, setShowFreeAgentsOnly] = useState(true);
   const [sortByValue, setSortByValue] = useState("totalScore");
@@ -53,17 +55,17 @@ const FreeAgencyView = () => {
   const setTeamAndRole = (player: FormattedPlayerData, teams: Team[]) => {
     teams.forEach(team => {
       if (team.players.dps.includes(player.name)) {
-        player.role = "dps";
+        player.role = "DPS";
         player.team = team.name;
         return;
       }
       if (team.players.tanks.includes(player.name)) {
-        player.role = "tank";
+        player.role = "TANK";
         player.team = team.name;
         return;
       }
       if (team.players.supports.includes(player.name)) {
-        player.role = "support";
+        player.role = "SUP";
         player.team = team.name;
         return;
       }
@@ -247,45 +249,51 @@ const FreeAgencyView = () => {
 			</Button>
       {/* <Box>Change role text to icon</Box> */}
       <Typography variant="h2" align="center">Players</Typography>
-      <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", margin: ".5rem 0" }}>
-        <FormControlLabel
-          label="Free Agents Only"
-          control={
-            <Checkbox
+      <Grid container sx={{ margin: ".5rem 0" }}>
+        <Grid item xs={12} md={3} sx={{ display: "flex", justifyContent: "center", m: "0.5rem auto" }}>
+          <FormControlLabel
+            label="Free Agents Only"
+            control={
+              <Checkbox
+                color="secondary"
+                checked={showFreeAgentsOnly}
+                onChange={checkboxChange}
+              />
+            }
+            sx={{ maxWidth: "15rem" }}
+          />
+        </Grid>
+        <Grid item xs={12} md={6} sx={{ display: "flex", justifyContent: "center", m: "0.5rem auto" }}>
+          <Paper sx={{ flexGrow: 1, maxWidth: "28rem", maxHeight: "3.07rem" }}>
+            <Tabs
+              value={roleFilter}
+              onChange={tabChange}
+              indicatorColor="secondary"
+              textColor="secondary"
+              centered
+            >
+              <Tab label="All Roles" value="TANK/SUP/DPS" />
+              <Tab label="Tank" value="TANK" />
+              <Tab label="DPS" value="DPS" />
+              <Tab label="Support" value="SUP" />
+            </Tabs>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={3} sx={{ display: "flex", justifyContent: "center", m: "0.5rem auto" }}>
+          <FormControl sx={{ flexGrow: 1, maxWidth: "15rem" }}>
+            <InputLabel color="secondary">Sort By</InputLabel>
+            <Select
               color="secondary"
-              checked={showFreeAgentsOnly}
-              onChange={checkboxChange}
-            />
-          }
-          sx={{ maxWidth: "15rem" }}
-        />
-				<Paper sx={{ marginLeft: "4rem", flexGrow: 1, maxWidth: "28rem", maxHeight: "3.07rem" }}>
-					<Tabs
-						value={roleFilter}
-						onChange={tabChange}
-						indicatorColor="secondary"
-						textColor="secondary"
-						centered
-					>
-						<Tab label="All Roles" value="tank/support/dps" />
-						<Tab label="Tank" value="tank" />
-						<Tab label="DPS" value="dps" />
-						<Tab label="Support" value="support" />
-					</Tabs>
-				</Paper>
-        <FormControl sx={{ flexGrow: 1, maxWidth: "15rem" }}>
-          <InputLabel color="secondary">Sort By</InputLabel>
-          <Select
-            color="secondary"
-            label="Sort By"
-            value={sortByValue}
-            onChange={handleSortByChange}
-          >
-            <MenuItem value={"averageScore"}>Average Points</MenuItem>
-            <MenuItem value={"totalScore"}>Total Points</MenuItem>
-          </Select>
-        </FormControl>
-			</Box>
+              label="Sort By"
+              value={sortByValue}
+              onChange={handleSortByChange}
+            >
+              <MenuItem value={"averageScore"}>Average Points</MenuItem>
+              <MenuItem value={"totalScore"}>Total Points</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+			</Grid>
       <TableContainer component={Paper} sx={{ marginBottom: "1.5rem" }}>
         <Table sx={{ minWidth: 650 }} size="small">
           <TableHead sx={{ bgcolor: "#203547" }}>
@@ -293,7 +301,7 @@ const FreeAgencyView = () => {
               <TableCell></TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Role</TableCell>
-              <TableCell>Team</TableCell>
+              {screenLargerThanSM && <TableCell>Team</TableCell>}
               <TableCell align="right">Average Points</TableCell>
               <TableCell align="right">Total Points</TableCell>
             </TableRow>
@@ -304,19 +312,19 @@ const FreeAgencyView = () => {
               .sort(compare).map((player) => (
               <TableRow
                 key={player.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 }, paddingBottom: "1 rem" }}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 }, paddingBottom: "1rem" }}
               >
                 {player.isAvailable && sessionUser ? 
                 <TableCell>
                   <Tooltip title="Add Player">
-                    <IconButton color="success" onClick={() => handleModalOpen(player.name)}>
+                    <IconButton size="small" color="success" onClick={() => handleModalOpen(player.name)}>
                       <AddBoxIcon />
                     </IconButton>
                   </Tooltip>
                 </TableCell>
                 : 
                 <TableCell>
-                  <IconButton disabled>
+                  <IconButton size="small" disabled>
                     <AddBoxIcon />
                   </IconButton>
                 </TableCell>
@@ -327,7 +335,7 @@ const FreeAgencyView = () => {
                   </Link>
                 </TableCell>
                 <TableCell>{player.role ? player.role : "--"}</TableCell>
-                <TableCell>{player.team}</TableCell>
+                {screenLargerThanSM && <TableCell>{player.team}</TableCell>}
                 <TableCell align="right">{player.averageScore.toFixed(2)}</TableCell>
                 <TableCell align="right">{player.totalScore.toFixed(2)}</TableCell>
               </TableRow>

@@ -138,22 +138,26 @@ const Header = () => {
 						</Box>
           </Grid>
 					<Grid item xs={3.35}>
-						<Container disableGutters sx={{ display: "flex" }}>
-							<Box sx={{ bgcolor: "background.default", p: "0.2rem", borderTopLeftRadius: "0.5rem", borderBottomLeftRadius: "0.5rem" }} >
-								<Typography variant="body2" sx={{ m: "0 0.4rem" }}>
-									Week
-								</Typography>
-							</Box>
-							<Box sx={{ bgcolor: "text.primary", p: "0.2rem", borderTopRightRadius: "0.5rem", borderBottomRightRadius: "0.5rem" }} >
-								<Typography variant="body2" sx={{ color: "background.paper", m: "0 0.5rem" }}>
-									{weekNumber}
-								</Typography>
-							</Box>
-						</Container>
+						<Box display={{ xs: "none", md: "flex" }}>
+							<Container disableGutters sx={{ display: "flex" }}>
+								<Box sx={{ bgcolor: "background.default", p: "0.2rem", borderTopLeftRadius: "0.5rem", borderBottomLeftRadius: "0.5rem" }} >
+									<Typography variant="body2" sx={{ m: "0 0.4rem" }}>
+										Week
+									</Typography>
+								</Box>
+								<Box sx={{ bgcolor: "text.primary", p: "0.2rem", borderTopRightRadius: "0.5rem", borderBottomRightRadius: "0.5rem" }} >
+									<Typography variant="body2" sx={{ color: "background.paper", m: "0 0.5rem" }}>
+										{weekNumber}
+									</Typography>
+								</Box>
+							</Container>
+						</Box>
 					</Grid>
-					<Grid item xs={2} sx={{ display: "flex", alignItems: "center" }}>
+					<Grid item xs={0} md={2} sx={{ display: "flex", alignItems: "center" }}>
 						{ sessionUser && 
-							<Typography variant="subtitle1" sx={{ marginRight: "1rem" }}>Welcome, {sessionUser}</Typography>
+							<Box display={{ xs: "none", md: "flex" }}>
+								<Typography variant="subtitle1" sx={{ marginRight: "1rem" }}>Welcome, {sessionUser}</Typography>
+							</Box>
 						}
 					</Grid>
 					<Grid item xs={1} sx={{ display: "flex", alignItems: "center" }}>

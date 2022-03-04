@@ -38,13 +38,14 @@ const LeagueStandingsSidebar = ({teams}: LeagueStandingsProps) => {
   return (
     <List
       subheader={
-        <ListSubheader sx={{ bgcolor: "unset" }}>
+        <ListSubheader sx={{ bgcolor: "unset", textAlign: "center" }}>
           Leaderboard
         </ListSubheader>
       }
+      sx={{ mb: "2rem" }}
     >
       {teams.map((team, index) => {
-        return (<ListItemButton key={index} onClick={() => navigateToTeamPage(team)}>
+        return (<ListItemButton key={index} sx={{ ml: "2rem" }} onClick={() => navigateToTeamPage(team)}>
                   <Typography variant="h5">{index+1}</Typography>
                   <ListItemText primary={
                     <Container>

@@ -209,47 +209,49 @@ export default function PlayerStats() {
 	}
 	
   return (
-		<div>
+		<Box>
 			<Button variant="text" color="secondary" onClick={goToPreviousPath}>
 				{"< Back"}
 			</Button>
-			<Card sx={{ maxWidth: 900, display: "flex", flexDirection: "row", m: "auto" }}>
-				<Box sx={{ maxWidth: 210, background: team.colors.primary, flex: 1 }}>
-					<CardContent sx={{ padding: "1!important" }}>
-						<PersonIcon sx={{ fontSize: "11rem!important", color:"#ffffff" }} />
-						<Typography color="#ffffff" variant="body1">
-							{ team.name }
-						</Typography>
-						<Divider sx={{ background: team.colors.tertiary, opacity: 0.2, marginTop: 1, marginBottom: 1 }} />
-						{role.match("tank") && <ShieldIcon
-							fontSize="medium"
-							sx={{ display: "inline", float: "left", color: team.colors.secondary }}
-							/>}
-						{role.match("dps") && <SportsMmaIcon
-							fontSize="medium"
-							sx={{ display: "inline", float: "left", color: team.colors.secondary }}
-							/>}
-						{role.match("support") && <LocalHospitalIcon
-							fontSize="medium"
-							sx={{ display: "inline", float: "left", color: team.colors.secondary }}
-							/>}
-						<Typography variant="subtitle1" color="#ffffff" sx={{ display: "inline", paddingLeft: 1 }} >
-							{ player }
-						</Typography>
-					</CardContent>
-				</Box>
-				<Box sx={{ background: team.colors.primary+"99", flex: 1, textAlign: "center" }}>
-					<CardContent>
-						<Typography color="#ffffff" variant="h6">
-							Averages Per 10 Minutes
-						</Typography>
-						<Divider sx={{ background: team.colors.tertiary, opacity: 0.2, marginTop: 2, marginBottom: 7 }} />
-						{role.match("tank") && displayPlayerAverages(['Eliminations', 'Hero Damage Done', 'Deaths'])}
-						{role.match("dps") && displayPlayerAverages(['Final Blows', 'Eliminations', 'Hero Damage Done'])}
-						{role.match("support") && displayPlayerAverages(['Healing Done', 'Assists', 'Deaths'])}
-					</CardContent>
-				</Box>
-			</Card>
+			<Box sx={{ display: "flex", justifyContent: "center" }}>
+				<Card sx={{ display: "flex", width: "fit-content", maxWidth: 900 }}>
+					<Box sx={{ maxWidth: 210, background: team.colors.primary, flex: 1 }}>
+						<CardContent sx={{ padding: "1!important" }}>
+							<PersonIcon sx={{ fontSize: "11rem!important", color:"#ffffff" }} />
+							<Typography color="#ffffff" variant="body1">
+								{ team.name }
+							</Typography>
+							<Divider sx={{ background: team.colors.tertiary, opacity: 0.2, marginTop: 1, marginBottom: 1 }} />
+							{role.match("tank") && <ShieldIcon
+								fontSize="medium"
+								sx={{ display: "inline", float: "left", color: team.colors.secondary }}
+								/>}
+							{role.match("dps") && <SportsMmaIcon
+								fontSize="medium"
+								sx={{ display: "inline", float: "left", color: team.colors.secondary }}
+								/>}
+							{role.match("support") && <LocalHospitalIcon
+								fontSize="medium"
+								sx={{ display: "inline", float: "left", color: team.colors.secondary }}
+								/>}
+							<Typography variant="subtitle1" color="#ffffff" sx={{ display: "inline", paddingLeft: 1 }} >
+								{ player }
+							</Typography>
+						</CardContent>
+					</Box>
+					<Box display={{ xs: "none", md: "flex" }} sx={{ background: team.colors.primary+"99", textAlign: "center" }}>
+						<CardContent>
+							<Typography color="#ffffff" variant="h6">
+								Averages Per 10 Minutes
+							</Typography>
+							<Divider sx={{ background: team.colors.tertiary, opacity: 0.2, marginTop: 2, marginBottom: 7 }} />
+							{role.match("tank") && displayPlayerAverages(['Eliminations', 'Hero Damage Done', 'Deaths'])}
+							{role.match("dps") && displayPlayerAverages(['Final Blows', 'Eliminations', 'Hero Damage Done'])}
+							{role.match("support") && displayPlayerAverages(['Healing Done', 'Assists', 'Deaths'])}
+						</CardContent>
+					</Box>
+				</Card>
+			</Box>
 			<Container sx={{ m: 5 }} />
 			{loading ? <Typography variant="h1"><Skeleton /><Skeleton /><Skeleton /></Typography> :
 				playerStats && playerStats.matches && Object.keys(playerStats.matches).length > 0 ?
@@ -299,6 +301,6 @@ export default function PlayerStats() {
 						We didn't find any stats for { player }. Looks like they've been riding the pine.
 					</Alert>
 			}
-		</div>
+		</Box>
 	);
 }

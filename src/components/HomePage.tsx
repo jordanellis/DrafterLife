@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardActionArea, CardContent, CardMedia, Container, Divider, Typography } from "@mui/material";
+import { Box, Button, Card, CardActionArea, CardContent, CardMedia, Container, Divider, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchPosts } from "../service/fetches";
@@ -10,6 +10,8 @@ interface Post {
 };
 
 const HomePage = () => {
+  const theme = useTheme();
+  const screenLargerThanXS = useMediaQuery(theme.breakpoints.up('sm'));
 	const [posts, setPosts] = useState<Post[]>();
 	const [postsIndex, setPostIndex] = useState(0);
 
@@ -54,10 +56,33 @@ const HomePage = () => {
 		);
 	}
 
+	const displayButtons = (buttonWidth: string) => {
+		return <Box>
+			{[
+				{"text":"OWL Teams", "path": "/teams/"},
+				{"text":"View My League", "path": "/league/"}
+			].map((button, i) => {
+				return (<Link key={i} style={{ textDecoration: 'none' }} to={button.path}>
+					<Button variant="contained" sx={{
+						backgroundColor: "background.default",
+						m: "1rem",
+						fontSize: "1.1rem",
+						fontWeight: "400",
+						width: buttonWidth,
+						height: "4.5rem",
+						opacity: "85%"
+					}}>
+						{button.text}
+					</Button>
+				</Link>);
+			})}
+		</Box>;
+	}
+
   return (
     <Box>
 			<Box sx={{
-				height: "23rem",
+				height: screenLargerThanXS ? "23rem" : "13rem",
 				width: "100%",
 				backgroundImage: `url(https://images.blz-contentstack.com/v3/assets/blt2477dcaf4ebd440c/blt2f2814e279463a3c/610314754abcae50334cea4d/malevento-screenshot-003.jpg)`,
 				backgroundPosition: "center",
@@ -67,24 +92,12 @@ const HomePage = () => {
 				justifyContent: "center",
 				alignItems: "center"
 			}}>
-				{[
-					{"text":"OWL Teams", "path": "/teams/"},
-					{"text":"View My League", "path": "/league/"}
-				].map((button, i) => {
-					return (<Link key={i} style={{ textDecoration: 'none' }} to={button.path}>
-						<Button variant="contained" sx={{
-							backgroundColor: "background.default",
-							m: "1rem",
-							fontSize: "1.1rem",
-							fontWeight: "400",
-							width: "12rem",
-							height: "4.5rem",
-							opacity: "85%"
-						}}>
-							{button.text}
-						</Button>
-					</Link>);
-				})}
+				<Box display={{ xs: "none", sm: "flex" }}>
+					{displayButtons("12rem")}
+				</Box>
+				<Box display={{ xs: "block", sm: "none" }}>
+					{displayButtons("90%")}
+				</Box>
 			</Box>
 			<Box sx={{ m: "2rem 3.5rem" }}>
 				<Typography variant="h5">News</Typography>
@@ -93,12 +106,11 @@ const HomePage = () => {
 			</Box>
 			{displayPostCards()}
 			{/* TODO:
+			- Style for mobile 
+				- player stats page needs lot of change
 			1 Lock Editing team once games start
 			1 Loading skeletons
-			2 OWL Schedule
-			3 Trades?
-			- Cleanup types/typescript
-			- Style for mobile 
+			2 Trades?
 			*/}
     </Box>
   );
