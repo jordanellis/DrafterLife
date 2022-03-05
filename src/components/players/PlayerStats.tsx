@@ -1,12 +1,12 @@
 import { Alert, Box, Button, Card, CardContent, Collapse, Container, Divider, IconButton, MenuItem, Paper, Skeleton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import PersonIcon from "@mui/icons-material/Person";
-import ShieldIcon from '@mui/icons-material/Shield';
-import SportsMmaIcon from '@mui/icons-material/SportsMma';
+import ShieldIcon from "@mui/icons-material/Shield";
+import SportsMmaIcon from "@mui/icons-material/SportsMma";
 import { MatchStats, PlayerStatistics } from "../types";
 import { fetchPlayerStats, fetchPlayerTeam, fetchWeeks } from "../../service/fetches";
 
@@ -44,16 +44,16 @@ const DUMMY_TEAM: OWLTeam = {
 	logo: "",
 	name: "",
 	players: {
-			tanks: [""],
-			dps: [""],
-			supports: [""]
+		tanks: [""],
+		dps: [""],
+		supports: [""]
 	},
 	colors: {
-			primary: "",
-			secondary: "",
-			tertiary: ""
+		primary: "",
+		secondary: "",
+		tertiary: ""
 	}
-}
+};
 
 const rows = [
 	{key: "Eliminations", label: "Eliminations", header: true},
@@ -65,12 +65,12 @@ const rows = [
 	{key: "Time Played", label: "Time Played", header: true}
 ];
 
-function Row({ stats, colors }: { stats: MatchStats, colors: any }) {
-  const [open, setOpen] = React.useState(false);
+function Row({ stats, colors }: { stats: MatchStats, colors: OWLTeam["colors"] }) {
+	const [open, setOpen] = React.useState(false);
 	
-  return (
+	return (
 		<React.Fragment>
-			<TableRow sx={{ '& > *': { borderBottom: 'unset' }, bgcolor: colors.primary+"22" }}>
+			<TableRow sx={{ "& > *": { borderBottom: "unset" }, bgcolor: colors.primary+"22" }}>
 				<TableCell>
 					<IconButton
 						size="small"
@@ -80,7 +80,7 @@ function Row({ stats, colors }: { stats: MatchStats, colors: any }) {
 					</IconButton>
 				</TableCell>
 				<TableCell component="th" scope="row">
-					{stats.date && new Date(stats.date).getMonth()+1 + '/' + new Date(stats.date).getDate()}
+					{stats.date && new Date(stats.date).getMonth()+1 + "/" + new Date(stats.date).getDate()}
 				</TableCell>
 				{rows.map((row, index) => (
 					row.header && <TableCell key={index} align="right">{stats[MATCH_TOTALS][row.key]}</TableCell>
@@ -127,15 +127,15 @@ function Row({ stats, colors }: { stats: MatchStats, colors: any }) {
 				</TableCell>
 			</TableRow>
 		</React.Fragment>
-  );
+	);
 }
 
 export default function PlayerStats() {
-	let navigate = useNavigate();
+	const navigate = useNavigate();
 	
 	const goToPreviousPath = () => {
-			navigate(-1)
-	}
+		navigate(-1);
+	};
 
 	const { player } = useParams();
 
@@ -166,9 +166,9 @@ export default function PlayerStats() {
 				setStages(stagesArray);
 				setCurrentStage(stagesArray[0]);
 				setPlayerStats(stats);
-				var sortable = [];
-				for (var match in stats.matches) {
-						sortable.push([match, stats.matches[match]]);
+				const sortable = [];
+				for (const match in stats.matches) {
+					sortable.push([match, stats.matches[match]]);
 				}
 				sortable.sort(function(a, b) {
 					const matchA = a[1] as MatchStats;
@@ -183,32 +183,32 @@ export default function PlayerStats() {
 			}
 			setLoading(false);
 		}).catch((err) => {
-				console.log(err);
+			console.log(err);
 		});
 	}, [player]);
 
-  const stageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentStage(event.target.value);
-  };
+	const stageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setCurrentStage(event.target.value);
+	};
 
 	const displayPlayerAverages = (statKeys: string[]) => {
 		return (
 			<Container sx={{ display: "flex", flexDirection: "row" }}>
 				{statKeys.map((statKey, i) => (
-				<Container key={i} >
-					<Typography color="#ffffff" variant="subtitle1">
-						{ statKey }
-					</Typography>
-					<Typography color="#ffffff" variant="h4">
-						{ playerStats && (playerStats.totals[statKey]/playerStats.totals['Time Played']*600).toFixed(4) }
-					</Typography>
-				</Container>
+					<Container key={i} >
+						<Typography color="#ffffff" variant="subtitle1">
+							{ statKey }
+						</Typography>
+						<Typography color="#ffffff" variant="h4">
+							{ playerStats && (playerStats.totals[statKey]/playerStats.totals["Time Played"]*600).toFixed(4) }
+						</Typography>
+					</Container>
 				))}
 			</Container>
-		)
-	}
+		);
+	};
 	
-  return (
+	return (
 		<Box>
 			<Button variant="text" color="secondary" onClick={goToPreviousPath}>
 				{"< Back"}
@@ -225,15 +225,15 @@ export default function PlayerStats() {
 							{role.match("tank") && <ShieldIcon
 								fontSize="medium"
 								sx={{ display: "inline", float: "left", color: team.colors.secondary }}
-								/>}
+							/>}
 							{role.match("dps") && <SportsMmaIcon
 								fontSize="medium"
 								sx={{ display: "inline", float: "left", color: team.colors.secondary }}
-								/>}
+							/>}
 							{role.match("support") && <LocalHospitalIcon
 								fontSize="medium"
 								sx={{ display: "inline", float: "left", color: team.colors.secondary }}
-								/>}
+							/>}
 							<Typography variant="subtitle1" color="#ffffff" sx={{ display: "inline", paddingLeft: 1 }} >
 								{ player }
 							</Typography>
@@ -245,9 +245,9 @@ export default function PlayerStats() {
 								Averages Per 10 Minutes
 							</Typography>
 							<Divider sx={{ background: team.colors.tertiary, opacity: 0.2, marginTop: 2, marginBottom: 7 }} />
-							{role.match("tank") && displayPlayerAverages(['Eliminations', 'Hero Damage Done', 'Deaths'])}
-							{role.match("dps") && displayPlayerAverages(['Final Blows', 'Eliminations', 'Hero Damage Done'])}
-							{role.match("support") && displayPlayerAverages(['Healing Done', 'Assists', 'Deaths'])}
+							{role.match("tank") && displayPlayerAverages(["Eliminations", "Hero Damage Done", "Deaths"])}
+							{role.match("dps") && displayPlayerAverages(["Final Blows", "Eliminations", "Hero Damage Done"])}
+							{role.match("support") && displayPlayerAverages(["Healing Done", "Assists", "Deaths"])}
 						</CardContent>
 					</Box>
 				</Card>
@@ -296,9 +296,9 @@ export default function PlayerStats() {
 							</Table>
 						</TableContainer>
 					</div>
-				:
+					:
 					<Alert severity="info" variant="outlined" sx={{ marginLeft: 35, marginRight: 35, fontSize: 20 }}>
-						We didn't find any stats for { player }. Looks like they've been riding the pine.
+						{"We didn't find any stats for " + player + ". Looks like they've been riding the pine."}
 					</Alert>
 			}
 		</Box>

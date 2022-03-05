@@ -7,11 +7,11 @@ interface Post {
 	title: string;
 	text: string;
 	image: string;
-};
+}
 
 const HomePage = () => {
-  const theme = useTheme();
-  const screenLargerThanXS = useMediaQuery(theme.breakpoints.up('sm'));
+	const theme = useTheme();
+	const screenLargerThanXS = useMediaQuery(theme.breakpoints.up("sm"));
 	const [posts, setPosts] = useState<Post[]>();
 	const [postsIndex, setPostIndex] = useState(0);
 
@@ -20,12 +20,12 @@ const HomePage = () => {
 			.then((postsResp: Post[]) => {
 				setPosts(postsResp);
 			})
-			.catch(err => console.log(err))
+			.catch(err => console.log(err));
 	}, []);
 
 	const displayPostPreview = (post: string) => {
 		const maxLength = 120;
-		return (post.length > maxLength) ? post.substr(0, maxLength-1) + '...' : post;
+		return (post.length > maxLength) ? post.substr(0, maxLength-1) + "..." : post;
 	};
 
 	const displayPostCards = () => {
@@ -54,7 +54,7 @@ const HomePage = () => {
 				})}
 			</Container>
 		);
-	}
+	};
 
 	const displayButtons = (buttonWidth: string) => {
 		return <Box>
@@ -62,7 +62,7 @@ const HomePage = () => {
 				{"text":"OWL Teams", "path": "/teams/"},
 				{"text":"View My League", "path": "/league/"}
 			].map((button, i) => {
-				return (<Link key={i} style={{ textDecoration: 'none' }} to={button.path}>
+				return (<Link key={i} style={{ textDecoration: "none" }} to={button.path}>
 					<Button variant="contained" sx={{
 						backgroundColor: "background.default",
 						m: "1rem",
@@ -77,14 +77,14 @@ const HomePage = () => {
 				</Link>);
 			})}
 		</Box>;
-	}
+	};
 
-  return (
-    <Box>
+	return (
+		<Box>
 			<Box sx={{
 				height: screenLargerThanXS ? "23rem" : "13rem",
 				width: "100%",
-				backgroundImage: `url(https://images.blz-contentstack.com/v3/assets/blt2477dcaf4ebd440c/blt2f2814e279463a3c/610314754abcae50334cea4d/malevento-screenshot-003.jpg)`,
+				backgroundImage: "url(https://images.blz-contentstack.com/v3/assets/blt2477dcaf4ebd440c/blt2f2814e279463a3c/610314754abcae50334cea4d/malevento-screenshot-003.jpg)",
 				backgroundPosition: "center",
 				backgroundRepeat: "no-repeat",
 				backgroundSize: "100%",
@@ -112,8 +112,8 @@ const HomePage = () => {
 			1 Loading skeletons
 			2 Trades?
 			*/}
-    </Box>
-  );
-}
+		</Box>
+	);
+};
 
 export default HomePage;

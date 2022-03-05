@@ -1,6 +1,6 @@
 export interface PlayerStatistics {
 	matches: Match;
-	totals: Stats;
+	totals: HeroStats;
 	weekly_player_scores: WeeklyPlayerScores;
 	total_player_score: number
 }
@@ -18,8 +18,8 @@ export interface MatchStats {
 	stage:		string;
 	date:			Date;
 	maps:			Maps;
-	totals: 	any;
-	averages: any;
+	totals: 	HeroStats;
+	averages: HeroStats;
 	score: 		number;
 }
 
@@ -28,7 +28,11 @@ export interface Maps {
 }
 
 export interface Stats {
-	[statName: string]: any;
+	[heroName: string]: HeroStats;
+}
+
+export interface HeroStats {
+	[statName: string]: number;
 }
 
 export interface Team {

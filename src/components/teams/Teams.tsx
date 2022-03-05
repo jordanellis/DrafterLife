@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
-import Paper from '@mui/material/Paper';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import React, { useState } from "react";
+import Paper from "@mui/material/Paper";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 import { useEffect } from "react";
 
-import TeamCard from './TeamCard';
-import { Box, Skeleton } from '@mui/material';
-import { Team } from '../types';
-import { fetchTeams } from '../../service/fetches';
+import TeamCard from "./TeamCard";
+import { Box, Skeleton } from "@mui/material";
+import { Team } from "../types";
+import { fetchTeams } from "../../service/fetches";
 
 export default function Teams() {
 	const [loading, setLoading] = useState(true);
 	const [teams, setTeams] = useState<Team[]>([]);
-  const [tab, setTab] = React.useState("east/west");
+	const [tab, setTab] = React.useState("east/west");
 	
 	useEffect(() => {
 		fetchTeams()
 			.then(resp => {
-					setTeams(resp);
-					setLoading(false);
-				})
-			.catch(err => console.log(err))
+				setTeams(resp);
+				setLoading(false);
+			})
+			.catch(err => console.log(err));
 	}, []);
 
-  const tabChange = (event: React.ChangeEvent<{}>, newValue: string) => {
-    setTab(newValue);
-  };
+	const tabChange = (_event: React.SyntheticEvent, newValue: string) => {
+		setTab(newValue);
+	};
 
-  return (
+	return (
 		<Box>
 			<Box sx={{ margin: "auto", width: "30rem", paddingTop: "1rem" }}>
 				<Paper sx={{ flexGrow: 1 }}>
@@ -46,10 +46,10 @@ export default function Teams() {
 			</Box>
 			<Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
 				{loading && [1,2,3].map((index) => {
-						return <Box sx={{ float: "left", margin: ".75rem", textAlign: "center", minWidth: "20rem" }} key={index}>
-							<Skeleton variant="rectangular" width={360} height={460} ></Skeleton>
-						</Box>
-					})
+					return <Box sx={{ float: "left", margin: ".75rem", textAlign: "center", minWidth: "20rem" }} key={index}>
+						<Skeleton variant="rectangular" width={360} height={460} ></Skeleton>
+					</Box>;
+				})
 				}
 				{teams.filter(team => tab.includes(team.division)).map((team, key) => (
 					<Box sx={{ float: "left", margin: ".75rem", textAlign: "center", minWidth: "20rem" }} key={key}>

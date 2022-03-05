@@ -1,39 +1,39 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { 
-  AppBar, 
-  Avatar, 
-  Box, 
-  Button,
-  Container,
-  Drawer,
-  Grid,
-  IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Modal,
-  TextField,
-  Toolbar, 
-  Typography 
-} from '@mui/material';
-import AssessmentIcon from '@mui/icons-material/Assessment';
-import BallotIcon from '@mui/icons-material/Ballot';
-import GroupsIcon from '@mui/icons-material/Groups';
-import HomeIcon from '@mui/icons-material/Home';
-import MenuIcon from '@mui/icons-material/Menu';
+	AppBar, 
+	Avatar, 
+	Box, 
+	Button,
+	Container,
+	Drawer,
+	Grid,
+	IconButton,
+	List,
+	ListItem,
+	ListItemIcon,
+	ListItemText,
+	Modal,
+	TextField,
+	Toolbar, 
+	Typography 
+} from "@mui/material";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+import BallotIcon from "@mui/icons-material/Ballot";
+import GroupsIcon from "@mui/icons-material/Groups";
+import HomeIcon from "@mui/icons-material/Home";
+import MenuIcon from "@mui/icons-material/Menu";
 import { useEffect } from "react";
 import { useSessionUser } from "../hooks/useSessionUser";
 import logo from "../drafterlife-logo.png";
 import { fetchCurrentWeek } from "../service/fetches";
 
 const Header = () => {
-  let navigate = useNavigate();
+	const navigate = useNavigate();
 	
-  const [showDrawer, setShowDrawer] = useState(false);
-  const [weekNumber, setWeekNumber] = useState(0);
-  const [username, setUsername] = useState("");
+	const [showDrawer, setShowDrawer] = useState(false);
+	const [weekNumber, setWeekNumber] = useState(0);
+	const [username, setUsername] = useState("");
 	const [sessionUser, setSessionUser] = useSessionUser();
 	const [isModalOpen, setModalOpen] = useState(false);
 	const [loginDisabled, setLoginDisabled] = useState(true);
@@ -42,14 +42,14 @@ const Header = () => {
 	useEffect(() => {
 		fetchCurrentWeek()
 			.then(res => setWeekNumber(res))
-			.catch(err => console.log(err))
+			.catch(err => console.log(err));
 	}, []);
 
 	const keyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
 		if (event.key === "Enter" && !loginDisabled){
 			loginClicked();
 		}
- }
+	};
 
 	const loginClicked = () => {
 		setSessionUser(username);
@@ -66,7 +66,7 @@ const Header = () => {
 			setUsername(userValue);
 			setLoginDisabled(true);
 		}
-  };
+	};
 
 	const validateUsername = () => {
 		if (["JORDAN", "KELLEN", "SAM", "ZACK"].includes(username)) {
@@ -74,13 +74,13 @@ const Header = () => {
 		} else {
 			setUserInvalid(true);
 		}
-	}
+	};
 
 	const handleModalOpen = () => {
 		setModalOpen(true);
 	};
 
-  const handleModalClose = () => {
+	const handleModalClose = () => {
 		setUsername("");
 		setModalOpen(false);
 	};
@@ -110,10 +110,10 @@ const Header = () => {
 							<Box role="presentation">
 								<List>
 									{[
-										{text: 'Home', icon: <HomeIcon/>, show: true, clickHandler: () => drawerItemClicked("/")},
-										{text: 'Player Stats', icon: <AssessmentIcon/>, show: true, clickHandler: () => drawerItemClicked("/teams/")},
-										{text: 'League Home', icon: <GroupsIcon/>, show: true, clickHandler: () => drawerItemClicked("/league/")},
-										{text: 'My Team', icon: <BallotIcon/>, show: sessionUser, clickHandler: () => drawerItemClicked("/league/"+sessionUser)},
+										{text: "Home", icon: <HomeIcon/>, show: true, clickHandler: () => drawerItemClicked("/")},
+										{text: "Player Stats", icon: <AssessmentIcon/>, show: true, clickHandler: () => drawerItemClicked("/teams/")},
+										{text: "League Home", icon: <GroupsIcon/>, show: true, clickHandler: () => drawerItemClicked("/league/")},
+										{text: "My Team", icon: <BallotIcon/>, show: sessionUser, clickHandler: () => drawerItemClicked("/league/"+sessionUser)},
 										//{text: 'My Profile', icon: <InboxIcon/>, show: sessionUser, clickHandler: () => drawerItemClicked("/")}
 									].map((item, index) => (
 										<ListItem
@@ -136,7 +136,7 @@ const Header = () => {
 								DrafterLife
 							</Typography>
 						</Box>
-          </Grid>
+					</Grid>
 					<Grid item xs={3.35}>
 						<Box display={{ xs: "none", md: "flex" }}>
 							<Container disableGutters sx={{ display: "flex" }}>
@@ -166,7 +166,7 @@ const Header = () => {
 								setSessionUser("");
 								window.location.reload();
 							}}>Logout</Button>
-						:
+							:
 							<Button onClick={handleModalOpen}>Login</Button>
 						}
 					</Grid>
@@ -176,7 +176,7 @@ const Header = () => {
 					onClose={handleModalClose}
 				>
 					<Box sx={{
-						position: "absolute" as "absolute",
+						position: "absolute" as const,
 						top: "50%",
 						left: "50%",
 						transform: "translate(-50%, -50%)",
@@ -211,7 +211,7 @@ const Header = () => {
 				</Modal>
 			</Toolbar>
 		</AppBar>
-  );
-}
+	);
+};
 
-export default Header
+export default Header;
