@@ -24,8 +24,9 @@ const HomePage = () => {
 	}, []);
 
 	const displayPostPreview = (post: string) => {
-		const maxLength = 120;
-		return (post.length > maxLength) ? post.substr(0, maxLength-1) + "..." : post;
+		const maxLength = 80;
+		const innerHtml = (post.length > maxLength) ? post.substr(0, maxLength-1) + "..." : post;
+		return <div dangerouslySetInnerHTML={{ __html: innerHtml }}></div>;
 	};
 
 	const displayPostCards = () => {
@@ -102,7 +103,7 @@ const HomePage = () => {
 			<Box sx={{ m: "2rem 3.5rem" }}>
 				<Typography variant="h5">News</Typography>
 				<Divider sx={{ m: "0.75rem" }} />
-				<Typography variant="body1">{posts ? posts[postsIndex].text : ""}</Typography>
+				<Typography variant="body1">{posts ? <div dangerouslySetInnerHTML={{ __html: posts[postsIndex].text }}></div> : ""}</Typography>
 			</Box>
 			{displayPostCards()}
 			{/* TODO:
