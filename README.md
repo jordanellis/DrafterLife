@@ -1,6 +1,6 @@
 # DrafterLife
 
-This unofficially the official Fantasy Overwatch League site.
+This is unofficially the official Fantasy Overwatch League site.
 
 This project is bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -12,7 +12,7 @@ After the credentials are setup, you start the `express` server by running the f
 
 ```
 npm install
-npm run server
+npm start
 ```
 
 You can then start the front end `react` server by running the following:

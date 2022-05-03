@@ -33,7 +33,7 @@ const LeagueViewHome = () => {
 				<LeagueNav />
 			</Box>
 			<Container sx={{ textAlign: "center", mb: "1rem" }}>
-				<Typography variant="h4">Sweet Lactations</Typography>
+				<Typography variant="h4">League Home</Typography>
 				<Divider/>
 			</Container>
 			<Grid container>
