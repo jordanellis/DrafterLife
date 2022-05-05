@@ -146,7 +146,12 @@ const TeamView = () => {
 					{rosterStats &&
 						<ListItemText
 							primary={<Typography variant="body2">Avg Score:</Typography>}
-							secondary={(rosterStats[player].total_player_score/rosterStats[player].totals["Total Matches"]).toFixed(3)}
+							secondary={rosterStats[player]
+								?
+								(rosterStats[player].total_player_score/rosterStats[player].totals["Total Matches"]).toFixed(3)
+								:
+								"-"
+							}
 						/>
 					}
 				</Container>
