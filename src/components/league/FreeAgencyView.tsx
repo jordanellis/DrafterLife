@@ -7,7 +7,7 @@ import { PlayerStatistics, WeeklyPlayerScores } from "../types";
 import { Team } from "../types";
 import { LeagueTeam } from "./types";
 import { useSessionUser } from "../../hooks/useSessionUser";
-import { fetchCurrentWeek, fetchLeagueTeams, fetchPickup, fetchPlayers, fetchTeams } from "../../service/fetches";
+import { fetchActivePlayers, fetchCurrentWeek, fetchLeagueTeams, fetchPickup, fetchPlayers, fetchTeams } from "../../service/fetches";
 
 interface FormattedPlayerData {
   name: string;
@@ -133,28 +133,32 @@ const FreeAgencyView = () => {
 			fetchCurrentWeek(),
 			fetchPlayers(),
 			fetchTeams(),
-			fetchLeagueTeams()
+			fetchLeagueTeams(),
+			fetchActivePlayers()
 		])
-			.then(([currWeek, players, teams, leagueTeams]: [number, PlayerData, Team[], LeagueTeam[]]) => {
+			.then(([currWeek, players, teams, leagueTeams, rosteredPlayers]: [number, PlayerData, Team[], LeagueTeam[], string[]]) => {
 				const formattedPlayerData: FormattedPlayerData[] = [];
-				for (const playerName of Object.keys(players)){
+				console.log(rosteredPlayers);
+				for (const playerName of rosteredPlayers){
 					const playerData = players[playerName];
 					const formattedPlayer: FormattedPlayerData = {} as FormattedPlayerData;
 					formattedPlayer.name = playerName;
+					if (playerData) {
+						formattedPlayer.totals = {
+							eliminations: playerData.totals["Eliminations"],
+							deaths: playerData.totals["Deaths"],
+							damage: playerData.totals["Hero Damage Done"],
+							matches: playerData.totals["Total Matches"],
+							assists: playerData.totals["Assists"],
+							finalBlows: playerData.totals["Final Blows"],
+							healing: playerData.totals["Healing Done"],
+							timePlayed: playerData.totals["Time Played"]
+						};
+						setPreviousScore(playerData.weekly_player_scores, currWeek, formattedPlayer);
+						setAverageScore(playerData.weekly_player_scores, currWeek, formattedPlayer);
+						formattedPlayer.totalScore = playerData.total_player_score;
+					}
 					setTeamAndRole(formattedPlayer, teams);
-					formattedPlayer.totals = {
-						eliminations: playerData.totals["Eliminations"],
-						deaths: playerData.totals["Deaths"],
-						damage: playerData.totals["Hero Damage Done"],
-						matches: playerData.totals["Total Matches"],
-						assists: playerData.totals["Assists"],
-						finalBlows: playerData.totals["Final Blows"],
-						healing: playerData.totals["Healing Done"],
-						timePlayed: playerData.totals["Time Played"]
-					};
-					setPreviousScore(playerData.weekly_player_scores, currWeek, formattedPlayer);
-					setAverageScore(playerData.weekly_player_scores, currWeek, formattedPlayer);
-					formattedPlayer.totalScore = playerData.total_player_score;
 					formattedPlayer.isAvailable = isPlayerFreeAgent(playerName, leagueTeams);
 					leagueTeams.forEach(team => {
 						if (team.owner === sessionUser) {
@@ -188,10 +192,10 @@ const FreeAgencyView = () => {
 
 	const compare = (a: FormattedPlayerData, b: FormattedPlayerData) => {
 		const property = sortByValue === "averageScore" ? "averageScore" : "totalScore";
-		if ( a[property] < b[property] ){
+		if (!a[property] || a[property] < b[property]){
 			return 1;
 		}
-		if ( a[property] > b[property] ){
+		if (!b[property] || a[property] > b[property]){
 			return -1;
 		}
 		return 0;
@@ -336,8 +340,8 @@ const FreeAgencyView = () => {
 										</TableCell>
 										<TableCell>{player.role ? player.role : "--"}</TableCell>
 										{screenLargerThanSM && <TableCell>{player.team}</TableCell>}
-										<TableCell align="right">{player.averageScore.toFixed(2)}</TableCell>
-										<TableCell align="right">{player.totalScore.toFixed(2)}</TableCell>
+										<TableCell align="right">{player.averageScore ? player.averageScore.toFixed(2) : "-"}</TableCell>
+										<TableCell align="right">{player.totalScore ? player.totalScore.toFixed(2) : "-"}</TableCell>
 									</TableRow>
 								))}
 					</TableBody>

@@ -11,6 +11,17 @@ api.get('/currentWeek', function(req, res) {
 api.get('/schedule', function(req, res) {
 	req.app.db.collection('schedule').find({}).toArray((err, schedule) => {
 		if (err) throw err;
+		function compare(a, b) {
+			if (parseInt(a.week) < parseInt(b.week)){
+				return -1;
+			}
+			if (parseInt(a.week) > parseInt(b.week) ){
+				return 1;
+			}
+			return 0;
+		}
+		
+		schedule.sort(compare);
 		res.send({data: schedule});
 	});
 });

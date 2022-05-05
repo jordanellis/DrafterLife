@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Container, List, ListItem, ListItemButton, Skeleton, Typography } from "@mui/material";
 import { PlayerStatistics } from "../types";
-import { fetchCurrentWeek, fetchPlayers } from "../../service/fetches";
+import { fetchActivePlayers, fetchCurrentWeek, fetchPlayers } from "../../service/fetches";
 import { useNavigate } from "react-router-dom";
 
 interface PlayerData {
@@ -15,10 +15,12 @@ export default function LeagueTopScorers() {
 	useEffect(() => {
 		Promise.all([
 			fetchCurrentWeek(),
-			fetchPlayers()
+			fetchPlayers(),
+			fetchActivePlayers()
 		])
-			.then(([weekNum, players]: [number, PlayerData]) => {
-				const sortedPlayers = Object.keys(players)
+			.then(([weekNum, players, activePlayers]: [number, PlayerData, string[]]) => {
+				const playerData = Object.keys(players);
+				const sortedPlayers = playerData.filter(x => activePlayers.includes(x))
 					.map(player => [player, players[player].weekly_player_scores[weekNum-1]])
 					.sort((a, b) => a[1] < b[1] ? 1 : -1);
 				setTopPlayers(sortedPlayers.slice(0, 10));
@@ -40,7 +42,7 @@ export default function LeagueTopScorers() {
 									<Typography sx={{ width: "4.4rem" }}>{i+1 + "."}</Typography>
 									<Typography sx={{ width: "8rem" }}>{player[0]}</Typography>
 									<Typography sx={{ textAlign: "right", width: "100%" }}>
-										{typeof player[1] === "number" ? player[1].toFixed(2) : parseInt(player[1]).toFixed(2)}
+										{player[1] ? (typeof player[1] === "number" ? player[1].toFixed(2) : parseInt(player[1]).toFixed(2)) : "-"}
 									</Typography>
 								</ListItemButton>
 							</ListItem>

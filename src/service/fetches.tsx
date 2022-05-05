@@ -28,6 +28,19 @@ export const fetchPosts = async () => {
 };
 
 /**
+ * Retrieves the list of all active players
+ */
+export const fetchActivePlayers = async () => {
+	const response = await fetch("/api/teams/allPlayers");
+	const body = await response.json();
+
+	if (response.status !== 200) {
+		throw Error(body.message); 
+	}
+	return body.data;
+};
+
+/**
  * Retrieves the list of all player statistics
  */
 export const fetchPlayers = async () => {
