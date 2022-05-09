@@ -13,32 +13,6 @@
         ]
     },
     {
-        "week": "6",
-        "matches": [
-            [
-                "JORDAN",
-                "ZACK"
-            ],
-            [
-                "KELLEN",
-                "SAM"
-            ]
-        ]
-    },
-    {
-        "week": "7",
-        "matches": [
-            [
-                "ZACK",
-                "SAM"
-            ],
-            [
-                "KELLEN",
-                "JORDAN"
-            ]
-        ]
-    },
-    {
         "week": "2",
         "matches": [
             [
@@ -52,7 +26,98 @@
         ]
     },
     {
-        "week": "13",
+        "week": "3",
+        "matches": [
+            [
+                "JORDAN",
+                "ZACK"
+            ],
+            [
+                "SAM",
+                "KELLEN"
+            ]
+        ]
+    },
+    {
+        "week": "4",
+        "matches": [
+            [
+                "SAM",
+                "ZACK"
+            ],
+            [
+                "JORDAN",
+                "KELLEN"
+            ]
+        ]
+    },
+    {
+        "week": "7",
+        "matches": [
+            [
+                "JORDAN",
+                "ZACK"
+            ],
+            [
+                "KELLEN",
+                "SAM"
+            ]
+        ]
+    },
+    {
+        "week": "8",
+        "matches": [
+            [
+                "ZACK",
+                "SAM"
+            ],
+            [
+                "KELLEN",
+                "JORDAN"
+            ]
+        ]
+    },
+    {
+        "week": "9",
+        "matches": [
+            [
+                "JORDAN",
+                "SAM"
+            ],
+            [
+                "KELLEN",
+                "ZACK"
+            ]
+        ]
+    },
+    {
+        "week": "10",
+        "matches": [
+            [
+                "SAM",
+                "KELLEN"
+            ],
+            [
+                "JORDAN",
+                "ZACK"
+            ]
+        ]
+    },
+    {
+        "week": "15",
+        "matches": [
+            [
+                "KELLEN",
+                "ZACK"
+            ],
+            [
+                "JORDAN",
+                "SAM"
+            ]
+        ]
+    },
+    {
+        "week": "16",
         "matches": [
             [
                 "ZACK",
@@ -69,42 +134,42 @@
         "matches": [
             [
                 "JORDAN",
-                "ZACK"
+                "SAM"
             ],
             [
                 "KELLEN",
-                "SAM"
-            ]
-        ]
-    },
-    {
-        "week": "3",
-        "matches": [
-            [
-                "JORDAN",
-                "KELLEN"
-            ],
-            [
-                "SAM",
                 "ZACK"
-            ]
-        ]
-    },
-    {
-        "week": "12",
-        "matches": [
-            [
-                "JORDAN",
-                "ZACK"
-            ],
-            [
-                "KELLEN",
-                "SAM"
             ]
         ]
     },
     {
         "week": "18",
+        "matches": [
+            [
+                "JORDAN",
+                "ZACK"
+            ],
+            [
+                "KELLEN",
+                "SAM"
+            ]
+        ]
+    },
+    {
+        "week": "21",
+        "matches": [
+            [
+                "JORDAN",
+                "SAM"
+            ],
+            [
+                "ZACK",
+                "KELLEN"
+            ]
+        ]
+    },
+    {
+        "week": "22",
         "matches": [
             [
                 "ZACK",
@@ -117,41 +182,15 @@
         ]
     },
     {
-        "week": "16",
+        "week": "23",
         "matches": [
             [
-                "JORDAN",
-                "SAM"
-            ],
-            [
-                "KELLEN",
-                "ZACK"
-            ]
-        ]
-    },
-    {
-        "week": "11",
-        "matches": [
-            [
-                "JORDAN",
-                "KELLEN"
+                "ZACK",
+                "JORDAN"
             ],
             [
                 "SAM",
-                "ZACK"
-            ]
-        ]
-    },
-    {
-        "week": "8",
-        "matches": [
-            [
-                "JORDAN",
-                "SAM"
-            ],
-            [
-                "KELLEN",
-                "ZACK"
+                "KELLEN"
             ]
         ]
     }
