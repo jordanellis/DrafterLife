@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardActionArea, CardContent, CardMedia, Container, Divider, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Button, Card, CardActionArea, CardContent, CardMedia, Container, Divider, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchPosts } from "../service/fetches";
@@ -100,12 +100,42 @@ const HomePage = () => {
 					{displayButtons("90%")}
 				</Box>
 			</Box>
-			<Box sx={{ m: "2rem 3.5rem" }}>
-				<Typography variant="h5">News</Typography>
-				<Divider sx={{ m: "0.75rem" }} />
-				<Typography variant="body1">{posts ? <div dangerouslySetInnerHTML={{ __html: posts[postsIndex].text }}></div> : ""}</Typography>
-			</Box>
-			{displayPostCards()}
+			<Container sx={{ p: "0.5rem" }}>
+				{screenLargerThanXS ?
+					<Box>
+						<Typography variant="h5" sx={{ margin: ".5rem 0", textAlign: "center" }}>News</Typography>
+						<Divider sx={{ m: "0.75rem" }} />
+						<Grid container sx={{ margin: ".5rem 0" }}>
+							<Grid item xs={4}>
+								{displayPostCards()}
+							</Grid>
+							<Grid item xs={8}>
+								<Box sx={{ m: "2rem 3.5rem" }}>
+									<Typography variant="body1">{posts ? <div dangerouslySetInnerHTML={{ __html: posts[postsIndex].text }}></div> : ""}</Typography>
+								</Box>
+							</Grid>
+						</Grid>
+					</Box>
+					:
+					<Box>
+						<Grid container sx={{ margin: ".5rem 0", textAlign: "center" }}>
+							<Grid item xs={3}>
+								{posts && <Button onClick={() => postsIndex >= posts.length - 1 ? setPostIndex(0) : setPostIndex(postsIndex + 1)}>{"<"}</Button>}
+							</Grid>
+							<Grid item xs={6}>
+								<Typography variant="h5">News</Typography>
+							</Grid>
+							<Grid item xs={3}>
+								{posts && <Button onClick={() => postsIndex === 0 ? setPostIndex(posts.length - 1) : setPostIndex(postsIndex - 1)}>{">"}</Button>}
+							</Grid>
+						</Grid>
+						<Divider sx={{ m: "0.75rem" }} />
+						<Box sx={{ m: "2rem 3.5rem" }}>
+							<Typography variant="body1">{posts ? <div dangerouslySetInnerHTML={{ __html: posts[postsIndex].text }}></div> : ""}</Typography>
+						</Box>
+					</Box>
+				}
+			</Container>
 			{/* TODO:
 			- Style for mobile 
 				- player stats page needs lot of change

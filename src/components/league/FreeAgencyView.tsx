@@ -138,7 +138,6 @@ const FreeAgencyView = () => {
 		])
 			.then(([currWeek, players, teams, leagueTeams, rosteredPlayers]: [number, PlayerData, Team[], LeagueTeam[], string[]]) => {
 				const formattedPlayerData: FormattedPlayerData[] = [];
-				console.log(rosteredPlayers);
 				for (const playerName of rosteredPlayers){
 					const playerData = players[playerName];
 					const formattedPlayer: FormattedPlayerData = {} as FormattedPlayerData;

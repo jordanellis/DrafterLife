@@ -1,170 +1,164 @@
 [
     {
         "week": 1,
-        "start": "2021-04-13 00:00:00",
-        "stop": "2021-04-20 00:00:00",
-        "stage": "May Melee Qualifiers"
+        "start": "2022-05-03 00:00:00",
+        "stop": "2022-05-10 00:00:00",
+        "stage": "Kickoff Clash Qualifiers"
     },
     {
         "week": 2,
-        "start": "2021-04-20 00:00:00",
-        "stop": "2021-04-27 00:00:00",
-        "stage": "May Melee Qualifiers"
+        "start": "2022-05-10 00:00:00",
+        "stop": "2022-05-17 00:00:00",
+        "stage": "Kickoff Clash Qualifiers"
     },
     {
         "week": 3,
-        "start": "2021-04-27 00:00:00",
-        "stop": "2021-05-02 01:59:59",
-        "stage": "May Melee Qualifiers"
-    },
-    {
-        "week": 3,
-        "start": "2021-05-02 02:00:00",
-        "stop": "2021-05-04 00:00:00",
-        "stage": "May Melee"
+        "start": "2022-05-17 00:00:00",
+        "stop": "2022-05-24 00:00:00",
+        "stage": "Kickoff Clash Qualifiers"
     },
     {
         "week": 4,
-        "start": "2021-05-04 00:00:00",
-        "stop": "2021-05-11 00:00:00",
-        "stage": "May Melee"
+        "start": "2022-05-24 00:00:00",
+        "stop": "2022-05-31 00:00:00",
+        "stage": "Kickoff Clash Qualifiers"
     },
     {
         "week": 5,
-        "start": "2021-05-11 00:00:00",
-        "stop": "2021-05-18 00:00:00",
-        "stage": "BYE"
+        "start": "2022-05-31 00:00:00",
+        "stop": "2022-06-07 00:00:00",
+        "stage": "Kickoff Clash"
     },
     {
         "week": 6,
-        "start": "2021-05-18 00:00:00",
-        "stop": "2021-05-25 00:00:00",
-        "stage": "June Joust Qualifiers"
+        "start": "2022-06-07 00:00:00",
+        "stop": "2022-06-14 00:00:00",
+        "stage": "BYE"
     },
     {
         "week": 7,
-        "start": "2021-05-25 00:00:00",
-        "stop": "2021-06-01 00:00:00",
-        "stage": "June Joust Qualifiers"
+        "start": "2022-06-14 00:00:00",
+        "stop": "2022-06-21 00:00:00",
+        "stage": "Midseason Madness Qualifiers"
     },
     {
         "week": 8,
-        "start": "2021-06-01 00:00:00",
-        "stop": "2021-06-06 01:59:59",
-        "stage": "June Joust Qualifiers"
-    },
-    {
-        "week": 8,
-        "start": "2021-06-06 02:00:00",
-        "stop": "2021-06-08 00:00:00",
-        "stage": "June Joust"
+        "start": "2022-06-21 00:00:00",
+        "stop": "2022-06-28 00:00:00",
+        "stage": "Midseason Madness Qualifiers"
     },
     {
         "week": 9,
-        "start": "2021-06-08 00:00:00",
-        "stop": "2021-06-15 00:00:00",
-        "stage": "June Joust"
+        "start": "2022-06-28 00:00:00",
+        "stop": "2022-07-05 00:00:00",
+        "stage": "Midseason Madness Qualifiers"
     },
     {
         "week": 10,
-        "start": "2021-06-15 00:00:00",
-        "stop": "2021-06-22 00:00:00",
-        "stage": "BYE"
+        "start": "2022-07-05 00:00:00",
+        "stop": "2022-07-12 00:00:00",
+        "stage": "Midseason Madness Qualifiers"
     },
     {
         "week": 11,
-        "start": "2021-06-22 00:00:00",
-        "stop": "2021-06-29 00:00:00",
-        "stage": "Summer Showdown Qualifiers"
-    },
-    {
-        "week": 12,
-        "start": "2021-06-29 00:00:00",
-        "stop": "2021-07-06 00:00:00",
-        "stage": "Summer Showdown Qualifiers"
-    },
-    {
-        "week": 13,
-        "start": "2021-07-06 00:00:00",
-        "stop": "2021-07-11 01:59:59",
-        "stage": "Summer Showdown Qualifiers"
-    },
-    {
-        "week": 13,
-        "start": "2021-07-11 02:00:00",
-        "stop": "2021-07-13 00:00:00",
-        "stage": "Summer Showdown"
-    },
-    {
-        "week": 14,
-        "start": "2021-07-13 00:00:00",
-        "stop": "2021-07-20 00:00:00",
-        "stage": "Summer Showdown"
-    },
-    {
-        "week": 15,
-        "start": "2021-07-20 00:00:00",
-        "stop": "2021-07-27 00:00:00",
+        "start": "2022-07-12 00:00:00",
+        "stop": "2022-07-17 00:00:00",
         "stage": "BYE"
     },
     {
+        "week": 12,
+        "start": "2022-07-17 00:00:00",
+        "stop": "2022-07-26 00:00:00",
+        "stage": "Midseason Madness"
+    },
+    {
+        "week": 13,
+        "start": "2022-07-26 00:00:00",
+        "stop": "2022-08-02 00:00:00",
+        "stage": "BYE"
+    },
+    {
+        "week": 14,
+        "start": "2022-08-02 00:00:00",
+        "stop": "2022-08-09 00:00:00",
+        "stage": "BYE"
+    },
+    {
+        "week": 15,
+        "start": "2022-08-09 00:00:00",
+        "stop": "2022-08-16 00:00:00",
+        "stage": "Summer Showdown Qualifiers"
+    },
+    {
         "week": 16,
-        "start": "2021-07-27 00:00:00",
-        "stop": "2021-08-03 00:00:00",
-        "stage": "Countdown Cup Qualifiers"
+        "start": "2022-08-16 00:00:00",
+        "stop": "2022-08-23 00:00:00",
+        "stage": "Summer Showdown Qualifiers"
     },
     {
         "week": 17,
-        "start": "2021-08-03 00:00:00",
-        "stop": "2021-08-10 00:00:00",
-        "stage": "Countdown Cup Qualifiers"
+        "start": "2022-08-23 00:00:00",
+        "stop": "2022-08-30 00:00:00",
+        "stage": "Summer Showdown Qualifiers"
     },
     {
         "week": 18,
-        "start": "2021-08-10 00:00:00",
-        "stop": "2021-08-15 01:59:59",
-        "stage": "Countdown Cup Qualifiers"
-    },
-    {
-        "week": 18,
-        "start": "2021-08-15 02:00:00",
-        "stop": "2021-08-17 00:00:00",
-        "stage": "Countdown Cup"
+        "start": "2022-08-30 00:00:00",
+        "stop": "2022-09-06 00:00:00",
+        "stage": "Summer Showdown Qualifiers"
     },
     {
         "week": 19,
-        "start": "2021-08-17 00:00:00",
-        "stop": "2021-08-24 00:00:00",
-        "stage": "Countdown Cup"
+        "start": "2022-09-06 00:00:00",
+        "stop": "2022-09-13 00:00:00",
+        "stage": "Summer Showdown"
     },
     {
         "week": 20,
-        "start": "2021-08-24 00:00:00",
-        "stop": "2021-08-31 00:00:00",
+        "start": "2022-09-13 00:00:00",
+        "stop": "2022-09-20 00:00:00",
         "stage": "BYE"
     },
     {
         "week": 21,
-        "start": "2021-08-31 00:00:00",
-        "stop": "2021-09-07 00:00:00",
-        "stage": "Play-In"
+        "start": "2022-09-20 00:00:00",
+        "stop": "2022-09-27 00:00:00",
+        "stage": "Countdown Cup Qualifiers"
     },
     {
         "week": 22,
-        "start": "2021-09-07 00:00:00",
-        "stop": "2021-09-14 00:00:00",
-        "stage": "BYE"
+        "start": "2022-09-27 00:00:00",
+        "stop": "2022-10-04 00:00:00",
+        "stage": "Countdown Cup Qualifiers"
     },
     {
         "week": 23,
-        "start": "2021-09-14 00:00:00",
-        "stop": "2021-09-21 00:00:00",
-        "stage": "BYE"
+        "start": "2022-10-04 00:00:00",
+        "stop": "2022-10-11 00:00:00",
+        "stage": "Countdown Cup Qualifiers"
     },
     {
         "week": 24,
-        "start": "2021-09-21 00:00:00",
-        "stop": "2021-09-27 00:00:00",
+        "start": "2022-10-11 00:00:00",
+        "stop": "2022-10-18 00:00:00",
+        "stage": "Countdown Cup Play-Ins"
+    },
+    {
+        "week": 25,
+        "start": "2022-10-18 00:00:00",
+        "stop": "2022-10-25 00:00:00",
+        "stage": "Countdown Cup Play-Ins"
+    },
+    {
+        "week": 26,
+        "start": "2022-10-25 00:00:00",
+        "stop": "2022-10-30 00:00:00",
+        "stage": "BYE"
+    },
+    {
+        "week": 27,
+        "start": "2022-10-30 00:00:00",
+        "stop": "2022-11-08 00:00:00",
         "stage": "Playoffs"
     }
 ]

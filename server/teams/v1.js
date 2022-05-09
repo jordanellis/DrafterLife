@@ -22,7 +22,6 @@ api.get('/allPlayers', function(req, res) {
 		teamData.forEach(team => {
 			allActivePlayers.push(...team.players.dps, ...team.players.supports, ...team.players.tanks);
 		})
-		console.log(allActivePlayers);
 		res.send({data: allActivePlayers});
 	});
 });
