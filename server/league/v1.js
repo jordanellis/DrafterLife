@@ -177,4 +177,11 @@ api.put('/updateprofile', function (req, res) {
 	);
 });
 
+api.get('/lock', function (req, res) {
+	req.app.db.collection('rosterlock').findOne({}, (err, lock) => {
+		if (err) throw err;
+		res.send({lock: lock.locked});
+	});
+});
+
 module.exports = api;

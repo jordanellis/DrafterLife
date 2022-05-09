@@ -7,7 +7,7 @@ import { PlayerStatistics, WeeklyPlayerScores } from "../types";
 import { Team } from "../types";
 import { LeagueTeam } from "./types";
 import { useSessionUser } from "../../hooks/useSessionUser";
-import { fetchActivePlayers, fetchCurrentWeek, fetchLeagueTeams, fetchPickup, fetchPlayers, fetchTeams } from "../../service/fetches";
+import { fetchActivePlayers, fetchCurrentWeek, fetchLeagueTeams, fetchPickup, fetchPlayers, fetchRosterLock, fetchTeams } from "../../service/fetches";
 
 interface FormattedPlayerData {
   name: string;
@@ -40,6 +40,7 @@ const FreeAgencyView = () => {
 
 	const [sessionUser] = useSessionUser();
 
+	const [isRostersLocked, setIsRostersLocked] = useState(false);
 	const [isModalOpen, setModalOpen] = useState(false);
 	const [isModalProcessing, setModalProcessing] = useState(false);
 	const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false);
@@ -134,9 +135,11 @@ const FreeAgencyView = () => {
 			fetchPlayers(),
 			fetchTeams(),
 			fetchLeagueTeams(),
-			fetchActivePlayers()
+			fetchActivePlayers(),
+			fetchRosterLock()
 		])
-			.then(([currWeek, players, teams, leagueTeams, rosteredPlayers]: [number, PlayerData, Team[], LeagueTeam[], string[]]) => {
+			.then(([currWeek, players, teams, leagueTeams, rosteredPlayers, locked]: [number, PlayerData, Team[], LeagueTeam[], string[], boolean]) => {
+				setIsRostersLocked(locked);
 				const formattedPlayerData: FormattedPlayerData[] = [];
 				for (const playerName of rosteredPlayers){
 					const playerData = players[playerName];
@@ -297,6 +300,7 @@ const FreeAgencyView = () => {
 					</FormControl>
 				</Grid>
 			</Grid>
+			{isRostersLocked && <Alert variant="outlined" severity="info" sx={{ mb: 1 }}>Rosters are currently locked.</Alert>}
 			<TableContainer component={Paper} sx={{ marginBottom: "1.5rem" }}>
 				<Table sx={{ minWidth: 650 }} size="small">
 					<TableHead sx={{ bgcolor: "#203547" }}>
@@ -317,7 +321,7 @@ const FreeAgencyView = () => {
 										key={player.name}
 										sx={{ "&:last-child td, &:last-child th": { border: 0 }, paddingBottom: "1rem" }}
 									>
-										{player.isAvailable && sessionUser ? 
+										{!isRostersLocked && player.isAvailable && sessionUser ? 
 											<TableCell>
 												<Tooltip title="Add Player">
 													<IconButton size="small" color="success" onClick={() => handleModalOpen(player.name)}>

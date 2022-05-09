@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { 
+	Alert,
 	AppBar, Avatar, Backdrop, Button, CircularProgress, Container, List, ListItemAvatar, ListItemButton, ListItemText, ListSubheader, Paper, Skeleton, Tooltip, Typography, 
 } from "@mui/material";
 import { LeagueTeam } from "./types";
@@ -9,7 +10,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { PlayerStatistics, Team } from "../types";
 import { useSessionUser } from "../../hooks/useSessionUser";
-import { fetchRoster, fetchRosterStats, fetchSwap, fetchTeams } from "../../service/fetches";
+import { fetchRoster, fetchRosterLock, fetchRosterStats, fetchSwap, fetchTeams } from "../../service/fetches";
 
 interface RosterStatsResp {
   [player: string]: PlayerStatistics;
@@ -27,6 +28,7 @@ const TeamView = () => {
 	const navigate = useNavigate();
 	const [sessionUser] = useSessionUser();
 	const { ownerName } = useParams();
+	const [isRostersLocked, setIsRostersLocked] = useState(false);
 	const [backdropOpen, setBackdropOpen] = useState(false);
 	const [team, setTeam] = useState<LeagueTeam>();
 	const [rosterStats, setRosterStats] = useState<RosterStatsResp>();
@@ -36,8 +38,12 @@ const TeamView = () => {
 	const [playerToSwapRole, setPlayerToSwapRole] = useState("");
 
 	const initData = useCallback(() => {
-		ownerName && fetchRoster(ownerName)
-			.then((teamResp: LeagueTeam) => {
+		ownerName && Promise.all([
+			fetchRoster(ownerName),
+			fetchRosterLock()
+		])
+			.then(([teamResp, locked]: [LeagueTeam, boolean]) => {
+				setIsRostersLocked(locked);
 				setTeam(teamResp);
         
 				if (teamResp && teamResp !== undefined) {
@@ -103,6 +109,9 @@ const TeamView = () => {
 	};
 
 	const shouldDisableListItem = (playerName: string, roleDestination: string) => {
+		if (isRostersLocked) {
+			return true;
+		}
 		if (ownerName !== sessionUser) {
 			return true;
 		}
@@ -215,6 +224,8 @@ const TeamView = () => {
 						{"< Back"}
 					</Button>
 					<Container maxWidth="sm" sx={{ mb: "2rem" }}>
+						
+						{isRostersLocked && <Alert variant="outlined" severity="info" sx={{ mb: 1 }}>Rosters are currently locked.</Alert>}
 						<Paper elevation={3}>
 							<List
 								subheader={

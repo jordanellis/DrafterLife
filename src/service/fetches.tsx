@@ -226,3 +226,16 @@ export const fetchUpdateTeamProfile = async (sessionUser: string, updatedProfile
 		})
 	});
 };
+
+/**
+ * Fetch roster lock
+ */
+export const fetchRosterLock = async () => {
+	const response = await fetch("/api/league/lock");
+	const body = await response.json();
+
+	if (response.status !== 200) {
+		throw Error(body.message); 
+	}
+	return body.lock;
+};
