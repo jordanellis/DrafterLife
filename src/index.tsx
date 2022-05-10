@@ -18,11 +18,6 @@ const TEXT_COLOR = "#ECECEC";
 // const SECONDARY = "#99A8B2";
 // const TEXT_COLOR = "#E6D5B8";
 
-// const PRIMARY = "#0A043C";
-// const PRIMARY_50 = "#03506F";
-// const SECONDARY = "#A3DDCB";
-// const TEXT_COLOR = "#FFE3DE";
-
 declare module "@mui/material/styles" {
   interface TypographyVariants {
     white: React.CSSProperties;
