@@ -41,10 +41,10 @@ const LeagueViewHome = () => {
 					{teams && <LeagueStandingsSidebar teams={teams} />}
 				</Grid>
 				<Grid item xs={12} sm={4}>
-					<LeagueTopScorers />
+					{schedule && teams && <LeagueMatchupPreview teams={teams} schedule={schedule} weekNumber={currentWeek} />}
 				</Grid>
 				<Grid item xs={12} sm={4}>
-					{schedule && teams && <LeagueMatchupPreview teams={teams} schedule={schedule} weekNumber={currentWeek} />}
+					<LeagueTopScorers />
 				</Grid>
 			</Grid>
 		</Container>
