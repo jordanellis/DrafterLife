@@ -40,16 +40,16 @@ export default function TeamCard({logo, name, players, colors}: TeamCardProps) {
 	};
 
 	return (
-		<Card sx={{ width: 360, background: colors.primary }}>
+		<Card sx={{ width: 335, background: colors.primary }}>
 			<CardActionArea onClick={() => {setExpanded(!expanded);}}>
 				<CardMedia
 					component="img"
-					sx={{ marginTop: 3, height: 350 }}
+					sx={{ marginTop: 3, height: 335 }}
 					image={ logo }
 					title={ name }
 				/>
 				<CardContent>
-					<Typography color="#ffffff" gutterBottom variant="h5" component="h2" sx={{ paddingRight: "2rem" }}>
+					<Typography color="#ffffff" gutterBottom variant="h5" component={"div"} sx={{ paddingRight: "2rem", fontSize: "1.4rem" }}>
 						<Icon fontSize="large">
 							{ expanded ?
 								<KeyboardArrowDown style={{ verticalAlign: "middle" }}/>

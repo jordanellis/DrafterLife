@@ -140,13 +140,13 @@ const Header = () => {
 					<Grid item xs={3.35}>
 						<Box display={{ xs: "none", md: "flex" }}>
 							<Container disableGutters sx={{ display: "flex" }}>
-								<Box sx={{ bgcolor: "background.default", p: "0.2rem", borderTopLeftRadius: "0.5rem", borderBottomLeftRadius: "0.5rem" }} >
+								<Box sx={{ bgcolor: "background.paper", p: "0.2rem", borderTopLeftRadius: "0.5rem", borderBottomLeftRadius: "0.5rem" }} >
 									<Typography variant="body2" sx={{ m: "0 0.4rem" }}>
 										Week
 									</Typography>
 								</Box>
 								<Box sx={{ bgcolor: "text.primary", p: "0.2rem", borderTopRightRadius: "0.5rem", borderBottomRightRadius: "0.5rem" }} >
-									<Typography variant="body2" sx={{ color: "background.paper", m: "0 0.5rem" }}>
+									<Typography variant="body2" sx={{ color: "primary.main", m: "0 0.5rem" }}>
 										{weekNumber}
 									</Typography>
 								</Box>

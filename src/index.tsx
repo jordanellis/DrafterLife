@@ -3,7 +3,25 @@ import ReactDOM from "react-dom";
 import App from "./components/App";
 import { createTheme, ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 
-const TEXT_COLOR = "#dfcfb2";
+const PRIMARY = "#222831";
+const PRIMARY_50 = "#30475E";
+const SECONDARY = "#C1A57B";
+const TEXT_COLOR = "#ECECEC";
+
+// const PRIMARY = "#191919";
+// const PRIMARY_50 = "#2D4263";
+// const SECONDARY = "#C84B31";
+// const TEXT_COLOR = "#ECDBBA";
+
+// const PRIMARY = "#1C2B2D";
+// const PRIMARY_50 = "#1F6F8B";
+// const SECONDARY = "#99A8B2";
+// const TEXT_COLOR = "#E6D5B8";
+
+// const PRIMARY = "#0A043C";
+// const PRIMARY_50 = "#03506F";
+// const SECONDARY = "#A3DDCB";
+// const TEXT_COLOR = "#FFE3DE";
 
 declare module "@mui/material/styles" {
   interface TypographyVariants {
@@ -28,7 +46,7 @@ const theme = createTheme({
 		MuiAppBar: {
 			styleOverrides: {
 				root: {
-					background: "#1a2d40",
+					background: PRIMARY,
 					opacity: "90%"
 				}
 			}
@@ -59,14 +77,14 @@ const theme = createTheme({
 	palette: {
 		mode: "dark",
 		primary: {
-			main: "#103d6e",
+			main: PRIMARY_50,
 		},
 		secondary: {
-			main: "#4889cf",
+			main: SECONDARY,
 		},
 		background: {
-			default: "#101a28",
-			paper: "#192B3D"
+			default: PRIMARY,
+			paper: PRIMARY_50
 		},
 		text: {
 			primary: TEXT_COLOR,

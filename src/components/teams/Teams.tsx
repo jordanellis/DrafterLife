@@ -5,7 +5,7 @@ import Tab from "@mui/material/Tab";
 import { useEffect } from "react";
 
 import TeamCard from "./TeamCard";
-import { Box, Skeleton } from "@mui/material";
+import { Box, Skeleton, useMediaQuery, useTheme } from "@mui/material";
 import { Team } from "../types";
 import { fetchTeams } from "../../service/fetches";
 
@@ -13,6 +13,8 @@ export default function Teams() {
 	const [loading, setLoading] = useState(true);
 	const [teams, setTeams] = useState<Team[]>([]);
 	const [tab, setTab] = React.useState("east/west");
+	const theme = useTheme();
+	const screenLargerThanXS = useMediaQuery(theme.breakpoints.up("sm"));
 	
 	useEffect(() => {
 		fetchTeams()
@@ -29,8 +31,8 @@ export default function Teams() {
 
 	return (
 		<Box>
-			<Box sx={{ margin: "auto", width: "30rem", paddingTop: "1rem" }}>
-				<Paper sx={{ flexGrow: 1 }}>
+			<Box sx={{ margin: "auto", width: screenLargerThanXS ? "30rem" : "20rem", paddingTop: "1rem" }}>
+				<Paper>
 					<Tabs
 						value={tab}
 						onChange={tabChange}

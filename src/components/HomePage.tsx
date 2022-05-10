@@ -45,7 +45,7 @@ const HomePage = () => {
 									<Typography gutterBottom variant="h5" component="div">
 										{post.title}
 									</Typography>
-									<Typography variant="body2" color="text.secondary">
+									<Typography variant="body2" component="div" color="text.secondary">
 										{displayPostPreview(post.text)}
 									</Typography>
 								</CardContent>
@@ -111,7 +111,9 @@ const HomePage = () => {
 							</Grid>
 							<Grid item xs={8}>
 								<Box sx={{ m: "2rem 3.5rem" }}>
-									<Typography variant="body1">{posts ? <div dangerouslySetInnerHTML={{ __html: posts[postsIndex].text }}></div> : ""}</Typography>
+									<Typography variant="body1" component="div">
+										{posts ? <div dangerouslySetInnerHTML={{ __html: posts[postsIndex].text }}></div> : ""}
+									</Typography>
 								</Box>
 							</Grid>
 						</Grid>
