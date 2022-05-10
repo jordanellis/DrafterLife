@@ -67,45 +67,62 @@ api.put('/pickup', function (req, res) {
 				message: 'Rosters are locked!'
 			});
 		} else {
-			req.app.db.collection('league').findOne({owner: req.body.owner}, (err, team) => {
+			req.app.db.collection('league').find({$or: [
+				{'players.tanks': req.body.playerToAdd},
+				{'players.dps': req.body.playerToAdd},
+				{'players.supports': req.body.playerToAdd},
+				{'players.flex': req.body.playerToAdd},
+				{'players.bench': req.body.playerToAdd}
+			]}).toArray((err, team) => {
 				if (err) throw err;
 
-				if (team.players.tanks.includes(req.body.playerToDrop)) {
-					console.log('removing tank = ' + req.body.playerToDrop);
-					const index = team.players.tanks.indexOf(req.body.playerToDrop);
-					team.players.tanks.splice(index, 1);
-				} 
-				else if (team.players.dps.includes(req.body.playerToDrop)) {
-					console.log('removing dps = ' + req.body.playerToDrop);
-					const index = team.players.dps.indexOf(req.body.playerToDrop);
-					team.players.dps.splice(index, 1);
-				} 
-				else if (team.players.supports.includes(req.body.playerToDrop)) {
-					console.log('removing support = ' + req.body.playerToDrop);
-					const index = team.players.supports.indexOf(req.body.playerToDrop);
-					team.players.supports.splice(index, 1);
-				} 
-				else if (team.players.flex.includes(req.body.playerToDrop)) {
-					console.log('removing flex = ' + req.body.playerToDrop);
-					const index = team.players.flex.indexOf(req.body.playerToDrop);
-					team.players.flex.splice(index, 1);
-				} 
-				else if (team.players.bench.includes(req.body.playerToDrop)) {
-					console.log('removing bench = ' + req.body.playerToDrop);
-					const index = team.players.bench.indexOf(req.body.playerToDrop);
-					team.players.bench.splice(index, 1);
-				} 
-				else {
+				console.log(team);
+				if (team.length > 0) {
 					res.status(500);
-					res.send('Player not found on '+ req.body.owner +'\'s team.');
+					res.send('Player already on '+ team.owner +'\'s team.');
 					return;
+				} else {
+					req.app.db.collection('league').findOne({owner: req.body.owner}, (err, team) => {
+						if (err) throw err;
+
+						if (team.players.tanks.includes(req.body.playerToDrop)) {
+							console.log('removing tank = ' + req.body.playerToDrop);
+							const index = team.players.tanks.indexOf(req.body.playerToDrop);
+							team.players.tanks.splice(index, 1);
+						} 
+						else if (team.players.dps.includes(req.body.playerToDrop)) {
+							console.log('removing dps = ' + req.body.playerToDrop);
+							const index = team.players.dps.indexOf(req.body.playerToDrop);
+							team.players.dps.splice(index, 1);
+						} 
+						else if (team.players.supports.includes(req.body.playerToDrop)) {
+							console.log('removing support = ' + req.body.playerToDrop);
+							const index = team.players.supports.indexOf(req.body.playerToDrop);
+							team.players.supports.splice(index, 1);
+						} 
+						else if (team.players.flex.includes(req.body.playerToDrop)) {
+							console.log('removing flex = ' + req.body.playerToDrop);
+							const index = team.players.flex.indexOf(req.body.playerToDrop);
+							team.players.flex.splice(index, 1);
+						} 
+						else if (team.players.bench.includes(req.body.playerToDrop)) {
+							console.log('removing bench = ' + req.body.playerToDrop);
+							const index = team.players.bench.indexOf(req.body.playerToDrop);
+							team.players.bench.splice(index, 1);
+						} 
+						else {
+							res.status(500);
+							res.send('Player not found on '+ req.body.owner +'\'s team.');
+							return;
+						}
+						team.players.bench.push(req.body.playerToAdd);
+						req.app.db.collection('league').updateOne({owner: req.body.owner}, {$set: { players: team.players }}, function(err, response) {
+							if (err) throw err;
+							console.log('Player successfully picked up');
+							res.send({response});
+						});
+					});
 				}
-				team.players.bench.push(req.body.playerToAdd);
-				req.app.db.collection('league').updateOne({owner: req.body.owner}, {$set: { players: team.players }}, function(err, response) {
-					if (err) throw err;
-					console.log('Player successfully picked up');
-					res.send({response});
-				});
 			});
 		}
 	});
