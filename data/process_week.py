@@ -70,5 +70,3 @@ db.weeknumber.update_one(
   {"week": week_number},
   {"$set": {"week": week_number+1}}
 )
-
-# also need to lock in their teams for the week (separate script?)

@@ -70,14 +70,14 @@ const LeagueMatchupView = () => {
 					];
 					let homeScore = 0;
 					homeStarters.forEach(player => {
-						if (playerDataResp) {
+						if (playerDataResp && playerDataResp[player]) {
 							homeScore += playerDataResp[player].weekly_player_scores[weekNumber];
 						}
 					});
 					setHomeTeamScore(homeScore);
 					let awayScore = 0;
 					awayStarters.forEach(player => {
-						if (playerDataResp) {
+						if (playerDataResp && playerDataResp[player]) {
 							awayScore += playerDataResp[player].weekly_player_scores[weekNumber];
 						}
 					});
@@ -155,7 +155,7 @@ const LeagueMatchupView = () => {
 							<React.Fragment>
 								<Grid item xs={1} sm={1}>
 									<Chip
-										label={playerData && homePlayer ? playerData[homePlayer].weekly_player_scores[weekNumber].toFixed(2) : "0.00"}
+										label={playerData && homePlayer && playerData[homePlayer] ? playerData[homePlayer].weekly_player_scores[weekNumber].toFixed(2) : "0.00"}
 										sx={{ width: "4.5rem" }}
 									/>
 								</Grid>
@@ -177,7 +177,7 @@ const LeagueMatchupView = () => {
 								</Grid>
 								<Grid item xs={1} sm={1}>
 									<Chip
-										label={playerData && awayPlayer ? playerData[awayPlayer].weekly_player_scores[weekNumber].toFixed(2) : "0.00"}
+										label={playerData && awayPlayer && playerData[awayPlayer] ? playerData[awayPlayer].weekly_player_scores[weekNumber].toFixed(2) : "0.00"}
 										sx={{ width: "4.5rem" }}
 									/>
 								</Grid>
@@ -187,9 +187,9 @@ const LeagueMatchupView = () => {
 								<Box>
 									<Typography sx={{ color: avatarColor }} >{role}</Typography>
 									<Typography variant="body2">
-										{playerData && homePlayer ? playerData[homePlayer].weekly_player_scores[weekNumber].toFixed(2) : "0.00"}
+										{playerData && homePlayer && playerData[homePlayer] ? playerData[homePlayer].weekly_player_scores[weekNumber].toFixed(2) : "0.00"}
                   &nbsp;-&nbsp;
-										{playerData && awayPlayer ? playerData[awayPlayer].weekly_player_scores[weekNumber].toFixed(2) : "0.00"}
+										{playerData && awayPlayer && playerData[awayPlayer] ? playerData[awayPlayer].weekly_player_scores[weekNumber].toFixed(2) : "0.00"}
 									</Typography>
 								</Box>
               
